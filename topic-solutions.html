@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Topic Questions & Solutions</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #1e3a8a;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .page-title h2 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #64748b;
+        }
+
+        .info-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .info-card h3 {
+            margin: 10px 0;
+            color: #1e3a8a;
+        }
+
+        .question-count {
+            background: white;
+            padding: 18px 22px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .question-count h3 {
+            margin: 0;
+            color: #2563eb;
+        }
+
+        .question-box {
+            background: white;
+            margin: 20px 0;
+            padding: 25px;
+            border: 1px solid #e1e5eb;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+        }
+
+        .question-box h3 {
+            color: #1e3a8a;
+            line-height: 1.5;
+            margin-top: 0;
+        }
+
+        .option {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            color: #374151;
+        }
+
+        .answer {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ecfdf5;
+            border-left: 5px solid #16a34a;
+            border-radius: 8px;
+            color: #166534;
+        }
+
+        .explanation {
+            margin-top: 12px;
+            padding: 15px;
+            background: #fffbeb;
+            border-left: 5px solid #f59e0b;
+            border-radius: 8px;
+            color: #92400e;
+            line-height: 1.6;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: #1e3a8a;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            color: #2563eb;
+            font-weight: bold;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .error-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .error-box h3 {
+            color: #dc2626;
+        }
+
+        .button-area {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            margin: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 600px) {
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .question-box,
+            .info-card {
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+                margin: 6px 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h1>🎓 Placement Preparation Portal</h1>
+
+</div>
+
+
+<div class="container">
+
+
+    <!-- PAGE TITLE -->
+
+    <div class="page-title">
+
+        <h2>✅ Topic Questions & Solutions</h2>
+
+        <p>
+            Review important questions, answers and explanations.
+        </p>
+
+    </div>
+
+
+    <!-- INFORMATION -->
+
+    <div class="info-card">
+
+        <h3 id="companyTitle"></h3>
+
+        <h3 id="roleTitle"></h3>
+
+        <h3 id="topicTitle"></h3>
+
+    </div>
+
+
+    <!-- SOLUTIONS -->
+
+    <div id="solutions">
+
+        <div class="loading">
+            🤖 Gemini is generating questions and solutions...
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="button-area">
+
+        <button onclick="goBack()">
+            ← Back to Topic Preparation
+        </button>
+
+        <button onclick="goDashboard()">
+            🏠 Dashboard
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+// ========================================
+// LOGIN PROTECTION
+// ========================================
+
+const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+if (!loggedInUser) {
+    window.location.href = "login.html";
+}
+
+// ========================================
+// GET VALUES FROM URL
+// ========================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const company =
+    params.get("company") ||
+    localStorage.getItem(
+        "selectedCompany"
+    ) ||
+    "";
+
+
+const role =
+    params.get("role") ||
+    localStorage.getItem(
+        "selectedRole"
+    ) ||
+    "";
+
+
+const topic =
+    params.get("topic") ||
+    localStorage.getItem(
+        "selectedTopic"
+    ) ||
+    "";
+
+
+// ========================================
+// SAVE VALUES
+// ========================================
+
+localStorage.setItem(
+    "selectedCompany",
+    company
+);
+
+localStorage.setItem(
+    "selectedRole",
+    role
+);
+
+localStorage.setItem(
+    "selectedTopic",
+    topic
+);
+
+
+// ========================================
+// DISPLAY COMPANY
+// ========================================
+
+document.getElementById(
+    "companyTitle"
+).innerText =
+    "🏢 Company: " + company;
+
+
+// ========================================
+// DISPLAY ROLE
+// ========================================
+
+document.getElementById(
+    "roleTitle"
+).innerText =
+    "💼 Role: " + role;
+
+
+// ========================================
+// DISPLAY TOPIC
+// ========================================
+
+document.getElementById(
+    "topicTitle"
+).innerText =
+    "📚 Topic: " + topic;
+
+
+// ========================================
+// AI SOLUTIONS CACHE KEY
+// ========================================
+
+const aiSolutionsCacheKey =
+    "aiSolutions_" +
+    company + "_" +
+    role + "_" +
+    topic;
+
+
+// ========================================
+// LOAD AI SOLUTIONS
+// ========================================
+
+async function loadSolutions() {
+
+    const container =
+        document.getElementById(
+            "solutions"
+        );
+
+
+    // ========================================
+    // CHECK SELECTION
+    // ========================================
+
+    if (
+        !company ||
+        !role ||
+        !topic
+    ) {
+
+        container.innerHTML = `
+
+            <div class="error-box">
+
+                <h3>
+                    ⚠️ Selection Missing
+                </h3>
+
+                <p>
+                    Please select a company,
+                    role and topic first.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    // ========================================
+    // CHECK CACHE
+    // ========================================
+
+    const cachedSolutions =
+        localStorage.getItem(
+            aiSolutionsCacheKey
+        );
+
+
+    if (cachedSolutions) {
+
+        try {
+
+            const cachedData =
+                JSON.parse(
+                    cachedSolutions
+                );
+
+            console.log(
+                "Loading solutions from cache"
+            );
+
+            displaySolutions(
+                cachedData.solutions || []
+            );
+
+            return;
+
+        } catch (error) {
+
+            console.log(
+                "Invalid cached solutions"
+            );
+
+            localStorage.removeItem(
+                aiSolutionsCacheKey
+            );
+
+        }
+
+    }
+
+
+    // ========================================
+    // CALL GEMINI BACKEND
+    // ========================================
+
+    try {
+
+        container.innerHTML = `
+
+            <div class="loading">
+                🤖 Gemini is generating 5 solutions...
+            </div>
+
+        `;
+
+
+        const response =
+            await fetch(
+                "/api/generate-solutions?topic=" +
+                encodeURIComponent(topic) +
+                "&company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role)
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.details ||
+                data.error ||
+                "Unable to generate solutions"
+            );
+
+        }
+
+
+        // ========================================
+        // SAVE TO CACHE
+        // ========================================
+
+        localStorage.setItem(
+            aiSolutionsCacheKey,
+            JSON.stringify(data)
+        );
+
+
+        console.log(
+            "AI solutions generated successfully"
+        );
+
+
+        displaySolutions(
+            data.solutions || []
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "AI solution error:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="error-box">
+
+                <h3>
+                    ❌ Unable to load AI solutions
+                </h3>
+
+                <p>
+                    Please make sure the backend
+                    server is running.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// ========================================
+// DISPLAY AI SOLUTIONS
+// ========================================
+
+function displaySolutions(
+    solutions
+) {
+
+    const container =
+        document.getElementById(
+            "solutions"
+        );
+
+
+    if (
+        !solutions ||
+        solutions.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="error-box">
+
+                <h3>
+                    ⚠️ No solutions found
+                </h3>
+
+                <p>
+                    No solutions are available
+                    for
+                    <strong>${topic}</strong>.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    // ========================================
+    // AI HEADER
+    // ========================================
+
+    const header =
+        document.createElement(
+            "div"
+        );
+
+
+    header.className =
+        "question-count";
+
+
+    const badge =
+        document.createElement(
+            "div"
+        );
+
+
+    badge.className =
+        "ai-badge";
+
+
+    badge.innerText =
+        "🤖 AI-Generated Solutions";
+
+
+    header.appendChild(
+        badge
+    );
+
+
+    const total =
+        document.createElement(
+            "h3"
+        );
+
+
+    total.innerText =
+        "📊 Total Solutions: " +
+        solutions.length;
+
+
+    header.appendChild(
+        total
+    );
+
+
+    container.appendChild(
+        header
+    );
+
+
+    // ========================================
+    // DISPLAY EACH SOLUTION
+    // ========================================
+
+    solutions.forEach(
+        function(item, index) {
+
+            const box =
+                document.createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "question-box";
+
+
+            // QUESTION
+
+            const question =
+                document.createElement(
+                    "h3"
+                );
+
+
+            question.innerText =
+                (index + 1) +
+                ". " +
+                (item.question || "Question");
+
+
+            box.appendChild(
+                question
+            );
+
+
+            // OPTIONS
+
+            if (
+                Array.isArray(
+                    item.options
+                )
+            ) {
+
+                item.options.forEach(
+                    function(
+                        option,
+                        optionIndex
+                    ) {
+
+                        const optionDiv =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        optionDiv.className =
+                            "option";
+
+
+                        optionDiv.innerText =
+                            String.fromCharCode(
+                                65 +
+                                optionIndex
+                            ) +
+                            ". " +
+                            option;
+
+
+                        box.appendChild(
+                            optionDiv
+                        );
+
+                    }
+                );
+
+            }
+
+
+            // ANSWER
+
+            const answer =
+                document.createElement(
+                    "div"
+                );
+
+
+            answer.className =
+                "answer";
+
+
+            const answerTitle =
+                document.createElement(
+                    "strong"
+                );
+
+
+            answerTitle.innerText =
+                "✅ Correct Answer: ";
+
+
+            answer.appendChild(
+                answerTitle
+            );
+
+
+            const answerText =
+                document.createTextNode(
+                    item.answer ||
+                    "Answer not available"
+                );
+
+
+            answer.appendChild(
+                answerText
+            );
+
+
+            box.appendChild(
+                answer
+            );
+
+
+            // EXPLANATION
+
+            const explanation =
+                document.createElement(
+                    "div"
+                );
+
+
+            explanation.className =
+                "explanation";
+
+
+            const explanationTitle =
+                document.createElement(
+                    "strong"
+                );
+
+
+            explanationTitle.innerText =
+                "💡 Solution: ";
+
+
+            explanation.appendChild(
+                explanationTitle
+            );
+
+
+            const explanationText =
+                document.createTextNode(
+                    item.solution ||
+                    "Solution not available"
+                );
+
+
+            explanation.appendChild(
+                explanationText
+            );
+
+
+            box.appendChild(
+                explanation
+            );
+
+
+            container.appendChild(
+                box
+            );
+
+        }
+    );
+
+}
+        // ========================================
+        // BACK TO TOPIC PREPARATION
+        // ========================================
+
+        function goBack() {
+
+            window.location.href =
+                "topic-preparation.html?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role) +
+                "&topic=" +
+                encodeURIComponent(topic);
+
+        }
+
+
+        // ========================================
+        // DASHBOARD
+        // ========================================
+
+        function goDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+
+        // ========================================
+        // START
+        // ========================================
+
+        loadSolutions();
+
+
+    </script>
+
+
+</body>
+
+</html>

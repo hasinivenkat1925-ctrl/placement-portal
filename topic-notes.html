@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Topic Notes</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #1e3a8a;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .page-title h2 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #64748b;
+        }
+
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .info-card h3 {
+            margin: 10px 0;
+            color: #1e3a8a;
+        }
+
+        #topicDescription {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        .notes-card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .notes-card h2 {
+            color: #1e3a8a;
+            margin-top: 0;
+        }
+
+        .notes-card h3 {
+            color: #2563eb;
+            margin-top: 28px;
+        }
+
+        .notes-card p {
+            line-height: 1.7;
+            color: #475569;
+        }
+
+        ul {
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #374151;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: #1e3a8a;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .button-area {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            margin: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 600px) {
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .notes-card,
+            .info-card {
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+                margin: 6px 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <h1>🎓 Placement Preparation Portal</h1>
+
+    </div>
+
+    <div class="container">
+
+        <div class="page-title">
+
+            <h2>📖 Topic Notes</h2>
+
+            <p>
+                Study important concepts and placement-focused points.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3 id="companyTitle"></h3>
+
+            <h3 id="roleTitle"></h3>
+
+            <h3 id="topicTitle"></h3>
+
+            <p id="topicDescription"></p>
+
+        </div>
+
+        <div class="notes-card">
+
+            <div class="ai-badge">
+                🤖 AI-Generated Placement Notes
+            </div>
+
+            <h2 id="notesTitle">📚 Study Notes</h2>
+
+            <div id="loadingMessage" class="loading">
+                🤖 Gemini is generating your notes...
+            </div>
+
+            <div id="notesContent" style="display:none;">
+
+                <h3>What is this topic?</h3>
+
+                <p id="topicIntro"></p>
+
+                <h3>📌 Important Concepts</h3>
+
+                <ul id="concepts"></ul>
+
+                <div id="sectionsContainer"></div>
+
+                <h3>⭐ Important Points for Placements</h3>
+
+                <ul id="importantPoints"></ul>
+
+                <div id="interviewTipsSection">
+
+                    <h3>🎯 Interview Tips</h3>
+
+                    <ul id="interviewTips"></ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="button-area">
+
+            <button onclick="goBack()">
+                ← Back to Topic Preparation
+            </button>
+
+            <button onclick="goDashboard()">
+                🏠 Dashboard
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+// ========================================
+// LOGIN PROTECTION
+// ========================================
+
+const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+if (!loggedInUser) {
+    window.location.href = "login.html";
+}
+        // ========================================
+        // GET COMPANY, ROLE AND TOPIC
+        // ========================================
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const company =
+            params.get("company") ||
+            localStorage.getItem("selectedCompany") ||
+            "";
+
+        const role =
+            params.get("role") ||
+            localStorage.getItem("selectedRole") ||
+            "";
+
+        const topic =
+            params.get("topic") ||
+            localStorage.getItem("selectedTopic") ||
+            "";
+
+        // ========================================
+        // SAVE SELECTION
+        // ========================================
+
+        localStorage.setItem(
+            "selectedCompany",
+            company
+        );
+
+        localStorage.setItem(
+            "selectedRole",
+            role
+        );
+
+        localStorage.setItem(
+            "selectedTopic",
+            topic
+        );
+
+        // ========================================
+        // DISPLAY INFORMATION
+        // ========================================
+
+        document.getElementById(
+            "companyTitle"
+        ).innerText =
+            "🏢 Company: " + company;
+
+        document.getElementById(
+            "roleTitle"
+        ).innerText =
+            "💼 Role: " + role;
+
+        document.getElementById(
+            "topicTitle"
+        ).innerText =
+            "📚 Topic: " + topic;
+
+        document.getElementById(
+            "topicDescription"
+        ).innerText =
+            "Study " +
+            topic +
+            " for the " +
+            role +
+            " role at " +
+            company +
+            ".";
+
+        // ========================================
+        // AI NOTES CACHE KEY
+        // ========================================
+
+        const aiNotesCacheKey =
+            "aiNotes_" +
+            company + "_" +
+            role + "_" +
+            topic;
+
+        // ========================================
+        // LOAD AI NOTES
+        // ========================================
+
+        async function loadNotes() {
+
+            const loadingMessage =
+                document.getElementById(
+                    "loadingMessage"
+                );
+
+            const notesContent =
+                document.getElementById(
+                    "notesContent"
+                );
+
+            const cachedNotes =
+                localStorage.getItem(
+                    aiNotesCacheKey
+                );
+
+            if (cachedNotes) {
+
+                try {
+
+                    const notes =
+                        JSON.parse(
+                            cachedNotes
+                        );
+
+                    console.log(
+                        "Loading notes from cache"
+                    );
+
+                    displayNotes(notes);
+
+                    return;
+
+                } catch (error) {
+
+                    console.log(
+                        "Invalid cached notes"
+                    );
+
+                    localStorage.removeItem(
+                        aiNotesCacheKey
+                    );
+
+                }
+
+            }
+
+            loadingMessage.style.display =
+                "block";
+
+            notesContent.style.display =
+                "none";
+
+            try {
+
+                console.log(
+                    "Generating AI notes..."
+                );
+
+                const url =
+                    "/api/generate-notes" +
+                    "?topic=" +
+                    encodeURIComponent(topic) +
+                    "&company=" +
+                    encodeURIComponent(company) +
+                    "&role=" +
+                    encodeURIComponent(role);
+
+                const response =
+                    await fetch(url);
+
+                const data =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.details ||
+                        data.error ||
+                        "Unable to generate notes"
+                    );
+
+                }
+
+                localStorage.setItem(
+                    aiNotesCacheKey,
+                    JSON.stringify(data)
+                );
+
+                console.log(
+                    "AI notes generated successfully"
+                );
+
+                displayNotes(data);
+
+            } catch (error) {
+
+                console.log(
+                    "AI Notes Error:",
+                    error
+                );
+
+                loadingMessage.innerText =
+                    "⚠️ AI notes unavailable. Loading available notes...";
+
+                loadFallbackNotes();
+
+            }
+
+        }
+        // ========================================
+        // DISPLAY AI NOTES
+        // ========================================
+
+        function displayNotes(notes) {
+
+            document.getElementById(
+                "loadingMessage"
+            ).style.display = "none";
+
+            document.getElementById(
+                "notesContent"
+            ).style.display = "block";
+
+
+            // ========================================
+            // TITLE
+            // ========================================
+
+            if (notes.title) {
+
+                document.getElementById(
+                    "notesTitle"
+                ).innerText =
+                    "📚 " + notes.title;
+
+            }
+
+
+            // ========================================
+            // INTRODUCTION
+            // ========================================
+
+            document.getElementById(
+                "topicIntro"
+            ).innerText =
+                notes.introduction ||
+                "No introduction available.";
+
+
+            // ========================================
+            // IMPORTANT CONCEPTS
+            // ========================================
+
+            const concepts =
+                document.getElementById(
+                    "concepts"
+                );
+
+            concepts.innerHTML = "";
+
+
+            if (
+                notes.sections &&
+                Array.isArray(notes.sections)
+            ) {
+
+                notes.sections.forEach(
+                    function(section) {
+
+                        if (section.heading) {
+
+                            const li =
+                                document.createElement(
+                                    "li"
+                                );
+
+                            li.innerText =
+                                section.heading;
+
+                            concepts.appendChild(
+                                li
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            // ========================================
+            // DETAILED SECTIONS
+            // ========================================
+
+            const sectionsContainer =
+                document.getElementById(
+                    "sectionsContainer"
+                );
+
+            sectionsContainer.innerHTML = "";
+
+
+            if (
+                notes.sections &&
+                Array.isArray(notes.sections)
+            ) {
+
+                notes.sections.forEach(
+                    function(section) {
+
+                        const heading =
+                            document.createElement(
+                                "h3"
+                            );
+
+                        heading.innerText =
+                            "📖 " +
+                            section.heading;
+
+
+                        const content =
+                            document.createElement(
+                                "p"
+                            );
+
+                        content.innerText =
+                            section.content;
+
+
+                        sectionsContainer.appendChild(
+                            heading
+                        );
+
+                        sectionsContainer.appendChild(
+                            content
+                        );
+
+                    }
+                );
+
+            }
+
+
+            // ========================================
+            // IMPORTANT POINTS
+            // ========================================
+
+            const importantPoints =
+                document.getElementById(
+                    "importantPoints"
+                );
+
+            importantPoints.innerHTML = "";
+
+
+            if (
+                notes.importantPoints &&
+                Array.isArray(notes.importantPoints)
+            ) {
+
+                notes.importantPoints.forEach(
+                    function(item) {
+
+                        const li =
+                            document.createElement(
+                                "li"
+                            );
+
+                        li.innerText =
+                            item;
+
+                        importantPoints.appendChild(
+                            li
+                        );
+
+                    }
+                );
+
+            }
+
+
+            // ========================================
+            // INTERVIEW TIPS
+            // ========================================
+
+            const interviewTips =
+                document.getElementById(
+                    "interviewTips"
+                );
+
+            interviewTips.innerHTML = "";
+
+
+            if (
+                notes.interviewTips &&
+                Array.isArray(notes.interviewTips)
+            ) {
+
+                notes.interviewTips.forEach(
+                    function(item) {
+
+                        const li =
+                            document.createElement(
+                                "li"
+                            );
+
+                        li.innerText =
+                            item;
+
+                        interviewTips.appendChild(
+                            li
+                        );
+
+                    }
+                );
+
+            }
+
+        }
+
+
+        // ========================================
+        // FALLBACK NOTES DATABASE
+        // ========================================
+
+        const topicNotes = {
+
+            "SQL": {
+
+                intro:
+                    "SQL is a language used to store, retrieve, manipulate and manage data in relational databases.",
+
+                concepts: [
+                    "SELECT and WHERE",
+                    "ORDER BY and GROUP BY",
+                    "Aggregate Functions",
+                    "JOIN operations",
+                    "Subqueries",
+                    "Primary Key and Foreign Key",
+                    "Constraints",
+                    "Indexes",
+                    "Views",
+                    "Transactions"
+                ],
+
+                importantPoints: [
+                    "Understand different types of JOINs.",
+                    "Practice SELECT queries regularly.",
+                    "Learn GROUP BY and HAVING clearly.",
+                    "Know the difference between DELETE, DROP and TRUNCATE.",
+                    "Understand primary key and foreign key.",
+                    "Practice SQL queries commonly asked in interviews."
+                ]
+
+            },
+
+
+            "DBMS": {
+
+                intro:
+                    "DBMS is software used to create, store, organize and manage data in databases.",
+
+                concepts: [
+                    "Database Models",
+                    "Keys",
+                    "Normalization",
+                    "Transactions",
+                    "ACID Properties",
+                    "Concurrency",
+                    "Indexes",
+                    "ER Model",
+                    "SQL",
+                    "Database Security"
+                ],
+
+                importantPoints: [
+                    "Understand normalization clearly.",
+                    "Learn ACID properties.",
+                    "Know different types of keys.",
+                    "Understand database transactions.",
+                    "Practice DBMS interview questions."
+                ]
+
+            },
+
+
+            "Java": {
+
+                intro:
+                    "Java is an object-oriented programming language widely used for application and enterprise development.",
+
+                concepts: [
+                    "Variables and Data Types",
+                    "Classes and Objects",
+                    "Inheritance",
+                    "Polymorphism",
+                    "Abstraction",
+                    "Encapsulation",
+                    "Exception Handling",
+                    "Collections",
+                    "Multithreading",
+                    "Java 8 Features"
+                ],
+
+                importantPoints: [
+                    "Understand all major OOP concepts.",
+                    "Practice inheritance and polymorphism.",
+                    "Learn String and StringBuilder.",
+                    "Understand ArrayList, HashMap and HashSet.",
+                    "Practice coding problems in Java."
+                ]
+
+            },
+
+
+            "Python": {
+
+                intro:
+                    "Python is a high-level programming language known for its simple syntax and wide range of applications.",
+
+                concepts: [
+                    "Variables",
+                    "Data Types",
+                    "Lists",
+                    "Tuples",
+                    "Sets",
+                    "Dictionaries",
+                    "Functions",
+                    "Classes and Objects",
+                    "Exception Handling",
+                    "Modules"
+                ],
+
+                importantPoints: [
+                    "Understand lists and dictionaries.",
+                    "Practice functions.",
+                    "Learn object-oriented programming.",
+                    "Understand list comprehensions.",
+                    "Practice Python coding problems."
+                ]
+
+            },
+
+
+            "HTML": {
+
+                intro:
+                    "HTML is the standard markup language used to structure content on web pages.",
+
+                concepts: [
+                    "HTML Elements",
+                    "Headings",
+                    "Paragraphs",
+                    "Links",
+                    "Images",
+                    "Tables",
+                    "Forms",
+                    "Input Elements",
+                    "Semantic Elements",
+                    "HTML5"
+                ],
+
+                importantPoints: [
+                    "Know common HTML tags.",
+                    "Understand forms and input types.",
+                    "Learn semantic HTML.",
+                    "Practice creating simple web pages."
+                ]
+
+            },
+
+
+            "CSS": {
+
+                intro:
+                    "CSS is used to style and design HTML web pages.",
+
+                concepts: [
+                    "Selectors",
+                    "Colors",
+                    "Fonts",
+                    "Box Model",
+                    "Margin and Padding",
+                    "Flexbox",
+                    "Grid",
+                    "Positioning",
+                    "Media Queries",
+                    "Responsive Design"
+                ],
+
+                importantPoints: [
+                    "Understand the CSS box model.",
+                    "Practice Flexbox.",
+                    "Learn CSS Grid.",
+                    "Understand selectors and specificity.",
+                    "Practice responsive layouts."
+                ]
+
+            },
+
+
+            "JavaScript": {
+
+                intro:
+                    "JavaScript is a programming language used to create interactive and dynamic web applications.",
+
+                concepts: [
+                    "Variables",
+                    "Data Types",
+                    "Functions",
+                    "Arrays",
+                    "Objects",
+                    "DOM",
+                    "Events",
+                    "Promises",
+                    "Async/Await",
+                    "Local Storage"
+                ],
+
+                importantPoints: [
+                    "Understand let, const and var.",
+                    "Practice arrays and objects.",
+                    "Learn DOM manipulation.",
+                    "Understand promises and async/await.",
+                    "Practice JavaScript coding questions."
+                ]
+
+            },
+
+
+            "Data Structures": {
+
+                intro:
+                    "Data structures are ways of organizing and storing data so that it can be accessed and modified efficiently.",
+
+                concepts: [
+                    "Arrays",
+                    "Linked Lists",
+                    "Stacks",
+                    "Queues",
+                    "Trees",
+                    "Graphs",
+                    "Hash Tables",
+                    "Heaps",
+                    "Searching",
+                    "Sorting"
+                ],
+
+                importantPoints: [
+                    "Understand time complexity.",
+                    "Practice arrays and strings.",
+                    "Learn stacks and queues.",
+                    "Understand trees and graphs.",
+                    "Practice coding problems."
+                ]
+
+            },
+
+
+            "Algorithms": {
+
+                intro:
+                    "Algorithms are step-by-step procedures used to solve computational problems efficiently.",
+
+                concepts: [
+                    "Searching",
+                    "Sorting",
+                    "Recursion",
+                    "Greedy Algorithms",
+                    "Dynamic Programming",
+                    "Divide and Conquer",
+                    "Backtracking",
+                    "Graph Algorithms",
+                    "Time Complexity",
+                    "Space Complexity"
+                ],
+
+                importantPoints: [
+                    "Understand Big-O notation.",
+                    "Practice sorting algorithms.",
+                    "Practice searching algorithms.",
+                    "Learn recursion.",
+                    "Solve common coding problems."
+                ]
+
+            },
+
+
+            "OOP": {
+
+                intro:
+                    "Object-Oriented Programming organizes software around objects containing data and behavior.",
+
+                concepts: [
+                    "Class",
+                    "Object",
+                    "Encapsulation",
+                    "Inheritance",
+                    "Polymorphism",
+                    "Abstraction",
+                    "Constructor",
+                    "Method Overloading",
+                    "Method Overriding",
+                    "Interfaces"
+                ],
+
+                importantPoints: [
+                    "Know all four major OOP principles.",
+                    "Understand overloading versus overriding.",
+                    "Practice inheritance examples.",
+                    "Understand abstraction and interfaces."
+                ]
+
+            },
+
+
+            "Aptitude": {
+
+                intro:
+                    "Aptitude preparation develops mathematical and logical problem-solving skills used in placement tests.",
+
+                concepts: [
+                    "Percentages",
+                    "Profit and Loss",
+                    "Time and Work",
+                    "Time and Distance",
+                    "Ratios",
+                    "Averages",
+                    "Simple Interest",
+                    "Compound Interest",
+                    "Probability",
+                    "Permutations and Combinations"
+                ],
+
+                importantPoints: [
+                    "Practice calculations regularly.",
+                    "Learn shortcut methods.",
+                    "Understand percentages clearly.",
+                    "Practice time and work problems.",
+                    "Solve questions with a time limit."
+                ]
+
+            },
+
+
+            "Excel": {
+
+                intro:
+                    "Microsoft Excel is a spreadsheet application widely used for calculations, data analysis and reporting.",
+
+                concepts: [
+                    "Cells and Worksheets",
+                    "Formulas",
+                    "Functions",
+                    "SUM",
+                    "AVERAGE",
+                    "IF",
+                    "VLOOKUP",
+                    "XLOOKUP",
+                    "Pivot Tables",
+                    "Charts"
+                ],
+
+                importantPoints: [
+                    "Practice common Excel functions.",
+                    "Learn lookup functions.",
+                    "Understand Pivot Tables.",
+                    "Practice data cleaning and analysis."
+                ]
+
+            },
+
+
+            "Power BI": {
+
+                intro:
+                    "Power BI is a business intelligence platform used to analyze data and create interactive reports and dashboards.",
+
+                concepts: [
+                    "Power BI Desktop",
+                    "Data Sources",
+                    "Power Query",
+                    "Data Cleaning",
+                    "Data Modeling",
+                    "Relationships",
+                    "DAX",
+                    "Visualizations",
+                    "Reports",
+                    "Dashboards"
+                ],
+
+                importantPoints: [
+                    "Understand data modeling.",
+                    "Learn basic DAX.",
+                    "Practice Power Query.",
+                    "Create interactive dashboards.",
+                    "Understand relationships between tables."
+                ]
+
+            },
+
+
+            "Software Testing": {
+
+                intro:
+                    "Software testing is the process of checking software to identify defects and verify that it meets requirements.",
+
+                concepts: [
+                    "Manual Testing",
+                    "Automation Testing",
+                    "Unit Testing",
+                    "Integration Testing",
+                    "System Testing",
+                    "Acceptance Testing",
+                    "Regression Testing",
+                    "Test Cases",
+                    "Bug Life Cycle",
+                    "Test Plans"
+                ],
+
+                importantPoints: [
+                    "Understand testing levels.",
+                    "Learn the bug life cycle.",
+                    "Practice writing test cases.",
+                    "Know functional and non-functional testing."
+                ]
+
+            },
+
+
+            "Cloud Computing": {
+
+                intro:
+                    "Cloud computing provides computing resources such as servers, storage and databases over the internet.",
+
+                concepts: [
+                    "Cloud Models",
+                    "IaaS",
+                    "PaaS",
+                    "SaaS",
+                    "Public Cloud",
+                    "Private Cloud",
+                    "Hybrid Cloud",
+                    "Virtualization",
+                    "Storage",
+                    "Cloud Security"
+                ],
+
+                importantPoints: [
+                    "Understand IaaS, PaaS and SaaS.",
+                    "Know public versus private cloud.",
+                    "Understand virtualization.",
+                    "Learn basic cloud security concepts."
+                ]
+
+            },
+
+
+            "DevOps": {
+
+                intro:
+                    "DevOps combines development and operations practices to improve software delivery and automation.",
+
+                concepts: [
+                    "Version Control",
+                    "Git",
+                    "CI",
+                    "CD",
+                    "Build Automation",
+                    "Testing Automation",
+                    "Docker",
+                    "Kubernetes",
+                    "Monitoring",
+                    "Deployment"
+                ],
+
+                importantPoints: [
+                    "Understand CI/CD.",
+                    "Learn basic Git commands.",
+                    "Understand Docker containers.",
+                    "Know the purpose of Kubernetes.",
+                    "Practice common DevOps interview questions."
+                ]
+
+            }
+
+        };
+        // ========================================
+        // FALLBACK FUNCTION
+        // ========================================
+
+        function loadFallbackNotes() {
+
+            const currentNotes =
+                topicNotes[topic];
+
+
+            if (!currentNotes) {
+
+                document.getElementById(
+                    "loadingMessage"
+                ).innerText =
+                    "⚠️ AI notes are unavailable and no stored notes were found.";
+
+                return;
+
+            }
+
+
+            document.getElementById(
+                "loadingMessage"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "notesContent"
+            ).style.display =
+                "block";
+
+
+            document.getElementById(
+                "notesTitle"
+            ).innerText =
+                "📚 Study Notes";
+
+
+            document.getElementById(
+                "topicIntro"
+            ).innerText =
+                currentNotes.intro;
+
+
+            // ========================================
+            // DISPLAY CONCEPTS
+            // ========================================
+
+            const concepts =
+                document.getElementById(
+                    "concepts"
+                );
+
+            concepts.innerHTML = "";
+
+
+            currentNotes.concepts.forEach(
+                function(item) {
+
+                    const li =
+                        document.createElement(
+                            "li"
+                        );
+
+                    li.innerText =
+                        item;
+
+                    concepts.appendChild(
+                        li
+                    );
+
+                }
+            );
+
+
+            // ========================================
+            // DISPLAY IMPORTANT POINTS
+            // ========================================
+
+            const importantPoints =
+                document.getElementById(
+                    "importantPoints"
+                );
+
+            importantPoints.innerHTML = "";
+
+
+            currentNotes.importantPoints.forEach(
+                function(item) {
+
+                    const li =
+                        document.createElement(
+                            "li"
+                        );
+
+                    li.innerText =
+                        item;
+
+                    importantPoints.appendChild(
+                        li
+                    );
+
+                }
+            );
+
+
+            // Clear AI sections
+
+            document.getElementById(
+                "sectionsContainer"
+            ).innerHTML = "";
+
+
+            document.getElementById(
+                "interviewTipsSection"
+            ).style.display =
+                "none";
+
+        }
+
+
+        // ========================================
+        // BACK TO TOPIC PREPARATION
+        // ========================================
+
+        function goBack() {
+
+            window.location.href =
+                "topic-preparation.html?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role) +
+                "&topic=" +
+                encodeURIComponent(topic);
+
+        }
+
+
+        // ========================================
+        // DASHBOARD
+        // ========================================
+
+        function goDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+
+        // ========================================
+        // START NOTES
+        // ========================================
+
+        loadNotes();
+
+    </script>
+
+</body>
+
+</html>
+

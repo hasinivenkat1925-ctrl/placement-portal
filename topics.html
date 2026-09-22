@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>B.Tech CSE Topics - Placement Portal</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4f7fb;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #222;
+        }
+
+        /* ============================= */
+        /* HEADER */
+        /* ============================= */
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #e1e5eb;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            text-align: center;
+            color: #1e3a8a;
+            margin: 0;
+            font-size: 32px;
+        }
+
+
+        /* ============================= */
+        /* CONTAINER */
+        /* ============================= */
+
+        .container {
+            max-width: 1150px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+
+        /* ============================= */
+        /* INTRO */
+        /* ============================= */
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .intro h2 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .intro p {
+            color: #666;
+            font-size: 16px;
+        }
+
+
+        /* ============================= */
+        /* COMPANY / ROLE */
+        /* ============================= */
+
+        .selection-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            border: 1px solid #e1e5eb;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+        }
+
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .selection-box {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .selection-box span {
+            display: block;
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .selection-box strong {
+            color: #1e3a8a;
+            font-size: 17px;
+        }
+
+        #selectionInfo {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            border-radius: 7px;
+            color: #334155;
+        }
+
+
+        /* ============================= */
+        /* SEARCH */
+        /* ============================= */
+
+        .search-section {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            border: 1px solid #e1e5eb;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-section h2 {
+            color: #1e3a8a;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        #searchBox {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        #searchBox:focus {
+            border-color: #2563eb;
+        }
+
+
+        /* ============================= */
+        /* DOMAIN */
+        /* ============================= */
+
+        .domain-section {
+            background: white;
+            border-radius: 14px;
+            border: 1px solid #e1e5eb;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .domain-header {
+            background: #eef5ff;
+            padding: 20px 25px;
+            border-bottom: 1px solid #dbeafe;
+        }
+
+        .domain-header h2 {
+            margin: 0;
+            color: #1e3a8a;
+            font-size: 23px;
+        }
+
+        .domain-header p {
+            margin: 7px 0 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+
+        /* ============================= */
+        /* SUBJECT GRID */
+        /* ============================= */
+
+        .subject-grid {
+            padding: 22px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+
+        /* ============================= */
+        /* SUBJECT CARD */
+        /* ============================= */
+
+        .subject-card {
+            background: #ffffff;
+
+            border: 1px solid #e1e5eb;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            transition: 0.2s;
+
+            min-height: 190px;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-3px);
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 7px 18px rgba(37,99,235,0.10);
+        }
+
+        .subject-icon {
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+        .subject-card h3 {
+            color: #1e3a8a;
+
+            margin: 0 0 8px;
+
+            font-size: 18px;
+        }
+
+        .subject-card p {
+            color: #64748b;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* ============================= */
+        /* TOPICS */
+        /* ============================= */
+
+        .topic-label {
+            font-size: 13px;
+
+            font-weight: bold;
+
+            color: #475569;
+
+            margin-bottom: 8px;
+        }
+
+        .topic-list {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+        }
+
+        .topic-button {
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            border: 1px solid #dbeafe;
+
+            border-radius: 20px;
+
+            padding: 7px 10px;
+
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+        .topic-button:hover {
+            background: #dbeafe;
+
+            border-color: #2563eb;
+        }
+
+
+        /* ============================= */
+        /* NO RESULTS */
+        /* ============================= */
+
+        .no-results {
+            background: white;
+
+            padding: 30px;
+
+            text-align: center;
+
+            border-radius: 12px;
+
+            border: 1px solid #e1e5eb;
+
+            color: #64748b;
+
+            display: none;
+        }
+
+
+        /* ============================= */
+        /* DASHBOARD */
+        /* ============================= */
+
+        .dashboard-button {
+            display: block;
+
+            margin: 35px auto 10px;
+
+            padding: 13px 28px;
+
+            background: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .dashboard-button:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* ============================= */
+        /* RESPONSIVE */
+        /* ============================= */
+
+        @media (max-width: 950px) {
+
+            .subject-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .selection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .subject-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================= -->
+<!-- HEADER -->
+<!-- ========================================= -->
+
+<div class="header">
+
+    <h1>
+        🎓 Placement Preparation Portal
+    </h1>
+
+</div>
+
+
+<div class="container">
+
+
+    <!-- ========================================= -->
+    <!-- INTRO -->
+    <!-- ========================================= -->
+
+    <div class="intro">
+
+        <h2>
+            📚 B.Tech CSE Subjects
+        </h2>
+
+        <p>
+            Choose a subject and select a topic to begin your preparation.
+        </p>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- COMPANY / ROLE -->
+    <!-- ========================================= -->
+
+    <div class="selection-card">
+
+        <div class="selection-grid">
+
+
+            <div class="selection-box">
+
+                <span>
+                    🏢 Selected Company
+                </span>
+
+                <strong id="companyTitle">
+                    Not Selected
+                </strong>
+
+            </div>
+
+
+            <div class="selection-box">
+
+                <span>
+                    💼 Selected Role
+                </span>
+
+                <strong id="roleTitle">
+                    Not Selected
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <p id="selectionInfo"></p>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- SEARCH -->
+    <!-- ========================================= -->
+
+    <div class="search-section">
+
+        <h2>
+            🔍 Search Topics
+        </h2>
+
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="Search for OS, Java, DWDM, DBMS, CN..."
+            onkeyup="filterTopics()"
+        >
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- DOMAIN CONTAINER -->
+    <!-- ========================================= -->
+
+    <div id="domainContainer"></div>
+
+
+    <div
+        id="noResults"
+        class="no-results">
+
+        <h3>
+            ⚠️ No subject or topic found
+        </h3>
+
+        <p>
+            Try searching for another subject or topic.
+        </p>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- DASHBOARD -->
+    <!-- ========================================= -->
+
+    <button
+        class="dashboard-button"
+        onclick="goDashboard()">
+
+        🏠 Back to Dashboard
+
+    </button>
+
+
+</div>
+
+
+<script>
+// ========================================
+// LOGIN PROTECTION
+// ========================================
+
+const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+if (!loggedInUser) {
+    window.location.href = "login.html";
+}
+
+// =====================================================
+// GET COMPANY AND ROLE
+// =====================================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const company =
+    params.get("company") ||
+    localStorage.getItem("selectedCompany") ||
+    "";
+
+
+const role =
+    params.get("role") ||
+    localStorage.getItem("selectedRole") ||
+    "";
+
+
+if (company) {
+
+    localStorage.setItem(
+        "selectedCompany",
+        company
+    );
+
+}
+
+
+if (role) {
+
+    localStorage.setItem(
+        "selectedRole",
+        role
+    );
+
+}
+
+
+// =====================================================
+// DISPLAY COMPANY AND ROLE
+// =====================================================
+
+document.getElementById(
+    "companyTitle"
+).innerText =
+    company || "Not Selected";
+
+
+document.getElementById(
+    "roleTitle"
+).innerText =
+    role || "Not Selected";
+
+
+document.getElementById(
+    "selectionInfo"
+).innerText =
+
+    company && role
+
+        ? "Choose a subject and topic to prepare for " +
+          company +
+          " - " +
+          role
+
+        : "Please select a company and role first.";
+
+
+// =====================================================
+// B.TECH CSE SUBJECT DATA
+// =====================================================
+
+const domains = [
+
+    // =================================================
+    // DOMAIN 1
+    // =================================================
+
+    {
+        name: "Programming & Core",
+
+        icon: "💻",
+
+        description:
+            "Programming languages and fundamental programming concepts.",
+
+        subjects: [
+
+            {
+                name: "C Programming",
+                icon: "🔵",
+
+                description:
+                    "C programming fundamentals and problem solving.",
+
+                topics: [
+                    "Basics & Syntax",
+                    "Variables & Data Types",
+                    "Operators",
+                    "Conditional Statements",
+                    "Loops",
+                    "Functions",
+                    "Arrays",
+                    "Strings",
+                    "Pointers",
+                    "Structures & Unions",
+                    "File Handling"
+                ]
+            },
+
+
+            {
+                name: "C++",
+                icon: "⚙️",
+
+                description:
+                    "C++ programming and object-oriented concepts.",
+
+                topics: [
+                    "C++ Basics",
+                    "Functions",
+                    "Classes & Objects",
+                    "Constructors",
+                    "Inheritance",
+                    "Polymorphism",
+                    "Templates",
+                    "STL",
+                    "Exception Handling",
+                    "File Handling"
+                ]
+            },
+
+
+            {
+                name: "Java",
+                icon: "☕",
+
+                description:
+                    "Java programming and object-oriented development.",
+
+                topics: [
+                    "Java Basics",
+                    "Variables & Data Types",
+                    "Control Statements",
+                    "Arrays",
+                    "Methods",
+                    "Classes & Objects",
+                    "Inheritance",
+                    "Polymorphism",
+                    "Exception Handling",
+                    "Collections",
+                    "Multithreading",
+                    "JDBC"
+                ]
+            },
+
+
+            {
+                name: "Python",
+                icon: "🐍",
+
+                description:
+                    "Python programming, data types and application development.",
+
+                topics: [
+                    "Python Basics",
+                    "Variables & Data Types",
+                    "Operators",
+                    "Conditional Statements",
+                    "Loops",
+                    "Functions",
+                    "Lists & Tuples",
+                    "Dictionaries & Sets",
+                    "OOP",
+                    "Exception Handling",
+                    "Modules & Packages"
+                ]
+            },
+
+
+            {
+                name: "OOP",
+                icon: "🧩",
+
+                description:
+                    "Object-oriented programming concepts.",
+
+                topics: [
+                    "Classes & Objects",
+                    "Encapsulation",
+                    "Inheritance",
+                    "Polymorphism",
+                    "Abstraction",
+                    "Interfaces",
+                    "Constructors",
+                    "Method Overloading",
+                    "Method Overriding"
+                ]
+            }
+
+        ]
+    },
+
+
+    // =================================================
+    // DOMAIN 2
+    // =================================================
+
+    {
+        name: "Computer Science Core",
+
+        icon: "🖥️",
+
+        description:
+            "Core computer science subjects commonly studied in B.Tech CSE.",
+
+        subjects: [
+
+            {
+                name: "Data Structures",
+                icon: "🌳",
+
+                description:
+                    "Fundamental data structures used in programming.",
+
+                topics: [
+                    "Arrays",
+                    "Linked Lists",
+                    "Stacks",
+                    "Queues",
+                    "Circular Queue",
+                    "Trees",
+                    "Binary Search Tree",
+                    "Heaps",
+                    "Graphs",
+                    "Hashing"
+                ]
+            },
+
+
+            {
+                name: "Algorithms",
+                icon: "⚙️",
+
+                description:
+                    "Algorithm design, analysis and problem solving.",
+
+                topics: [
+                    "Algorithm Basics",
+                    "Time Complexity",
+                    "Space Complexity",
+                    "Searching",
+                    "Sorting",
+                    "Recursion",
+                    "Greedy Algorithms",
+                    "Divide and Conquer",
+                    "Dynamic Programming",
+                    "Backtracking",
+                    "Graph Algorithms"
+                ]
+            },
+
+
+            {
+                name: "DBMS",
+                icon: "💾",
+
+                description:
+                    "Database management systems and data organization.",
+
+                topics: [
+                    "Database Basics",
+                    "ER Model",
+                    "Relational Model",
+                    "Keys",
+                    "SQL",
+                    "Normalization",
+                    "Transactions",
+                    "Concurrency Control",
+                    "Indexing",
+                    "Hashing",
+                    "Recovery"
+                ]
+            },
+
+
+            {
+                name: "Operating Systems",
+                icon: "🖥️",
+
+                description:
+                    "Operating system concepts and system management.",
+
+                topics: [
+                    "OS Basics",
+                    "Processes",
+                    "Threads",
+                    "Process Scheduling",
+                    "CPU Scheduling",
+                    "Process Synchronization",
+                    "Deadlocks",
+                    "Memory Management",
+                    "Virtual Memory",
+                    "File Systems",
+                    "I/O Management"
+                ]
+            },
+
+
+            {
+                name: "Computer Networks",
+                icon: "🌐",
+
+                description:
+                    "Computer communication and networking concepts.",
+
+                topics: [
+                    "Network Basics",
+                    "OSI Model",
+                    "TCP/IP Model",
+                    "Network Topologies",
+                    "IP Addressing",
+                    "Subnetting",
+                    "Routing",
+                    "TCP & UDP",
+                    "DNS",
+                    "HTTP & HTTPS",
+                    "Network Security"
+                ]
+            },
+
+
+            {
+                name: "Computer Organization & Architecture",
+                icon: "🔧",
+
+                description:
+                    "Computer hardware organization and architecture.",
+
+                topics: [
+                    "Number Systems",
+                    "Boolean Logic",
+                    "CPU Organization",
+                    "Instruction Set",
+                    "Memory Organization",
+                    "Cache Memory",
+                    "Pipelining",
+                    "I/O Organization",
+                    "Registers",
+                    "Control Unit"
+                ]
+            },
+
+
+            {
+                name: "Theory of Computation",
+                icon: "📐",
+
+                description:
+                    "Formal languages, automata and computation theory.",
+
+                topics: [
+                    "Formal Languages",
+                    "Finite Automata",
+                    "DFA",
+                    "NFA",
+                    "Regular Expressions",
+                    "Context Free Grammar",
+                    "Pushdown Automata",
+                    "Turing Machines",
+                    "Decidability"
+                ]
+            },
+
+
+            {
+                name: "Compiler Design",
+                icon: "🔤",
+
+                description:
+                    "Compiler phases and language processing.",
+
+                topics: [
+                    "Compiler Basics",
+                    "Lexical Analysis",
+                    "Syntax Analysis",
+                    "Parsing",
+                    "Semantic Analysis",
+                    "Intermediate Code",
+                    "Code Optimization",
+                    "Code Generation",
+                    "Symbol Tables"
+                ]
+            },
+
+
+            {
+                name: "Software Engineering",
+                icon: "🛠️",
+
+                description:
+                    "Software development processes and methodologies.",
+
+                topics: [
+                    "Software Process",
+                    "SDLC",
+                    "Waterfall Model",
+                    "Agile Model",
+                    "Requirements Engineering",
+                    "Software Design",
+                    "Testing",
+                    "Maintenance",
+                    "Project Management"
+                ]
+            },
+
+
+            {
+                name: "Software Testing",
+                icon: "🧪",
+
+                description:
+                    "Software testing concepts and quality assurance.",
+
+                topics: [
+                    "Testing Basics",
+                    "Test Cases",
+                    "Unit Testing",
+                    "Integration Testing",
+                    "System Testing",
+                    "Regression Testing",
+                    "Black Box Testing",
+                    "White Box Testing",
+                    "Automation Testing"
+                ]
+            }
+
+        ]
+    },
+
+
+    // =================================================
+    // DOMAIN 3
+    // =================================================
+
+    {
+        name: "Database & Data",
+
+        icon: "📊",
+
+        description:
+            "Databases, analytics, data processing and artificial intelligence.",
+
+        subjects: [
+
+            {
+                name: "SQL",
+                icon: "🗄️",
+
+                description:
+                    "SQL queries and relational database operations.",
+
+                topics: [
+                    "SQL Basics",
+                    "SELECT",
+                    "WHERE",
+                    "GROUP BY",
+                    "HAVING",
+                    "ORDER BY",
+                    "Joins",
+                    "Subqueries",
+                    "Functions",
+                    "Views",
+                    "Indexes",
+                    "Transactions"
+                ]
+            },
+
+
+            {
+                name: "Data Warehousing & Data Mining",
+                icon: "🏢",
+
+                description:
+                    "Data warehouses, mining techniques and data analysis.",
+
+                topics: [
+                    "Data Warehouse Basics",
+                    "OLTP & OLAP",
+                    "Data Warehouse Architecture",
+                    "ETL",
+                    "Data Cubes",
+                    "Association Rules",
+                    "Classification",
+                    "Clustering",
+                    "Data Preprocessing",
+                    "Data Mining Applications"
+                ]
+            },
+
+
+            {
+                name: "Big Data",
+                icon: "📦",
+
+                description:
+                    "Large-scale data processing and distributed systems.",
+
+                topics: [
+                    "Big Data Basics",
+                    "5 Vs of Big Data",
+                    "Hadoop",
+                    "HDFS",
+                    "MapReduce",
+                    "YARN",
+                    "Spark",
+                    "NoSQL",
+                    "Big Data Analytics"
+                ]
+            },
+
+
+            {
+                name: "Data Science",
+                icon: "📈",
+
+                description:
+                    "Data analysis, statistics and predictive modelling.",
+
+                topics: [
+                    "Data Science Basics",
+                    "Data Collection",
+                    "Data Cleaning",
+                    "Data Visualization",
+                    "Statistics",
+                    "Probability",
+                    "Feature Engineering",
+                    "Exploratory Data Analysis",
+                    "Model Evaluation"
+                ]
+            },
+
+
+            {
+                name: "Artificial Intelligence",
+                icon: "🤖",
+
+                description:
+                    "Artificial intelligence concepts and intelligent systems.",
+
+                topics: [
+                    "AI Basics",
+                    "Intelligent Agents",
+                    "Problem Solving",
+                    "Search Algorithms",
+                    "Knowledge Representation",
+                    "Expert Systems",
+                    "Natural Language Processing",
+                    "Computer Vision"
+                ]
+            },
+
+
+            {
+                name: "Machine Learning",
+                icon: "🧠",
+
+                description:
+                    "Machine learning algorithms and model development.",
+
+                topics: [
+                    "ML Basics",
+                    "Supervised Learning",
+                    "Unsupervised Learning",
+                    "Regression",
+                    "Classification",
+                    "Clustering",
+                    "Decision Trees",
+                    "K-Means",
+                    "Model Evaluation",
+                    "Overfitting & Underfitting"
+                ]
+            },
+
+
+            {
+                name: "Excel",
+                icon: "📊",
+
+                description:
+                    "Spreadsheet formulas, functions and data analysis.",
+
+                topics: [
+                    "Excel Basics",
+                    "Formulas",
+                    "Functions",
+                    "Conditional Formatting",
+                    "VLOOKUP",
+                    "XLOOKUP",
+                    "Pivot Tables",
+                    "Charts",
+                    "Data Cleaning"
+                ]
+            },
+
+
+            {
+                name: "Power BI",
+                icon: "📈",
+
+                description:
+                    "Business intelligence dashboards and visualization.",
+
+                topics: [
+                    "Power BI Basics",
+                    "Data Import",
+                    "Data Transformation",
+                    "Power Query",
+                    "Data Modeling",
+                    "DAX",
+                    "Visualizations",
+                    "Dashboards",
+                    "Reports"
+                ]
+            }
+
+        ]
+    },
+
+
+    // =================================================
+    // DOMAIN 4
+    // =================================================
+
+    {
+        name: "Web & Application",
+
+        icon: "🌐",
+
+        description:
+            "Web development and application development technologies.",
+
+        subjects: [
+
+            {
+                name: "HTML",
+                icon: "🌐",
+
+                description:
+                    "Structure and elements of web pages.",
+
+                topics: [
+                    "HTML Basics",
+                    "Elements",
+                    "Attributes",
+                    "Forms",
+                    "Tables",
+                    "Lists",
+                    "Links",
+                    "Images",
+                    "Semantic HTML",
+                    "HTML5"
+                ]
+            },
+
+
+            {
+                name: "CSS",
+                icon: "🎨",
+
+                description:
+                    "Web page styling and responsive design.",
+
+                topics: [
+                    "CSS Basics",
+                    "Selectors",
+                    "Colors",
+                    "Box Model",
+                    "Flexbox",
+                    "Grid",
+                    "Positioning",
+                    "Animations",
+                    "Responsive Design"
+                ]
+            },
+
+
+            {
+                name: "JavaScript",
+                icon: "📜",
+
+                description:
+                    "JavaScript programming for interactive websites.",
+
+                topics: [
+                    "JavaScript Basics",
+                    "Variables",
+                    "Data Types",
+                    "Functions",
+                    "Arrays",
+                    "Objects",
+                    "DOM",
+                    "Events",
+                    "Promises",
+                    "Async & Await",
+                    "Fetch API"
+                ]
+            },
+
+
+            {
+                name: "Web Technologies",
+                icon: "🕸️",
+
+                description:
+                    "Core technologies used in modern web development.",
+
+                topics: [
+                    "Client Server Architecture",
+                    "HTTP",
+                    "HTTPS",
+                    "Cookies",
+                    "Sessions",
+                    "REST APIs",
+                    "JSON",
+                    "Web Security",
+                    "Web Storage"
+                ]
+            },
+
+
+            {
+                name: "Full Stack Development",
+                icon: "💻",
+
+                description:
+                    "Frontend, backend and database application development.",
+
+                topics: [
+                    "Frontend Basics",
+                    "Backend Basics",
+                    "Node.js",
+                    "Express.js",
+                    "REST APIs",
+                    "Databases",
+                    "Authentication",
+                    "CRUD Operations",
+                    "Deployment"
+                ]
+            }
+
+        ]
+    },
+
+
+    // =================================================
+    // DOMAIN 5
+    // =================================================
+
+    {
+        name: "Modern Technologies",
+
+        icon: "🚀",
+
+        description:
+            "Modern technologies used in software and IT industries.",
+
+        subjects: [
+
+            {
+                name: "Cloud Computing",
+                icon: "☁️",
+
+                description:
+                    "Cloud services, architecture and deployment.",
+
+                topics: [
+                    "Cloud Basics",
+                    "Cloud Models",
+                    "IaaS",
+                    "PaaS",
+                    "SaaS",
+                    "Virtualization",
+                    "Cloud Storage",
+                    "Cloud Security",
+                    "Cloud Deployment"
+                ]
+            },
+
+
+            {
+                name: "DevOps",
+                icon: "🔄",
+
+                description:
+                    "Development, operations and continuous delivery.",
+
+                topics: [
+                    "DevOps Basics",
+                    "Version Control",
+                    "Git",
+                    "GitHub",
+                    "CI/CD",
+                    "Jenkins",
+                    "Docker",
+                    "Kubernetes",
+                    "Monitoring"
+                ]
+            },
+
+
+            {
+                name: "Cyber Security",
+                icon: "🔐",
+
+                description:
+                    "Security principles and protection of computer systems.",
+
+                topics: [
+                    "Security Basics",
+                    "Threats",
+                    "Vulnerabilities",
+                    "Cryptography",
+                    "Authentication",
+                    "Authorization",
+                    "Network Security",
+                    "Web Security",
+                    "Malware"
+                ]
+            },
+
+
+            {
+                name: "Internet of Things",
+                icon: "📡",
+
+                description:
+                    "Connected devices, sensors and IoT systems.",
+
+                topics: [
+                    "IoT Basics",
+                    "IoT Architecture",
+                    "Sensors",
+                    "Actuators",
+                    "Communication Protocols",
+                    "IoT Networks",
+                    "Cloud & IoT",
+                    "IoT Security",
+                    "IoT Applications"
+                ]
+            },
+
+
+            {
+                name: "Blockchain",
+                icon: "⛓️",
+
+                description:
+                    "Distributed ledger technology and blockchain concepts.",
+
+                topics: [
+                    "Blockchain Basics",
+                    "Blocks",
+                    "Hashing",
+                    "Consensus",
+                    "Proof of Work",
+                    "Smart Contracts",
+                    "Cryptocurrency",
+                    "Blockchain Security"
+                ]
+            },
+
+
+            {
+                name: "Distributed Systems",
+                icon: "🔗",
+
+                description:
+                    "Systems that operate across multiple connected computers.",
+
+                topics: [
+                    "Distributed System Basics",
+                    "Architecture",
+                    "Communication",
+                    "Synchronization",
+                    "Distributed Transactions",
+                    "Fault Tolerance",
+                    "Replication",
+                    "Consistency"
+                ]
+            }
+
+        ]
+    },
+
+
+    // =================================================
+    // DOMAIN 6
+    // =================================================
+
+    {
+        name: "Other B.Tech Subjects",
+
+        icon: "📚",
+
+        description:
+            "Mathematics, electronics, graphics and other important subjects.",
+
+        subjects: [
+
+            {
+                name: "Computer Graphics",
+                icon: "🖼️",
+
+                description:
+                    "Computer-generated graphics and visualization.",
+
+                topics: [
+                    "Graphics Basics",
+                    "Line Drawing",
+                    "Circle Drawing",
+                    "2D Transformations",
+                    "3D Transformations",
+                    "Clipping",
+                    "Viewing",
+                    "Curves",
+                    "Rendering"
+                ]
+            },
+
+
+            {
+                name: "Digital Logic Design",
+                icon: "🔢",
+
+                description:
+                    "Digital circuits and logical operations.",
+
+                topics: [
+                    "Number Systems",
+                    "Boolean Algebra",
+                    "Logic Gates",
+                    "K-Maps",
+                    "Combinational Circuits",
+                    "Sequential Circuits",
+                    "Flip Flops",
+                    "Counters",
+                    "Registers"
+                ]
+            },
+
+
+            {
+                name: "Microprocessors & Microcontrollers",
+                icon: "🔌",
+
+                description:
+                    "Processor architecture and embedded systems.",
+
+                topics: [
+                    "Microprocessor Basics",
+                    "8086 Architecture",
+                    "8086 Instructions",
+                    "Memory Interfacing",
+                    "I/O Interfacing",
+                    "Microcontrollers",
+                    "Timers",
+                    "Interrupts",
+                    "Embedded Systems"
+                ]
+            },
+
+
+            {
+                name: "Discrete Mathematics",
+                icon: "📐",
+
+                description:
+                    "Mathematical concepts used in computer science.",
+
+                topics: [
+                    "Sets",
+                    "Relations",
+                    "Functions",
+                    "Logic",
+                    "Proof Techniques",
+                    "Combinatorics",
+                    "Graphs",
+                    "Trees",
+                    "Recurrence Relations"
+                ]
+            },
+
+
+            {
+                name: "Probability & Statistics",
+                icon: "📊",
+
+                description:
+                    "Probability, statistics and data interpretation.",
+
+                topics: [
+                    "Probability Basics",
+                    "Conditional Probability",
+                    "Bayes Theorem",
+                    "Random Variables",
+                    "Probability Distributions",
+                    "Mean",
+                    "Median",
+                    "Variance",
+                    "Standard Deviation",
+                    "Correlation"
+                ]
+            },
+
+
+            {
+                name: "Engineering Mathematics",
+                icon: "🧮",
+
+                description:
+                    "Mathematical concepts used throughout engineering.",
+
+                topics: [
+                    "Differential Calculus",
+                    "Integral Calculus",
+                    "Differential Equations",
+                    "Matrices",
+                    "Eigenvalues",
+                    "Complex Numbers",
+                    "Vector Calculus",
+                    "Laplace Transform",
+                    "Fourier Series"
+                ]
+            },
+
+
+            {
+                name: "Aptitude",
+                icon: "🧮",
+
+                description:
+                    "Quantitative aptitude and logical reasoning for placements.",
+
+                topics: [
+                    "Number Systems",
+                    "Percentages",
+                    "Profit & Loss",
+                    "Time & Work",
+                    "Time & Distance",
+                    "Ratio & Proportion",
+                    "Averages",
+                    "Probability",
+                    "Permutations & Combinations",
+                    "Logical Reasoning"
+                ]
+            }
+
+        ]
+    }
+
+];
+
+
+// =====================================================
+// DISPLAY DOMAINS
+// =====================================================
+
+function displayDomains(domainList) {
+
+    const container =
+        document.getElementById(
+            "domainContainer"
+        );
+
+    container.innerHTML = "";
+
+    let totalSubjects = 0;
+
+
+    domainList.forEach(function(domain) {
+
+        totalSubjects +=
+            domain.subjects.length;
+
+
+        const domainSection =
+            document.createElement("div");
+
+        domainSection.className =
+            "domain-section";
+
+
+        // DOMAIN HEADER
+
+        const domainHeader =
+            document.createElement("div");
+
+        domainHeader.className =
+            "domain-header";
+
+
+        domainHeader.innerHTML =
+
+            "<h2>" +
+            domain.icon +
+            " " +
+            domain.name +
+            "</h2>" +
+
+            "<p>" +
+            domain.description +
+            "</p>";
+
+
+        domainSection.appendChild(
+            domainHeader
+        );
+
+
+        // SUBJECT GRID
+
+        const subjectGrid =
+            document.createElement("div");
+
+        subjectGrid.className =
+            "subject-grid";
+
+
+        domain.subjects.forEach(
+            function(subject) {
+
+                const subjectCard =
+                    document.createElement("div");
+
+                subjectCard.className =
+                    "subject-card";
+
+
+                let topicsHTML = "";
+
+
+                subject.topics.forEach(
+                    function(topic) {
+
+                        topicsHTML +=
+
+                            '<button ' +
+
+                            'class="topic-button" ' +
+
+                            'onclick="openTopic(\'' +
+
+                            escapeQuotes(topic) +
+
+                            '\')">' +
+
+                            topic +
+
+                            "</button>";
+
+                    }
+                );
+
+
+                subjectCard.innerHTML =
+
+                    '<div class="subject-icon">' +
+                    subject.icon +
+                    "</div>" +
+
+                    "<h3>" +
+                    subject.name +
+                    "</h3>" +
+
+                    "<p>" +
+                    subject.description +
+                    "</p>" +
+
+                    '<div class="topic-label">' +
+                    "Topics" +
+                    "</div>" +
+
+                    '<div class="topic-list">' +
+                    topicsHTML +
+                    "</div>";
+
+
+                subjectGrid.appendChild(
+                    subjectCard
+                );
+
+            }
+        );
+
+
+        domainSection.appendChild(
+            subjectGrid
+        );
+
+
+        container.appendChild(
+            domainSection
+        );
+
+    });
+
+
+    const noResults =
+        document.getElementById(
+            "noResults"
+        );
+
+
+    if (totalSubjects === 0) {
+
+        noResults.style.display =
+            "block";
+
+    } else {
+
+        noResults.style.display =
+            "none";
+
+    }
+
+}
+
+
+// =====================================================
+// ESCAPE QUOTES
+// =====================================================
+
+function escapeQuotes(text) {
+
+    return text
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+
+}
+
+
+// =====================================================
+// OPEN TOPIC
+// =====================================================
+
+function openTopic(topic) {
+
+    if (!company || !role) {
+
+        alert(
+            "Please select a company and role first."
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "selectedTopic",
+        topic
+    );
+
+
+    window.location.href =
+        "topic-preparation.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role) +
+        "&topic=" +
+        encodeURIComponent(topic);
+
+}
+
+
+// =====================================================
+// SEARCH
+// =====================================================
+
+function filterTopics() {
+
+    const search =
+        document.getElementById("searchBox")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const noResults =
+        document.getElementById("noResults");
+
+
+    // If search box is empty
+    if (!search) {
+
+        displayDomains(domains);
+
+        return;
+    }
+
+
+    const filteredDomains = [];
+
+
+    // Search existing subjects and topics
+    domains.forEach(function(domain) {
+
+        const filteredSubjects = [];
+
+
+        domain.subjects.forEach(function(subject) {
+
+            const subjectMatches =
+                subject.name
+                    .toLowerCase()
+                    .includes(search);
+
+
+            const descriptionMatches =
+                subject.description
+                    .toLowerCase()
+                    .includes(search);
+
+
+            const matchingTopics =
+                subject.topics.filter(function(topic) {
+
+                    return topic
+                        .toLowerCase()
+                        .includes(search);
+
+                });
+
+
+            if (
+                subjectMatches ||
+                descriptionMatches ||
+                matchingTopics.length > 0
+            ) {
+
+                filteredSubjects.push({
+
+                    name: subject.name,
+
+                    icon: subject.icon,
+
+                    description:
+                        subject.description,
+
+                    topics:
+                        subjectMatches ||
+                        descriptionMatches
+                            ? subject.topics
+                            : matchingTopics
+
+                });
+
+            }
+
+        });
+
+        if (filteredSubjects.length > 0) {
+
+            filteredDomains.push({
+
+                name: domain.name,
+
+                icon: domain.icon,
+
+                description:
+                    domain.description,
+
+                subjects:
+                    filteredSubjects
+
+            });
+
+        }
+
+    });
+
+
+    // ======================================
+    // EXISTING SUBJECT / TOPIC FOUND
+    // ======================================
+
+    if (filteredDomains.length > 0) {
+
+        displayDomains(filteredDomains);
+
+        return;
+    }
+
+
+    // ======================================
+    // NEW / CUSTOM TOPIC
+    // ======================================
+
+    const container =
+        document.getElementById("domainContainer");
+
+    container.innerHTML = `
+
+        <div class="subject-card">
+
+            <div class="subject-icon">
+                🤖
+            </div>
+
+            <h3>${search}</h3>
+
+            <p>
+                AI-generated placement preparation
+                resources for ${search}.
+            </p>
+
+            <br>
+
+            <button
+                class="topic-button"
+                onclick="openTopicResources('${search.replace(/'/g, "\\'")}')">
+
+                📚 Open Topic Resources
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    // Hide "No subject or topic found"
+    if (noResults) {
+
+        noResults.style.display = "none";
+
+    }
+
+}
+// =====================================================
+// DASHBOARD
+// =====================================================
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+
+// =====================================================
+// INITIAL LOAD
+// =====================================================
+
+displayDomains(domains);
+
+function openTopicResources(topic) {
+
+    // Save selected topic
+    localStorage.setItem(
+        "selectedTopic",
+        topic
+    );
+
+    // Keep the selected company
+    const company =
+        localStorage.getItem(
+            "selectedCompany"
+        ) || "";
+
+    // Keep the selected role
+    const role =
+        localStorage.getItem(
+            "selectedRole"
+        ) || "";
+
+    // Open Topic Resources
+    window.location.href =
+        "topic-preparation.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role) +
+        "&topic=" +
+        encodeURIComponent(topic);
+}
+</script>
+
+
+</body>
+
+</html>

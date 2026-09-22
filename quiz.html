@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Topic Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>📝 Placement Quiz</h1>
+
+    <h2 id="topicTitle">Quiz</h2>
+
+    <form id="quizForm"></form>
+
+    <button type="button" onclick="checkQuiz()">
+        Submit Quiz
+    </button>
+
+    <h2 id="result"></h2>
+
+    <br>
+
+    <button onclick="goTopics()">
+        ← Back to Topics
+    </button>
+
+    <button onclick="goDashboard()">
+        🏠 Dashboard
+    </button>
+
+
+    <script>
+
+    // Get selected topic, company and role
+    const params =
+        new URLSearchParams(window.location.search);
+
+    let topic =
+        params.get("topic") ||
+        localStorage.getItem("selectedTopic") ||
+        "sql";
+
+    let company =
+        params.get("company") ||
+        localStorage.getItem("selectedCompany") ||
+        "";
+
+    let role =
+        params.get("role") ||
+        localStorage.getItem("selectedRole") ||
+        "";
+
+    topic = topic.toLowerCase();
+
+
+    // --------------------------------------------
+    // LOAD QUIZ FROM BACKEND
+    // --------------------------------------------
+
+    async function loadQuiz() {
+
+        const quizForm =
+            document.getElementById("quizForm");
+
+        const topicTitle =
+            document.getElementById("topicTitle");
+
+        quizForm.innerHTML =
+            "<p>⏳ Loading quiz...</p>";
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/generate-quiz?topic=" +
+                    encodeURIComponent(topic) +
+                    "&company=" +
+                    encodeURIComponent(company) +
+                    "&role=" +
+                    encodeURIComponent(role)
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Quiz API request failed"
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !data.questions ||
+                !Array.isArray(data.questions) ||
+                data.questions.length === 0
+            ) {
+
+                throw new Error(
+                    "No quiz questions received"
+                );
+
+            }
+
+
+            // ------------------------------------
+            // CHECK SOURCE
+            // ------------------------------------
+
+            const quizSourceBadge =
+    document.getElementById("quizSourceBadge");
+
+
+if (data.source === "fallback") {
+
+    topicTitle.innerText =
+        topic.toUpperCase() +
+        " Practice Quiz 📚";
+
+    quizSourceBadge.innerText =
+        "📚 Practice Quiz";
+
+} else {
+
+    topicTitle.innerText =
+        topic.toUpperCase() +
+        " AI Generated Quiz 🤖";
+
+    quizSourceBadge.innerText =
+        "🤖 AI Generated Quiz";
+
+}
+
+            const questions =
+                data.questions;
+
+
+            // ------------------------------------
+            // DISPLAY QUESTIONS
+            // ------------------------------------
+
+            quizForm.innerHTML = "";
+
+
+            questions.forEach(
+                function(q, index) {
+
+                    let html = `
+                        <div>
+                            <h3>
+                                ${index + 1}. ${q.question}
+                            </h3>
+                    `;
+
+
+                    q.options.forEach(
+                        function(option, optionIndex) {
+
+                            html += `
+                                <input
+                                    type="radio"
+                                    name="q${index}"
+                                    value="${optionIndex}"
+                                >
+                                ${option}
+                                <br>
+                            `;
+
+                        }
+                    );
+
+
+                    html += `
+                        </div>
+                        <hr>
+                    `;
+
+
+                    quizForm.innerHTML += html;
+
+                }
+            );
+
+
+            // Store questions for checkQuiz()
+            window.currentQuestions =
+                questions;
+
+
+            console.log(
+                "Quiz source:",
+                data.source
+            );
+
+            console.log(
+                "Questions:",
+                questions
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Quiz loading error:",
+                error
+            );
+
+
+            quizForm.innerHTML = `
+                <p style="color:red;">
+                    ❌ Unable to load quiz
+                </p>
+
+                <p>
+                    Please try again.
+                </p>
+
+                <button
+                    type="button"
+                    onclick="loadQuiz()"
+                >
+                    🔄 Try Again
+                </button>
+            `;
+
+        }
+
+    }
+
+
+    // --------------------------------------------
+    // CHECK ANSWERS
+    // --------------------------------------------
+
+    function checkQuiz() {
+
+        const questions =
+            window.currentQuestions;
+
+
+        if (
+            !questions ||
+            questions.length === 0
+        ) {
+
+            alert(
+                "Quiz is not loaded yet."
+            );
+
+            return;
+
+        }
+
+
+        let score = 0;
+
+
+        questions.forEach(
+            function(q, index) {
+
+                const selected =
+                    document.querySelector(
+                        'input[name="q' +
+                        index +
+                        '"]:checked'
+                    );
+
+
+                if (!selected) {
+                    return;
+                }
+
+
+                const selectedIndex =
+                    Number(selected.value);
+
+
+                const selectedAnswer =
+                    q.options[selectedIndex];
+
+
+                // Backend gives answer as text
+                if (
+                    selectedAnswer === q.answer
+                ) {
+
+                    score++;
+
+                }
+
+            }
+        );
+
+
+        document.getElementById("result").innerText =
+            "Your Score: " +
+            score +
+            " / " +
+            questions.length;
+
+
+        // ----------------------------------------
+        // SAVE PROGRESS
+        // ----------------------------------------
+
+        let progress =
+            Math.round(
+                (score / questions.length) * 100
+            );
+
+
+        localStorage.setItem(
+            "progress",
+            progress
+        );
+
+
+        localStorage.setItem(
+            "quizScore",
+            score
+        );
+
+
+        localStorage.setItem(
+            "quizTotal",
+            questions.length
+        );
+
+    }
+
+
+    // --------------------------------------------
+    // NAVIGATION
+    // --------------------------------------------
+
+    function goTopics() {
+
+        window.location.href =
+            "topics.html";
+
+    }
+
+
+    function goDashboard() {
+
+        window.location.href =
+            "dashboard.html";
+
+    }
+
+
+    // --------------------------------------------
+    // START QUIZ
+    // --------------------------------------------
+
+    loadQuiz();
+
+</script>
+
+</body>
+
+</html>

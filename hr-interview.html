@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HR Interview</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 36px;
+        }
+
+        .info {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 18px;
+            color: #444;
+        }
+
+        .progress {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+
+        .question-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .question {
+            font-size: 20px;
+            font-weight: bold;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef6ff;
+            border-left: 4px solid #2563eb;
+            line-height: 1.6;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .complete-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .complete-button {
+            background: #16a34a;
+            padding: 12px 25px;
+            font-size: 16px;
+        }
+
+        .complete-button:hover {
+            background: #15803d;
+        }
+
+        .completion-message {
+            display: none;
+            text-align: center;
+            background: #dcfce7;
+            color: #166534;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .bottom-buttons {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .bottom-buttons button {
+            margin: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>👤 HR Interview</h1>
+
+    <div class="info">
+        <div id="companyText"></div>
+        <div id="roleText"></div>
+    </div>
+
+    <div class="progress" id="progressText">
+        Question 1 of 10
+    </div>
+
+    <div id="questionContainer"></div>
+
+    <div class="navigation">
+
+        <button
+            id="previousButton"
+            onclick="previousQuestion()"
+        >
+            ⬅ Previous
+        </button>
+
+        <button
+            id="nextButton"
+            onclick="nextQuestion()"
+        >
+            Next ➡
+        </button>
+
+    </div>
+
+    <div class="complete-section">
+
+        <button
+            class="complete-button"
+            id="completeButton"
+            onclick="markCompleted()"
+        >
+            ✅ Mark as Completed
+        </button>
+
+        <div
+            class="completion-message"
+            id="completionMessage"
+        >
+            🎉 HR Interview Completed!
+        </div>
+
+    </div>
+
+    <div class="bottom-buttons">
+
+        <button onclick="goBack()">
+            ⬅ Back to Interview
+        </button>
+
+        <button onclick="goDashboard()">
+            🏠 Dashboard
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+    // ==============================
+    // CHECK LOGIN
+    // ==============================
+
+    const loggedInUser =
+        localStorage.getItem("loggedInUser");
+
+    if (!loggedInUser) {
+        window.location.href = "login.html";
+    }
+
+    let currentUser = null;
+
+    try {
+
+        currentUser =
+            JSON.parse(loggedInUser);
+
+    } catch (error) {
+
+        localStorage.removeItem("loggedInUser");
+
+        window.location.href = "login.html";
+
+    }
+
+
+    // ==============================
+    // GET COMPANY AND ROLE
+    // ==============================
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    let company =
+        params.get("company");
+
+    let role =
+        params.get("role");
+
+
+    if (!company) {
+        company =
+            localStorage.getItem("selectedCompany");
+    }
+
+    if (!role) {
+        role =
+            localStorage.getItem("selectedRole");
+    }
+
+
+    document.getElementById("companyText").innerHTML =
+        "<strong>Company:</strong> " +
+        (company || "General");
+
+    document.getElementById("roleText").innerHTML =
+        "<strong>Role:</strong> " +
+        (role || "General");
+
+
+    // ==============================
+    // HR QUESTIONS
+    // ==============================
+
+    const commonQuestions = [
+
+        {
+            question: "Tell me about yourself.",
+            answer:
+                "Give a short introduction about your education, technical skills, projects, achievements, strengths, and career goals."
+        },
+
+        {
+            question: "What are your strengths?",
+            answer:
+                "Mention 2 or 3 genuine strengths such as problem-solving, communication, teamwork, adaptability, or willingness to learn. Give a small example."
+        },
+
+        {
+            question: "What is your weakness?",
+            answer:
+                "Mention a genuine but manageable weakness and explain what you are doing to improve it."
+        },
+
+        {
+            question: "Why should we hire you?",
+            answer:
+                "Explain how your technical knowledge, projects, problem-solving ability, communication, and willingness to learn can contribute to the company."
+        },
+
+        {
+            question: "Where do you see yourself in five years?",
+            answer:
+                "Explain that you want to become a skilled professional, take more responsibility, contribute to important projects, and continue learning."
+        },
+
+        {
+            question: "How do you handle pressure or deadlines?",
+            answer:
+                "Explain that you prioritize tasks, divide large work into smaller tasks, manage time properly, and stay focused on completing the work."
+        },
+
+        {
+            question: "Are you comfortable working in a team?",
+            answer:
+                "Yes. Explain that teamwork helps combine different skills and perspectives. Give an example from a college project or activity."
+        }
+
+    ];
+
+
+    // ==============================
+    // COMPANY-SPECIFIC QUESTIONS
+    // ==============================
+
+    const companyQuestions = {
+
+        "TCS": {
+            question:
+                `Why do you want to join TCS as a ${role}?`,
+            answer:
+                `Explain why you are interested in TCS and how the ${role} matches your technical skills, career goals, and interest in working on technology projects.`
+        },
+
+        "Infosys": {
+            question:
+                `Why do you want to join Infosys as a ${role}?`,
+            answer:
+                `Explain your interest in Infosys, your willingness to learn, and how the ${role} matches your technical skills and career goals.`
+        },
+
+        "Wipro": {
+            question:
+                `Why do you want to join Wipro as a ${role}?`,
+            answer:
+                `Explain your interest in Wipro, your technical skills, and how you believe the ${role} can help you grow professionally.`
+        },
+
+        "Accenture": {
+            question:
+                `Why do you want to join Accenture as a ${role}?`,
+            answer:
+                `Explain your interest in technology and consulting, your willingness to learn, and how the ${role} matches your career goals.`
+        },
+
+        "Cognizant": {
+            question:
+                `Why do you want to join Cognizant as a ${role}?`,
+            answer:
+                `Explain your interest in Cognizant, technology, continuous learning, and how your skills are suitable for the ${role}.`
+        },
+
+        "NatWest": {
+            question:
+                `Why do you want to join NatWest as a ${role}?`,
+            answer:
+                `Explain your interest in technology and financial services and how the ${role} matches your technical skills and career goals.`
+        }
+
+    };
+
+
+    // ==============================
+    // CREATE FINAL QUESTION LIST
+    // ==============================
+
+    let questions = [];
+
+
+    // Company-specific question
+
+    if (companyQuestions[company]) {
+
+        questions.push(
+            companyQuestions[company]
+        );
+
+    }
+
+
+    // Role-specific question
+
+    questions.push({
+
+        question:
+            `Why are you interested in the ${role} position?`,
+
+        answer:
+            `Explain why you chose ${role}, what skills you have for this role, your relevant projects or experience, and what you want to learn in this position.`
+
+    });
+
+
+    // Common HR questions
+
+    questions =
+        questions.concat(commonQuestions);
+
+
+    // Keep only 10 questions
+
+    questions =
+        questions.slice(0, 10);
+
+
+    // ==============================
+    // CURRENT QUESTION
+    // ==============================
+
+    let currentQuestion = 0;
+
+
+    // ==============================
+    // STUDENT-SPECIFIC COMPLETION KEY
+    // ==============================
+
+    const studentEmail =
+        currentUser
+            ? String(currentUser.email || "")
+                .trim()
+                .toLowerCase()
+            : "guest";
+
+
+    const interviewProgressKey =
+        "hrInterviewCompleted_" +
+        studentEmail + "_" +
+        String(company || "")
+            .replace(/\s+/g, "_") +
+        "_" +
+        String(role || "")
+            .replace(/\s+/g, "_");
+
+
+    // ==============================
+    // SHOW QUESTION
+    // ==============================
+
+    function showQuestion() {
+
+        const question =
+            questions[currentQuestion];
+
+        const container =
+            document.getElementById(
+                "questionContainer"
+            );
+
+        const progressText =
+            document.getElementById(
+                "progressText"
+            );
+
+        const previousButton =
+            document.getElementById(
+                "previousButton"
+            );
+
+        const nextButton =
+            document.getElementById(
+                "nextButton"
+            );
+
+
+        progressText.innerHTML =
+            `Question ${currentQuestion + 1} of ${questions.length}`;
+
+
+        container.innerHTML = `
+
+            <div class="question-card">
+
+                <div class="question">
+                    ${currentQuestion + 1}. ${question.question}
+                </div>
+
+                <button
+                    onclick="toggleAnswer()"
+                >
+                    👁 Show Sample Answer
+                </button>
+
+                <div
+                    class="answer"
+                    id="currentAnswer"
+                >
+
+                    <strong>Sample Answer:</strong>
+
+                    <br><br>
+
+                    ${question.answer}
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        // Previous button
+
+        previousButton.disabled =
+            currentQuestion === 0;
+
+
+        // Next / Finish button
+
+        if (
+            currentQuestion ===
+            questions.length - 1
+        ) {
+
+            nextButton.innerHTML =
+                "Finish ➡";
+
+        } else {
+
+            nextButton.innerHTML =
+                "Next ➡";
+
+        }
+
+    }
+
+
+    // ==============================
+    // SHOW / HIDE ANSWER
+    // ==============================
+
+    function toggleAnswer() {
+
+        const answer =
+            document.getElementById(
+                "currentAnswer"
+            );
+
+
+        if (
+            answer.style.display === "none" ||
+            answer.style.display === ""
+        ) {
+
+            answer.style.display =
+                "block";
+
+        } else {
+
+            answer.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // ==============================
+    // PREVIOUS
+    // ==============================
+
+    function previousQuestion() {
+
+        if (currentQuestion > 0) {
+
+            currentQuestion--;
+
+            showQuestion();
+
+        }
+
+    }
+
+
+    // ==============================
+    // NEXT
+    // ==============================
+
+    function nextQuestion() {
+
+        if (
+            currentQuestion <
+            questions.length - 1
+        ) {
+
+            currentQuestion++;
+
+            showQuestion();
+
+        } else {
+
+            alert(
+                "You have reached the end of the HR interview!"
+            );
+
+        }
+
+    }
+
+
+    // ==============================
+    // MARK AS COMPLETED
+    // ==============================
+
+    function markCompleted() {
+
+    const completionKey =
+        "hrInterviewCompleted_" +
+        studentEmail + "_" +
+        company.replace(/\s+/g, "_") + "_" +
+        role.replace(/\s+/g, "_");
+
+    // Save completion for this student
+    localStorage.setItem(
+        completionKey,
+        "true"
+    );
+
+    // Save HR Interview performance to backend
+    fetch("/api/performance", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: studentEmail,
+            type: "HR Interview",
+            company: company,
+            role: role,
+            topic: "",
+            score: 1,
+            percentage: 100,
+            correct: 1,
+            wrong: 0,
+            unanswered: 0
+        })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+
+        console.log(
+            "HR Interview performance saved:",
+            data
+        );
+
+        alert("HR Interview completed successfully!");
+
+        // Reload page so the button shows Complete Again
+        location.reload();
+    })
+    .catch(function(error) {
+
+        console.log(
+            "HR Interview performance save error:",
+            error
+        );
+
+        alert("Interview completed, but performance could not be saved.");
+    });
+}
+
+    // ==============================
+    // CHECK COMPLETION
+    // ==============================
+
+    function checkCompletion() {
+
+        const completed =
+            localStorage.getItem(
+                interviewProgressKey
+            );
+
+
+        if (completed === "true") {
+
+            document.getElementById(
+                "completionMessage"
+            ).style.display =
+                "block";
+
+
+            document.getElementById(
+                "completeButton"
+            ).innerHTML =
+                "🔄 Complete Again";
+
+
+            // IMPORTANT:
+            // Do NOT disable the button.
+            // User can retake the interview.
+
+            document.getElementById(
+                "completeButton"
+            ).disabled =
+                false;
+
+        }
+
+    }
+
+
+    // ==============================
+    // NAVIGATION
+    // ==============================
+
+    function goBack() {
+
+        window.location.href =
+            "interview.html";
+
+    }
+
+
+    function goDashboard() {
+
+        window.location.href =
+            "dashboard.html";
+
+    }
+
+
+    // ==============================
+    // START
+    // ==============================
+
+    showQuestion();
+
+    checkCompletion();
+
+</script>
+
+</body>
+</html>

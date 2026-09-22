@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Company Preparation</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+    <h1>🏢 Company Placement Preparation</h1>
+
+    <hr>
+
+    <h2 id="companyTitle">Company</h2>
+
+    <h3 id="roleTitle">Role</h3>
+
+    <p id="description">
+        Prepare for your selected company and role.
+    </p>
+
+    <hr>
+
+    
+<h2>📚 Preparation Resources</h2>
+
+<br>
+
+<button onclick="openQuestions()">
+    📝 Previous Year Questions
+</button>
+
+<br><br>
+
+<button onclick="openSolutions()">
+    ✅ Questions & Solutions
+</button>
+
+<br><br>
+
+<button onclick="openVideos()">
+    🎬 Related Animated Videos
+</button>
+
+<br><br>
+
+<button onclick="openQuiz()">
+    🧠 Company Quiz
+</button>
+
+<hr>
+
+<h2>🤖 AI Recommended Preparation Topics</h2>
+
+<br>
+
+<div id="aiResources">
+    <p>⏳ Generating AI preparation resources...</p>
+</div>
+
+<hr>
+
+<button onclick="goDashboard()">
+    ← Back to Dashboard
+</button>
+
+    <script>
+
+        // ==========================================
+        // GET COMPANY AND ROLE
+        // ==========================================
+
+        const params =
+            new URLSearchParams(window.location.search);
+
+        const company =
+            params.get("company") ||
+            localStorage.getItem("selectedCompany") ||
+            "Not Selected";
+
+        const role =
+            params.get("role") ||
+            localStorage.getItem("selectedRole") ||
+            "Not Selected";
+
+
+
+        // ==========================================
+        // DISPLAY COMPANY AND ROLE
+        // ==========================================
+
+        document.getElementById("companyTitle").innerText =
+            "🏢 " + company;
+
+        document.getElementById("roleTitle").innerText =
+            "💼 " + role;
+
+        document.getElementById("description").innerText =
+            "Preparation resources for " +
+            company +
+            " - " +
+            role;
+
+
+        // ==========================================
+        // SAVE SELECTED COMPANY AND ROLE
+        // ==========================================
+
+        localStorage.setItem(
+            "selectedCompany",
+            company
+        );
+
+        localStorage.setItem(
+            "selectedRole",
+            role
+        );
+
+
+        // ==========================================
+        // PREVIOUS YEAR QUESTIONS
+        // ==========================================
+
+        function openQuestions() {
+
+            window.location.href =
+                "questions.html?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role);
+        }
+
+
+        // ==========================================
+        // QUESTIONS AND SOLUTIONS
+        // ==========================================
+
+        function openSolutions() {
+
+            window.location.href =
+                "solutions.html?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role);
+        }
+
+
+        // ==========================================
+        // RELATED VIDEOS
+        // ==========================================
+
+        function openVideos() {
+
+            const search =
+                encodeURIComponent(
+                    company +
+                    " " +
+                    role +
+                    " placement preparation"
+                );
+
+            window.open(
+                "https://www.youtube.com/results?search_query=" +
+                search,
+                "_blank"
+            );
+        }
+
+
+        // ==========================================
+        // COMPANY QUIZ
+        // ==========================================
+
+        function openQuiz() {
+
+            window.location.href =
+                "company-quiz.html?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role);
+        }
+
+
+        // ==========================================
+        // DASHBOARD
+        // ==========================================
+
+        function goDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+        }
+        // ==========================================
+// AI COMPANY PREPARATION RESOURCES
+// ==========================================
+
+async function loadAIResources() {
+
+    const resourceContainer =
+        document.getElementById("aiResources");
+
+    resourceContainer.innerHTML =
+        "<p>⏳ Generating AI resources...</p>";
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/generate-company-preparation?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role)
+            );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.error ||
+                "Unable to generate resources"
+            );
+        }
+
+        if (
+            !data.resources ||
+            !Array.isArray(data.resources)
+        ) {
+            throw new Error(
+                "Invalid AI resource data"
+            );
+        }
+
+        let html = "";
+
+        data.resources.forEach(function(resource) {
+
+            html +=
+                '<div class="ai-resource">' +
+
+                "<h3>📚 " +
+                resource.topic +
+                "</h3>" +
+
+                "<p>" +
+                resource.description +
+                "</p>" +
+
+                '<button onclick="openAIResource(\'' +
+                resource.topic.replace(/'/g, "\\'") +
+                "')\">" +
+
+                "🚀 Start Preparation" +
+
+                "</button>" +
+
+                "</div>";
+
+        });
+
+        resourceContainer.innerHTML = html;
+
+    } catch (error) {
+
+        console.log(
+            "AI RESOURCE ERROR:",
+            error
+        );
+
+        resourceContainer.innerHTML =
+            "<p>❌ Unable to generate AI resources.</p>" +
+            "<p>" +
+            error.message +
+            "</p>";
+
+    }
+}
+// ==========================================
+// OPEN AI GENERATED TOPIC
+// ==========================================
+
+function openAIResource(topic) {
+
+    localStorage.setItem(
+        "selectedTopic",
+        topic
+    );
+
+    window.location.href =
+        "topic-preparation.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role) +
+        "&topic=" +
+        encodeURIComponent(topic);
+}
+// ==========================================
+// LOAD AI RESOURCES
+// ==========================================
+
+loadAIResources();
+
+    </script>
+
+</body>
+
+</html>

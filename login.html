@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Login</title>
+
+
+    <!-- Google Identity Services -->
+    <script
+        src="https://accounts.google.com/gsi/client"
+        async>
+    </script>
+
+
+    <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =========================================
+           BODY
+        ========================================= */
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #eaf3ff,
+                #f7fbff
+            );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px 15px;
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 900px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.12);
+
+            overflow: hidden;
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        /* =========================================
+           STUDENT PORTAL
+           TOP SECTION
+        ========================================= */
+
+        .left-section {
+
+            width: 100%;
+
+            background: #1f4e79;
+
+            color: white;
+
+            padding: 45px 60px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+        }
+
+
+        .left-section .icon {
+
+            font-size: 60px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .left-section h1 {
+
+            font-size: 35px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .left-section p {
+
+            max-width: 650px;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            color: #e8f3ff;
+        }
+
+
+        /* =========================================
+           LOGIN SECTION
+           BOTTOM SECTION
+        ========================================= */
+
+        .right-section {
+
+            width: 100%;
+
+            padding: 45px 100px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+
+        .right-section h2 {
+
+            color: #1f4e79;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+
+            text-align: center;
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 30px;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .form-group {
+
+            margin-bottom: 18px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #333;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccd8e3;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.3s;
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #1f4e79;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(31, 78, 121, 0.1);
+        }
+
+
+        /* =========================================
+           LOGIN BUTTON
+        ========================================= */
+
+        .login-btn {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #1f4e79;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .login-btn:hover {
+
+            background: #163a5c;
+        }
+
+
+        /* =========================================
+           OR DIVIDER
+        ========================================= */
+
+        .or-divider {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin: 22px 0;
+
+            color: #999;
+
+            font-size: 13px;
+        }
+
+
+        .or-divider::before,
+        .or-divider::after {
+
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #ddd;
+        }
+
+
+        /* =========================================
+           GOOGLE LOGIN
+        ========================================= */
+
+        .google-login {
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .google-login > div {
+
+            width: 100%;
+        }
+
+
+        /* =========================================
+           MESSAGE
+        ========================================= */
+
+        #message {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            min-height: 20px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           REGISTER
+        ========================================= */
+
+        .register-section {
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #666;
+
+            font-size: 15px;
+        }
+
+
+        .register-section a {
+
+            color: #1f4e79;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .register-section a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           BACK BUTTON
+        ========================================= */
+
+        .back-section {
+
+            text-align: center;
+
+            margin-top: 18px;
+        }
+
+
+        .back-btn {
+
+            border: none;
+
+            background: transparent;
+
+            color: #1f4e79;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+
+        .back-btn:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           TABLET
+        ========================================= */
+
+        @media (max-width: 750px) {
+
+            body {
+
+                padding: 20px 10px;
+            }
+
+
+            .container {
+
+                width: 95%;
+
+                border-radius: 15px;
+            }
+
+
+            .left-section {
+
+                padding: 35px 25px;
+            }
+
+
+            .left-section .icon {
+
+                font-size: 50px;
+            }
+
+
+            .left-section h1 {
+
+                font-size: 30px;
+            }
+
+
+            .left-section p {
+
+                font-size: 15px;
+            }
+
+
+            .right-section {
+
+                padding: 40px 30px;
+            }
+
+
+            .right-section h2 {
+
+                font-size: 27px;
+            }
+
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 450px) {
+
+            .left-section {
+
+                padding: 30px 20px;
+            }
+
+
+            .left-section .icon {
+
+                font-size: 45px;
+            }
+
+
+            .left-section h1 {
+
+                font-size: 26px;
+            }
+
+
+            .left-section p {
+
+                font-size: 14px;
+
+                line-height: 1.6;
+            }
+
+
+            .right-section {
+
+                padding: 35px 22px;
+            }
+
+
+            .right-section h2 {
+
+                font-size: 25px;
+            }
+
+
+            .subtitle {
+
+                font-size: 14px;
+
+                margin-bottom: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         MAIN CONTAINER
+    ========================================= -->
+
+    <div class="container">
+
+
+        <!-- =====================================
+             STUDENT PORTAL
+             TOP
+        ====================================== -->
+
+        <div class="left-section">
+
+
+            <div class="icon">
+
+                🎓
+
+            </div>
+
+
+            <h1>
+
+                Student Portal
+
+            </h1>
+
+
+            <p>
+
+                Welcome to the Placement Preparation Portal.
+                Login to continue your placement preparation
+                journey and access your student dashboard.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             LOGIN
+        ====================================== -->
+
+        <div class="right-section">
+
+
+            <h2>
+
+                Student Login
+
+            </h2>
+
+
+            <p class="subtitle">
+
+                Login to your account to continue
+
+            </p>
+
+
+
+            <!-- =================================
+                 EMAIL/PASSWORD LOGIN
+            ================================== -->
+
+            <form id="loginForm">
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+
+                    <label for="email">
+
+                        Email Address
+
+                    </label>
+
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+
+                    <label for="password">
+
+                        Password
+
+                    </label>
+
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+
+                </div>
+
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-btn">
+
+                    🔐 Login
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- =================================
+                 OR
+            ================================== -->
+
+            <div class="or-divider">
+
+                <span>OR</span>
+
+            </div>
+
+
+
+            <!-- =================================
+                 GOOGLE LOGIN
+            ================================== -->
+
+            <div class="google-login">
+
+
+                <!--
+                    REPLACE YOUR_GOOGLE_CLIENT_ID
+                    WITH YOUR ACTUAL GOOGLE CLIENT ID
+                -->
+
+                <div
+                    id="g_id_onload"
+
+                    data-client_id="YOUR_GOOGLE_CLIENT_ID"
+
+                    data-callback="handleGoogleLogin"
+
+                    data-auto_prompt="false">
+                </div>
+
+
+                <!-- Google Sign In Button -->
+
+                <div
+                    class="g_id_signin"
+
+                    data-type="standard"
+
+                    data-size="large"
+
+                    data-theme="outline"
+
+                    data-text="signin_with"
+
+                    data-shape="rectangular"
+
+                    data-logo_alignment="left"
+
+                    data-width="400">
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================
+                 MESSAGE
+            ================================== -->
+
+            <p id="message"></p>
+
+
+
+            <!-- =================================
+                 REGISTER
+            ================================== -->
+
+            <div class="register-section">
+
+                Don't have an account?
+
+                <a href="register.html">
+
+                    Register
+
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================
+                 BACK
+            ================================== -->
+
+            <div class="back-section">
+
+
+                <button
+                    class="back-btn"
+                    onclick="goBack()">
+
+                    ← Back to Login Selection
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================= -->
+
+    <script>
+
+
+        /* ========================================
+           NORMAL STUDENT LOGIN
+        ======================================== */
+
+        document
+            .getElementById("loginForm")
+            .addEventListener(
+                "submit",
+                async function(event) {
+
+
+                    event.preventDefault();
+
+
+                    const email =
+                        document
+                            .getElementById("email")
+                            .value
+                            .trim();
+
+
+                    const password =
+                        document
+                            .getElementById("password")
+                            .value;
+
+
+                    const message =
+                        document
+                            .getElementById("message");
+
+
+                    message.innerText =
+                        "Logging in...";
+
+
+                    try {
+
+
+                        const response =
+                            await fetch(
+                                "/login",
+                                {
+
+                                    method: "POST",
+
+                                    headers: {
+
+                                        "Content-Type":
+                                            "application/json"
+
+                                    },
+
+                                    body:
+                                        JSON.stringify({
+
+                                            email: email,
+
+                                            password: password
+
+                                        })
+
+                                }
+                            );
+
+
+                        const data =
+                            await response.json();
+
+
+                        if (response.ok) {
+
+
+                            /* Save logged-in student */
+
+                            localStorage.setItem(
+
+                                "loggedInUser",
+
+                                JSON.stringify(
+                                    data.user
+                                )
+
+                            );
+
+
+                            message.innerText =
+                                "✅ Login successful!";
+
+
+                            /* Redirect */
+
+                            setTimeout(
+                                function() {
+
+                                    window.location.href =
+                                        "dashboard.html";
+
+                                },
+                                800
+                            );
+
+
+                        } else {
+
+
+                            message.innerText =
+                                "❌ " +
+                                (
+                                    data.error ||
+                                    data.message ||
+                                    "Invalid login details."
+                                );
+
+
+                        }
+
+
+                    } catch (error) {
+
+
+                        console.error(error);
+
+
+                        message.innerText =
+                            "❌ Cannot connect to server.";
+
+
+                    }
+
+                }
+            );
+
+
+
+        /* ========================================
+           GOOGLE LOGIN
+        ======================================== */
+
+        async function handleGoogleLogin(response) {
+
+
+            const message =
+                document.getElementById("message");
+
+
+            message.innerText =
+                "Signing in with Google...";
+
+
+            try {
+
+
+                /*
+                    Send Google credential
+                    to your backend.
+                */
+
+                const serverResponse =
+                    await fetch(
+                        "/google-login",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    credential:
+                                        response.credential
+
+                                })
+
+                        }
+                    );
+
+
+                const data =
+                    await serverResponse.json();
+
+
+
+                /* ===============================
+                   SUCCESS
+                =============================== */
+
+                if (serverResponse.ok && data.success) {
+
+
+                    /* Save student */
+
+                    localStorage.setItem(
+
+                        "loggedInUser",
+
+                        JSON.stringify(
+                            data.user
+                        )
+
+                    );
+
+
+                    message.innerText =
+                        "✅ Google login successful!";
+
+
+                    /* Go to dashboard */
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "dashboard.html";
+
+                        },
+                        800
+                    );
+
+
+                }
+
+
+                /* ===============================
+                   FAILED
+                =============================== */
+
+                else {
+
+
+                    message.innerText =
+                        "❌ " +
+                        (
+                            data.error ||
+                            data.message ||
+                            "Google login failed."
+                        );
+
+                }
+
+
+            } catch (error) {
+
+
+                console.error(error);
+
+
+                message.innerText =
+                    "❌ Cannot connect to server.";
+
+            }
+
+        }
+
+
+
+        /* ========================================
+           BACK TO LOGIN SELECTION
+        ======================================== */
+
+        function goBack() {
+
+
+            window.location.href =
+                "landing-login.html";
+
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

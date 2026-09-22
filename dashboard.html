@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Placement Portal - Dashboard</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+
+    
+        <style>
+
+    /* ========================================
+       PROFESSIONAL DASHBOARD
+    ======================================== */
+
+    body {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 25px;
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+    }
+
+
+    /* ========================================
+       PLACEMENT PORTAL TITLE
+    ======================================== */
+
+    h1 {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+
+    /* ========================================
+       WELCOME MESSAGE
+    ======================================== */
+
+    #welcomeMessage {
+        text-align: center;
+        font-size: 28px;
+        margin: 30px 0;
+    }
+
+
+    h2 {
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+
+
+    hr {
+        border: none;
+        border-top: 1px solid #ddd;
+        margin: 25px 0;
+    }
+
+
+    /* ========================================
+       BLUE BUTTONS
+    ======================================== */
+
+    button {
+        padding: 11px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        background: #2563eb;
+        color: white;
+        transition: 0.2s;
+    }
+
+
+    button:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+    }
+
+
+    button:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+
+    /* ========================================
+       INPUTS
+    ======================================== */
+
+    input,
+    select {
+        padding: 11px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        margin-top: 6px;
+    }
+
+
+    input {
+        width: 280px;
+    }
+
+
+    select {
+        min-width: 230px;
+    }
+
+
+    /* ========================================
+       PROGRESS CARDS
+    ======================================== */
+
+    .progress-section {
+        margin: 15px 0;
+        padding: 22px;
+        background: white;
+        border: 1px solid #e1e5eb;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    }
+
+
+    .topic-progress {
+        margin: 12px 0;
+        padding: 16px;
+        background: white;
+        border: 1px solid #e1e5eb;
+        border-radius: 10px;
+        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05);
+    }
+
+
+    progress {
+        width: 100%;
+        max-width: 500px;
+        height: 18px;
+        margin-top: 8px;
+    }
+
+
+    /* ========================================
+       MOBILE
+    ======================================== */
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 15px;
+        }
+
+
+        h1 {
+            font-size: 32px;
+        }
+
+
+        #welcomeMessage {
+            font-size: 23px;
+        }
+
+
+        input,
+        select {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+
+        button {
+            width: 100%;
+            margin: 6px 0;
+        }
+
+
+        progress {
+            width: 100%;
+        }
+
+    }
+/* ========================================
+   PERFORMANCE SUMMARY
+======================================== */
+
+#performanceSummary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.summary-card {
+    background: white;
+    padding: 20px;
+    border: 1px solid #e1e5eb;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.summary-card h3 {
+    color: #1e3a8a;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.summary-card p {
+    font-size: 30px;
+    font-weight: bold;
+    color: #2563eb;
+    margin: 0;
+}
+
+@media (max-width: 800px) {
+
+    #performanceSummary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    #performanceSummary {
+        grid-template-columns: 1fr;
+    }
+
+}
+</style>
+</head>
+
+
+<body>
+
+<h1>🎓 Placement Portal</h1>
+
+<button onclick="logout()">
+    Logout
+</button>
+
+<hr>
+
+
+<h2 id="welcomeMessage">👋 Welcome Student</h2>
+
+
+<!-- ========================================
+     MY PROFILE
+======================================== -->
+
+<h2>👤 My Profile</h2>
+
+<div class="progress-section">
+
+    <p>
+        <strong>Name:</strong>
+        <span id="profileName"></span>
+    </p>
+
+    <p>
+        <strong>Email:</strong>
+        <span id="profileEmail"></span>
+    </p>
+
+</div>
+
+<button onclick="clearMyProgress()">
+    🗑️ Clear My Progress
+</button>
+
+
+<!-- ========================================
+     OVERALL PROGRESS
+======================================== -->
+
+<h2>📊 My Progress</h2>
+
+<div class="progress-section">
+
+    <p>
+        Overall Progress:
+        <strong id="dashboardProgress">
+            0%
+        </strong>
+    </p>
+
+    <progress
+        id="progressBar"
+        value="0"
+        max="100">
+    </progress>
+
+    <p id="quizCount">
+        Quizzes Completed: 0
+    </p>
+
+    <p id="companyQuizCount">
+        Company Quizzes: 0
+    </p>
+
+    <p id="topicQuizCount">
+        Topic Quizzes: 0
+    </p>
+
+</div>
+
+
+<!-- ========================================
+     COMPANY QUIZ PROGRESS
+======================================== -->
+
+<h2>🏢 Company Quiz Progress</h2>
+
+<div id="companyProgressList">
+
+    <p>
+        No company quizzes completed yet.
+    </p>
+
+</div>
+
+
+<!-- ========================================
+     TOPIC QUIZ PROGRESS
+======================================== -->
+
+<h2>📚 Topic Quiz Progress</h2>
+
+<div id="topicProgressList">
+
+    <p>
+        No topic quizzes completed yet.
+    </p>
+
+</div>
+<hr>
+
+<h2>🎤 Interview Progress</h2>
+
+<div id="interviewProgressList">
+    <p>Loading interview progress...</p>
+</div>
+
+<hr>
+<hr>
+
+<h2>📊 Performance Summary</h2>
+
+<div id="performanceSummary">
+
+    <div class="summary-card">
+        <h3>🏢 Company Quizzes</h3>
+        <p id="summaryCompanyQuizzes">0</p>
+    </div>
+
+    <div class="summary-card">
+        <h3>📚 Topic Quizzes</h3>
+        <p id="summaryTopicQuizzes">0</p>
+    </div>
+
+    <div class="summary-card">
+        <h3>👤 HR Interviews</h3>
+        <p id="summaryHRInterviews">0</p>
+    </div>
+
+    <div class="summary-card">
+        <h3>💻 Technical Interviews</h3>
+        <p id="summaryTechnicalInterviews">0</p>
+    </div>
+
+</div>
+
+<!-- ========================================
+     SEARCH TOPICS
+======================================== -->
+
+<h2>🔍 Search Topics</h2>
+
+<p>
+    Search for a topic you want to learn.
+</p>
+
+<input
+    type="text"
+    id="topicSearch"
+    placeholder="Enter topic">
+
+<button onclick="searchTopic()">
+    Search
+</button>
+
+
+<hr>
+
+
+<!-- ========================================
+     COMPANY PREPARATION
+======================================== -->
+<h2>🏢 Company Preparation</h2>
+
+
+<label>
+    Select Company:
+</label>
+
+
+<select id="company">
+
+    <option value="">
+        -- Select Company --
+    </option>
+
+    <option>TCS</option>
+    <option>Infosys</option>
+    <option>Wipro</option>
+    <option>Accenture</option>
+    <option>Cognizant</option>
+    <option>NatWest</option>
+
+</select>
+
+
+<br>
+<br>
+
+
+<label>
+    Select Role:
+</label>
+
+
+<select id="role">
+
+    <option value="">
+        -- Select Role --
+    </option>
+
+    <option>Software Developer</option>
+    <option>Java Developer</option>
+    <option>Python Developer</option>
+    <option>Data Analyst</option>
+    <option>Tester</option>
+
+</select>
+
+
+<br>
+<br>
+
+
+<button onclick="startPreparation()">
+    🚀 Start Preparation
+</button>
+
+
+<hr>
+
+
+<!-- ========================================
+     COMPANY RESOURCES
+======================================== -->
+<hr>
+
+<!-- ========================================
+     INTERVIEW PREPARATION
+======================================== -->
+
+<h2>🎤 Interview Preparation</h2>
+
+<p>
+    Prepare for HR and technical interviews.
+</p>
+
+<button onclick="openInterviewPreparation()">
+    🎤 Start Interview Preparation
+</button>
+<h2>📚 Preparation</h2>
+
+
+<button onclick="openSelectedQuestions()">
+    📝 Previous Questions
+</button>
+
+
+<button onclick="openSelectedSolutions()">
+    ✅ Questions & Solutions
+</button>
+
+
+<button onclick="openVideos()">
+    ▶ Related Videos
+</button>
+
+
+<button onclick="openQuiz()">
+    🧠 Placement Quiz
+</button>
+<hr>
+
+<h2>📚 Placement Resources</h2>
+
+<p>
+    Learn useful tips and strategies for placement preparation.
+</p>
+
+<button onclick="openResources()">
+    📚 Explore Placement Resources
+</button>
+
+<hr>
+
+
+<script>
+
+
+// ========================================
+// GET LOGGED-IN STUDENT
+// ========================================
+
+const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+
+if (!loggedInUser) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+let currentUser = null;
+
+
+try {
+
+    currentUser =
+        JSON.parse(loggedInUser);
+
+} catch (error) {
+
+    localStorage.removeItem(
+        "loggedInUser"
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// ========================================
+// GET STUDENT EMAIL
+// ========================================
+
+function getStudentEmail() {
+
+    return String(
+        currentUser.email || ""
+    )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+// ========================================
+// SHOW LOGGED-IN STUDENT NAME
+// ========================================
+
+function showStudentName() {
+
+    document.getElementById(
+        "welcomeMessage"
+    ).innerText =
+        "👋 Welcome, " +
+        currentUser.name +
+        "!";
+
+
+    document.getElementById(
+        "profileName"
+    ).innerText =
+        currentUser.name;
+
+
+    document.getElementById(
+        "profileEmail"
+    ).innerText =
+        currentUser.email;
+
+}
+
+
+// ========================================
+// UPDATE OVERALL PROGRESS
+// ========================================
+
+function updateProgress() {
+
+    const email =
+        getStudentEmail();
+
+
+    let totalPercentage = 0;
+
+    let completedQuizzes = 0;
+
+    let companyQuizCount = 0;
+
+    let topicQuizCount = 0;
+
+
+    // ========================================
+    // COMPANY QUIZ PROGRESS
+    // ========================================
+
+    const companyPrefix =
+        "progress_" +
+        email +
+        "_";
+
+
+    for (
+        let i = 0;
+        i < localStorage.length;
+        i++
+    ) {
+
+        const key =
+            localStorage.key(i);
+
+
+        if (
+            key &&
+            key.startsWith(
+                companyPrefix
+            )
+        ) {
+
+            const percentage =
+                Number(
+                    localStorage.getItem(key)
+                );
+
+
+            if (
+                !isNaN(percentage) &&
+                percentage >= 0
+            ) {
+
+                totalPercentage +=
+                    percentage;
+
+                completedQuizzes++;
+
+                companyQuizCount++;
+
+            }
+
+        }
+
+    }
+
+
+    // ========================================
+    // TOPIC QUIZ RESULTS
+    // ========================================
+
+    const topicPrefix =
+        "topicQuizResult_" +
+        email +
+        "_";
+
+
+    for (
+        let i = 0;
+        i < localStorage.length;
+        i++
+    ) {
+
+        const key =
+            localStorage.key(i);
+
+
+        if (
+            key &&
+            key.startsWith(
+                topicPrefix
+            )
+        ) {
+
+            try {
+
+                const result =
+                    JSON.parse(
+                        localStorage.getItem(key)
+                    );
+
+
+                if (
+                    result &&
+                    !isNaN(
+                        Number(
+                            result.percentage
+                        )
+                    )
+                ) {
+
+                    totalPercentage +=
+                        Number(
+                            result.percentage
+                        );
+
+                    completedQuizzes++;
+
+                    topicQuizCount++;
+
+                }
+
+            } catch (error) {
+
+                console.log(
+                    "Invalid topic result:",
+                    error
+                );
+
+            }
+
+        }
+
+    }
+
+
+    // ========================================
+    // CALCULATE OVERALL
+    // ========================================
+
+    let overallProgress = 0;
+
+
+    if (
+        completedQuizzes > 0
+    ) {
+
+        overallProgress =
+            Math.round(
+                totalPercentage /
+                completedQuizzes
+            );
+
+    }
+
+
+    // ========================================
+    // DISPLAY OVERALL PROGRESS
+    // ========================================
+
+    document.getElementById(
+        "dashboardProgress"
+    ).innerText =
+        overallProgress + "%";
+
+
+    document.getElementById(
+        "progressBar"
+    ).value =
+        overallProgress;
+
+
+    document.getElementById(
+        "quizCount"
+    ).innerText =
+        "Quizzes Completed: " +
+        completedQuizzes;
+
+
+    // ========================================
+    // DISPLAY COMPANY QUIZ COUNT
+    // ========================================
+
+    document.getElementById(
+        "companyQuizCount"
+    ).innerText =
+        "Company Quizzes: " +
+        companyQuizCount;
+
+
+    // ========================================
+    // DISPLAY TOPIC QUIZ COUNT
+    // ========================================
+
+    document.getElementById(
+        "topicQuizCount"
+    ).innerText =
+        "Topic Quizzes: " +
+        topicQuizCount;
+
+}
+
+
+// ========================================
+// DISPLAY COMPANY PROGRESS
+// ========================================
+
+function displayCompanyProgress() {
+
+    const companyProgressList =
+        document.getElementById(
+            "companyProgressList"
+        );
+
+
+    companyProgressList.innerHTML = "";
+
+
+    const prefix =
+        "progress_" +
+        getStudentEmail() +
+        "_";
+
+
+    let found = false;
+
+
+    for (
+        let i = 0;
+        i < localStorage.length;
+        i++
+    ) {
+
+        const key =
+            localStorage.key(i);
+
+
+        if (
+            !key ||
+            !key.startsWith(prefix)
+        ) {
+
+            continue;
+
+        }
+
+
+        const value =
+            localStorage.getItem(key);
+
+
+        const percentage =
+            Number(value);
+
+
+        if (
+            isNaN(percentage)
+        ) {
+
+            continue;
+
+        }
+
+
+        const remaining =
+            key.substring(
+                prefix.length
+            );
+
+
+        const separatorIndex =
+            remaining.indexOf("_");
+
+
+        if (
+            separatorIndex === -1
+        ) {
+
+            continue;
+
+        }
+
+
+        const company =
+            remaining.substring(
+                0,
+                separatorIndex
+            );
+
+
+        const role =
+            remaining.substring(
+                separatorIndex + 1
+            )
+            .replace(/_/g, " ");
+
+
+        found = true;
+
+
+        // =================================
+        // CREATE COMPANY PROGRESS
+        // =================================
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.className =
+            "topic-progress";
+
+
+        div.innerHTML = `
+
+            <strong>
+                ${company}
+            </strong>
+
+            -
+
+            <strong>
+                ${role}
+            </strong>
+
+            <br>
+
+            Score:
+            ${percentage}%
+
+            <br>
+
+            <progress
+                value="${percentage}"
+                max="100">
+            </progress>
+
+        `;
+
+
+        companyProgressList.appendChild(
+            div
+        );
+
+    }
+
+
+    // ========================================
+    // NO RESULTS
+    // ========================================
+
+    if (!found) {
+
+        companyProgressList.innerHTML = `
+            <p>
+                No company quizzes completed yet.
+            </p>
+        `;
+
+    }
+
+}
+
+
+// ========================================
+// DISPLAY TOPIC PROGRESS
+// ========================================
+
+function displayTopicProgress() {
+
+    const container =
+        document.getElementById(
+            "topicProgressList"
+        );
+
+
+    const email =
+        getStudentEmail();
+
+
+    const prefix =
+        "topicQuizResult_" +
+        email +
+        "_";
+
+
+    let found = false;
+
+
+    container.innerHTML = "";
+
+
+    // ========================================
+    // READ CURRENT STUDENT'S TOPIC RESULTS
+    // ========================================
+
+    for (
+        let i = 0;
+        i < localStorage.length;
+        i++
+    ) {
+
+        const key =
+            localStorage.key(i);
+
+
+        if (
+            !key ||
+            !key.startsWith(prefix)
+        ) {
+
+            continue;
+
+        }
+
+
+        try {
+
+            const result =
+                JSON.parse(
+                    localStorage.getItem(key)
+                );
+
+
+            if (
+                !result ||
+                !result.company ||
+                !result.role ||
+                !result.topic
+            ) {
+
+                continue;
+
+            }
+
+
+            const percentage =
+                Number(
+                    result.percentage
+                );
+
+
+            if (
+                isNaN(percentage)
+            ) {
+
+                continue;
+
+            }
+
+
+            found = true;
+
+
+            // =================================
+            // CREATE TOPIC PROGRESS
+            // =================================
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "topic-progress";
+
+
+            div.innerHTML = `
+
+                <strong>
+                    ${result.company}
+                </strong>
+
+                -
+
+                <strong>
+                    ${result.role}
+                </strong>
+
+                -
+
+                <strong>
+                    ${result.topic}
+                </strong>
+
+                <br>
+
+                Score:
+                ${percentage}%
+
+                <br>
+
+                <progress
+                    value="${percentage}"
+                    max="100">
+                </progress>
+
+            `;
+
+
+            container.appendChild(
+                div
+            );
+
+
+        } catch (error) {
+
+            console.log(
+                "Invalid topic quiz result:",
+                error
+            );
+
+        }
+
+    }
+
+
+    // ========================================
+    // NO RESULTS
+    // ========================================
+
+    if (!found) {
+
+        container.innerHTML = `
+            <p>
+                No topic quizzes completed yet.
+            </p>
+        `;
+
+    }
+
+}
+
+
+// ========================================
+// CLEAR MY PROGRESS
+// ========================================
+
+function clearMyProgress() {
+
+    const email =
+        getStudentEmail();
+
+
+    const companyPrefix =
+        "progress_" +
+        email +
+        "_";
+
+
+    const topicPrefix =
+        "topicQuizResult_" +
+        email +
+        "_";
+
+
+    const topicProgressPrefix =
+        "topicProgress_" +
+        email +
+        "_";
+
+
+    const keysToRemove = [];
+
+
+    // ========================================
+    // FIND CURRENT STUDENT'S PROGRESS
+    // ========================================
+
+    for (
+        let i = 0;
+        i < localStorage.length;
+        i++
+    ) {
+
+        const key =
+            localStorage.key(i);
+
+
+        if (
+            key &&
+            (
+                key.startsWith(
+                    companyPrefix
+                )
+                ||
+                key.startsWith(
+                    topicPrefix
+                )
+                ||
+                key.startsWith(
+                    topicProgressPrefix
+                )
+            )
+        ) {
+
+            keysToRemove.push(key);
+
+        }
+
+    }
+
+
+    // ========================================
+    // NO PROGRESS FOUND
+    // ========================================
+
+    if (
+        keysToRemove.length === 0
+    ) {
+
+        alert(
+            "You have no quiz progress to clear."
+        );
+
+        return;
+
+    }
+
+
+    // ========================================
+    // CONFIRM
+    // ========================================
+
+    const confirmClear =
+        confirm(
+            "Are you sure you want to clear your quiz progress?"
+        );
+
+
+    if (!confirmClear) {
+
+        return;
+
+    }
+
+
+    // ========================================
+    // REMOVE PROGRESS
+    // ========================================
+
+    keysToRemove.forEach(
+        function(key) {
+
+            localStorage.removeItem(
+                key
+            );
+
+        }
+    );
+
+
+    // ========================================
+    // SHOW MESSAGE
+    // ========================================
+
+    alert(
+        "Your quiz progress has been cleared."
+    );
+
+
+    // ========================================
+    // REFRESH DASHBOARD
+    // ========================================
+
+    location.reload();
+
+}
+
+
+// ========================================
+// SEARCH TOPIC
+// ========================================
+
+function searchTopic() {
+
+    const topic =
+        document.getElementById(
+            "topicSearch"
+        ).value.trim();
+
+
+    if (
+        topic === ""
+    ) {
+
+        alert(
+            "Please enter a topic."
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "topics.html?search=" +
+        encodeURIComponent(topic);
+
+}
+
+
+// ========================================
+// GET COMPANY + ROLE
+// ========================================
+
+function getSelection() {
+
+    const company =
+        document.getElementById(
+            "company"
+        ).value;
+
+
+    const role =
+        document.getElementById(
+            "role"
+        ).value;
+
+
+    if (
+        company === "" ||
+        role === ""
+    ) {
+
+        alert(
+            "Please select both company and role."
+        );
+
+        return null;
+
+    }
+
+
+    localStorage.setItem(
+        "selectedCompany",
+        company
+    );
+
+
+    localStorage.setItem(
+        "selectedRole",
+        role
+    );
+
+
+    return {
+
+        company: company,
+
+        role: role
+
+    };
+
+}
+
+
+// ========================================
+// START PREPARATION
+// ========================================
+
+function startPreparation() {
+
+    const selection =
+        getSelection();
+
+
+    if (!selection) {
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "preparation.html?company=" +
+        encodeURIComponent(
+            selection.company
+        ) +
+        "&role=" +
+        encodeURIComponent(
+            selection.role
+        );
+
+}
+
+
+// ========================================
+// PREVIOUS QUESTIONS
+// ========================================
+
+function openSelectedQuestions() {
+
+    const selection =
+        getSelection();
+
+
+    if (!selection) {
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "questions.html?company=" +
+        encodeURIComponent(
+            selection.company
+        ) +
+        "&role=" +
+        encodeURIComponent(
+            selection.role
+        );
+
+}
+
+
+// ========================================
+// QUESTIONS + SOLUTIONS
+// ========================================
+
+function openSelectedSolutions() {
+
+    const selection =
+        getSelection();
+
+
+    if (!selection) {
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "solutions.html?company=" +
+        encodeURIComponent(
+            selection.company
+        ) +
+        "&role=" +
+        encodeURIComponent(
+            selection.role
+        );
+
+}
+
+
+// ========================================
+// COMPANY QUIZ
+// ========================================
+
+function openQuiz() {
+
+    const selection =
+        getSelection();
+
+
+    if (!selection) {
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "company-quiz.html?company=" +
+        encodeURIComponent(
+            selection.company
+        ) +
+        "&role=" +
+        encodeURIComponent(
+            selection.role
+        );
+
+}
+
+
+// ========================================
+// VIDEOS
+// ========================================
+
+function openVideos() {
+
+    const selection =
+        getSelection();
+
+
+    if (!selection) {
+
+        return;
+
+    }
+
+
+    const search =
+        encodeURIComponent(
+            selection.company +
+            " " +
+            selection.role +
+            " placement preparation"
+        );
+
+
+    window.open(
+        "https://www.youtube.com/results?search_query=" +
+        search,
+        "_blank"
+    );
+
+}
+// ========================================
+// INTERVIEW PREPARATION
+// ========================================
+
+function openInterviewPreparation() {
+
+    window.location.href =
+        "interview.html";
+
+}
+
+// ========================================
+// LOGOUT
+// ========================================
+
+function logout() {
+
+    // Remove student login
+    localStorage.removeItem("loggedInUser");
+
+    // Remove selected company
+    localStorage.removeItem("selectedCompany");
+
+    // Remove selected role
+    localStorage.removeItem("selectedRole");
+
+    // Go to login page
+    window.location.href =
+        "login.html";
+
+}
+// ========================================
+// LOAD DASHBOARD
+// ========================================
+showStudentName();
+updateProgress();
+displayCompanyProgress();
+displayTopicProgress();
+
+function loadInterviewProgress() {
+
+    const container =
+        document.getElementById("interviewProgressList");
+
+    const email =
+        String(currentUser.email || "")
+            .trim()
+            .toLowerCase();
+
+    const technicalPrefix =
+        "technicalInterviewCompleted_" +
+        email + "_";
+
+    const hrPrefix =
+        "hrInterviewCompleted_" +
+        email + "_";
+
+    const interviews = {};
+
+
+    // ==============================
+    // TECHNICAL INTERVIEW PROGRESS
+    // ==============================
+
+    for (let i = 0; i < localStorage.length; i++) {
+
+        const key = localStorage.key(i);
+
+        if (!key.startsWith(technicalPrefix)) {
+            continue;
+        }
+
+        const remaining =
+            key.substring(technicalPrefix.length);
+
+        const separatorIndex =
+            remaining.indexOf("_");
+
+        if (separatorIndex === -1) {
+            continue;
+        }
+
+        const company =
+            remaining.substring(
+                0,
+                separatorIndex
+            );
+
+        const role =
+            remaining.substring(
+                separatorIndex + 1
+            ).replace(/_/g, " ");
+
+        const interviewKey =
+            company + "_" + role;
+
+
+        if (!interviews[interviewKey]) {
+
+            interviews[interviewKey] = {
+                company: company,
+                role: role,
+                technical: false,
+                hr: false
+            };
+
+        }
+
+        interviews[interviewKey].technical =
+            localStorage.getItem(key) === "true";
+
+    }
+
+
+    // ==============================
+    // HR INTERVIEW PROGRESS
+    // ==============================
+
+    for (let i = 0; i < localStorage.length; i++) {
+
+        const key = localStorage.key(i);
+
+        if (!key.startsWith(hrPrefix)) {
+            continue;
+        }
+
+        const remaining =
+            key.substring(hrPrefix.length);
+
+        const separatorIndex =
+            remaining.indexOf("_");
+
+        if (separatorIndex === -1) {
+            continue;
+        }
+
+        const company =
+            remaining.substring(
+                0,
+                separatorIndex
+            );
+
+        const role =
+            remaining.substring(
+                separatorIndex + 1
+            ).replace(/_/g, " ");
+
+        const interviewKey =
+            company + "_" + role;
+
+
+        if (!interviews[interviewKey]) {
+
+            interviews[interviewKey] = {
+                company: company,
+                role: role,
+                technical: false,
+                hr: false
+            };
+
+        }
+
+        interviews[interviewKey].hr =
+            localStorage.getItem(key) === "true";
+
+    }
+
+
+    // ==============================
+    // INTERVIEW LIST
+    // ==============================
+
+    const interviewList =
+        Object.values(interviews);
+
+
+    if (interviewList.length === 0) {
+
+        container.innerHTML =
+            "<p>No interview progress yet.</p>";
+
+        return;
+
+    }
+
+
+    // ==============================
+    // DISPLAY
+    // ==============================
+
+    container.innerHTML =
+        interviewList.map(function(item) {
+
+            const company =
+                encodeURIComponent(item.company);
+
+            const role =
+                encodeURIComponent(item.role);
+
+
+            return `
+
+                <div style="
+                    background:white;
+                    padding:20px;
+                    margin-bottom:15px;
+                    border-radius:10px;
+                    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+                ">
+
+                    <h3 style="
+                        margin-top:0;
+                        color:#1e3a8a;
+                    ">
+                        🏢 ${item.company} - ${item.role}
+                    </h3>
+
+
+                    <p>
+                        💻 Technical Interview:
+                        ${
+                            item.technical
+                                ? "✅ Completed"
+                                : "⏳ Not Completed"
+                        }
+                    </p>
+
+
+                    <p>
+                        👤 HR Interview:
+                        ${
+                            item.hr
+                                ? "✅ Completed"
+                                : "⏳ Not Completed"
+                        }
+                    </p>
+
+
+                    <button
+                        onclick="retakeTechnicalInterview('${company}', '${role}')"
+                    >
+                        💻 Retake Technical
+                    </button>
+
+
+                    <button
+                        onclick="retakeHRInterview('${company}', '${role}')"
+                    >
+                        👤 Retake HR
+                    </button>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+function retakeTechnicalInterview(company, role) {
+
+    window.location.href =
+        "technical-interview.html?company=" +
+        company +
+        "&role=" +
+        role;
+
+}
+
+
+function retakeHRInterview(company, role) {
+
+    window.location.href =
+        "hr-interview.html?company=" +
+        company +
+        "&role=" +
+        role;
+
+}
+   
+    
+loadInterviewProgress();
+ // ========================================
+// PERFORMANCE SUMMARY
+// ========================================
+
+function loadPerformanceSummary() {
+
+    const email =
+        getStudentEmail();
+
+
+    let companyQuizCount = 0;
+    let topicQuizCount = 0;
+    let hrInterviewCount = 0;
+    let technicalInterviewCount = 0;
+
+
+    // ========================================
+// COMPANY QUIZZES
+// ========================================
+
+const companyPrefix =
+    "progress_" +
+    email +
+    "_";
+
+for (
+    let i = 0;
+    i < localStorage.length;
+    i++
+) {
+
+    const key =
+        localStorage.key(i);
+
+    if (
+        key &&
+        key.startsWith(companyPrefix)
+    ) {
+
+        const value =
+            Number(
+                localStorage.getItem(key)
+            );
+
+        if (
+            !isNaN(value)
+        ) {
+
+            companyQuizCount++;
+
+        }
+
+    }
+
+}
+
+    // ========================================
+    // TOPIC QUIZZES
+    // ========================================
+
+    const topicResultPrefix =
+        "topicQuizResult_" +
+        email +
+        "_";
+
+
+    for (
+        let i = 0;
+        i < localStorage.length;
+        i++
+    ) {
+
+        const key =
+            localStorage.key(i);
+
+
+        if (
+            key &&
+            key.startsWith(topicResultPrefix)
+        ) {
+
+            try {
+
+                const result =
+                    JSON.parse(
+                        localStorage.getItem(key)
+                    );
+
+
+                if (
+                    result &&
+                    result.company &&
+                    result.role &&
+                    result.topic
+                ) {
+
+                    topicQuizCount++;
+
+                }
+
+            } catch (error) {
+
+                console.log(
+                    "Invalid topic quiz result:",
+                    error
+                );
+
+            }
+
+        }
+
+    }
+
+
+    // ========================================
+    // HR INTERVIEWS
+    // ========================================
+
+    const hrPrefix =
+        "hrInterviewCompleted_" +
+        email +
+        "_";
+
+
+    for (
+        let i = 0;
+        i < localStorage.length;
+        i++
+    ) {
+
+        const key =
+            localStorage.key(i);
+
+
+        if (
+            key &&
+            key.startsWith(hrPrefix) &&
+            localStorage.getItem(key) === "true"
+        ) {
+
+            hrInterviewCount++;
+
+        }
+
+    }
+
+
+    // ========================================
+    // TECHNICAL INTERVIEWS
+    // ========================================
+
+    const technicalPrefix =
+        "technicalInterviewCompleted_" +
+        email +
+        "_";
+
+
+    for (
+        let i = 0;
+        i < localStorage.length;
+        i++
+    ) {
+
+        const key =
+            localStorage.key(i);
+
+
+        if (
+            key &&
+            key.startsWith(technicalPrefix) &&
+            localStorage.getItem(key) === "true"
+        ) {
+
+            technicalInterviewCount++;
+
+        }
+
+    }
+
+
+    // ========================================
+    // DISPLAY COMPANY QUIZ COUNT
+    // ========================================
+
+    document.getElementById(
+        "summaryCompanyQuizzes"
+    ).innerText =
+        companyQuizCount;
+
+
+    // ========================================
+    // DISPLAY TOPIC QUIZ COUNT
+    // ========================================
+
+    document.getElementById(
+        "summaryTopicQuizzes"
+    ).innerText =
+        topicQuizCount;
+
+
+    // ========================================
+    // DISPLAY HR INTERVIEW COUNT
+    // ========================================
+
+    document.getElementById(
+        "summaryHRInterviews"
+    ).innerText =
+        hrInterviewCount;
+
+
+    // ========================================
+    // DISPLAY TECHNICAL INTERVIEW COUNT
+    // ========================================
+
+    document.getElementById(
+        "summaryTechnicalInterviews"
+    ).innerText =
+        technicalInterviewCount;
+
+}
+loadPerformanceSummary();
+// ========================================
+// PLACEMENT RESOURCES
+// ========================================
+
+function openResources() {
+
+    window.location.href =
+        "resources.html";
+
+}
+</script>
+
+</body>
+</html>

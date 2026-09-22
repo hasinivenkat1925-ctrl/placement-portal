@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Question Management</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #1e3a8a;
+            color: white;
+            padding: 20px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .back-btn {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #475569;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .info {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .info h2 {
+            margin-top: 0;
+            color: #1e3a8a;
+        }
+
+        .filter-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .question-count {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .questions {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .question-card {
+            border: 1px solid #e1e5eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        .question-card h3 {
+            color: #1e3a8a;
+            margin-top: 0;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .option {
+            padding: 7px 0;
+            color: #555;
+        }
+
+        .answer {
+            margin-top: 12px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 7px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #64748b;
+            padding: 30px;
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 21px;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>❓ Question Management</h1>
+
+    <button
+        class="back-btn"
+        onclick="goBack()">
+        ← Admin Dashboard
+    </button>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="info">
+
+        <h2>📚 Placement Questions</h2>
+
+        <p>
+            View company and role-based
+            placement preparation questions.
+        </p>
+
+    </div>
+
+
+    <div class="filter-box">
+
+        <h2>🔍 Filter Questions</h2>
+
+
+        <div class="filters">
+
+
+            <div>
+
+                <label for="company">
+                    Company
+                </label>
+
+                <select
+                    id="company"
+                    onchange="loadQuestions()">
+
+                    <option value="">
+                        All Companies
+                    </option>
+
+                    <option>TCS</option>
+                    <option>Infosys</option>
+                    <option>Wipro</option>
+                    <option>Accenture</option>
+                    <option>Cognizant</option>
+                    <option>NatWest</option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label for="role">
+                    Role
+                </label>
+
+                <select
+                    id="role"
+                    onchange="loadQuestions()">
+
+                    <option value="">
+                        All Roles
+                    </option>
+
+                    <option>
+                        Software Developer
+                    </option>
+
+                    <option>
+                        Java Developer
+                    </option>
+
+                    <option>
+                        Python Developer
+                    </option>
+
+                    <option>
+                        Data Analyst
+                    </option>
+
+                    <option>
+                        Tester
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <p class="question-count">
+
+            Questions Found:
+            <span id="questionCount">0</span>
+
+        </p>
+
+    </div>
+
+
+    <div class="questions">
+
+        <div
+            id="questionContainer"
+            class="loading">
+
+            Loading questions...
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script>
+    // ========================================
+// ADMIN LOGIN PROTECTION
+// ========================================
+
+const adminLoggedIn =
+    localStorage.getItem("adminLoggedIn");
+
+if (adminLoggedIn !== "true") {
+    window.location.href = "admin-login.html";
+}
+
+
+// ========================================
+// ADMIN LOGIN CHECK
+// ========================================
+
+if (
+    localStorage.getItem("adminLoggedIn")
+    !== "true"
+) {
+
+    window.location.href =
+        "admin-login.html";
+
+}
+
+
+// ========================================
+// LOAD QUESTIONS
+// ========================================
+
+async function loadQuestions() {
+
+    const company =
+        document.getElementById(
+            "company"
+        ).value;
+
+    const role =
+        document.getElementById(
+            "role"
+        ).value;
+
+
+    const container =
+        document.getElementById(
+            "questionContainer"
+        );
+
+
+    container.innerHTML =
+        '<div class="loading">Loading questions...</div>';
+
+
+    try {
+
+        let url =
+            "/api/all-questions";
+
+
+        if (company && role) {
+
+            url =
+                "/api/questions?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role);
+
+        }
+
+
+        const response =
+            await fetch(url);
+
+
+        const data =
+            await response.json();
+
+
+        let questions;
+
+
+        if (company && role) {
+
+            questions =
+                data.questions || [];
+
+        } else {
+
+            questions =
+                data || [];
+
+        }
+
+
+        document.getElementById(
+            "questionCount"
+        ).innerText =
+            questions.length;
+
+
+        container.innerHTML = "";
+
+
+        if (questions.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="loading">
+                    No questions found.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        questions.forEach(
+            function(question, index) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+                card.className =
+                    "question-card";
+
+
+                let optionsHTML = "";
+
+
+                if (
+                    question.options &&
+                    Array.isArray(
+                        question.options
+                    )
+                ) {
+
+                    question.options.forEach(
+                        function(option) {
+
+                            optionsHTML += `
+
+                                <div class="option">
+                                    ${option}
+                                </div>
+
+                            `;
+
+                        }
+                    );
+
+                }
+
+
+                card.innerHTML = `
+
+                    <h3>
+                        Question ${index + 1}
+                    </h3>
+
+                    <div class="question-text">
+                        ${question.question || ""}
+                    </div>
+
+                    ${optionsHTML}
+
+                    <div class="answer">
+                        <strong>Answer:</strong>
+                        ${question.answer || "Not available"}
+                    </div>
+
+                `;
+
+
+                container.appendChild(card);
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.log(
+            "Question loading error:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="loading">
+                Unable to load questions.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// ========================================
+// BACK TO ADMIN DASHBOARD
+// ========================================
+
+function goBack() {
+
+    window.location.href =
+        "admin-dashboard.html";
+
+}
+
+
+// ========================================
+// START
+// ========================================
+
+loadQuestions();
+
+
+</script>
+
+
+</body>
+
+</html>

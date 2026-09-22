@@ -1,0 +1,140 @@
+async function loadSolutions() {
+
+    const container =
+        document.getElementById("solutions");
+
+    try {
+
+        container.innerHTML =
+            "<h3>🤖 Loading questions & solutions...</h3>" +
+            "<p>Please wait...</p>";
+
+        const response =
+            await fetch(
+                "/api/generate-company-solutions?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role)
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Unable to load company solutions"
+            );
+        }
+
+        const data =
+            await response.json();
+
+        const solutions =
+            data.solutions || [];
+
+        if (solutions.length === 0) {
+            throw new Error(
+                "No solutions available"
+            );
+        }
+
+        container.innerHTML = "";
+
+        const isFallback =
+            data.source === "fallback";
+
+        const total =
+            document.createElement("h3");
+
+        total.innerText =
+            isFallback
+                ? "📚 Company Questions & Solutions: " + solutions.length
+                : "🤖 AI Questions & Solutions: " + solutions.length;
+
+        container.appendChild(total);
+
+        const info =
+            document.createElement("p");
+
+        if (isFallback) {
+
+            info.innerHTML =
+                "📚 Showing placement questions and solutions for <strong>" +
+                company +
+                " - " +
+                role +
+                "</strong>.";
+
+        } else {
+
+            info.innerHTML =
+                "🤖 AI-generated questions and solutions for <strong>" +
+                company +
+                " - " +
+                role +
+                "</strong>.";
+
+        }
+
+        container.appendChild(info);
+
+        const line =
+            document.createElement("hr");
+
+        container.appendChild(line);
+
+        solutions.forEach(
+            (item, index) => {
+
+                const box =
+                    document.createElement("div");
+
+                box.className =
+                    "question-box";
+
+                const question =
+                    document.createElement("h3");
+
+                question.innerText =
+                    (index + 1) +
+                    ". " +
+                    item.question;
+
+                box.appendChild(question);
+
+                const answer =
+                    document.createElement("p");
+
+                answer.innerHTML =
+                    "<strong>✅ Answer:</strong> " +
+                    item.answer;
+
+                box.appendChild(answer);
+
+                const solution =
+                    document.createElement("p");
+
+                solution.innerHTML =
+                    "<strong>💡 Solution:</strong><br>" +
+                    item.solution;
+
+                box.appendChild(solution);
+
+                const separator =
+                    document.createElement("hr");
+
+                box.appendChild(separator);
+
+                container.appendChild(box);
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Company Solutions Error:",
+            error
+        );
+
+        container.innerHTML =
+            "<h3>❌ Unable to load solutions</h3>" +
+            "<p>Please try again later.</p>";
+    }
+}

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Topic Practice Questions</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #1e3a8a;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .page-title h2 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #64748b;
+        }
+
+        .info-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .info-card h3 {
+            margin: 10px 0;
+            color: #1e3a8a;
+        }
+
+        .questions-header {
+            background: white;
+            padding: 18px 22px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .questions-header h3 {
+            margin: 0;
+            color: #2563eb;
+        }
+
+        .question-box {
+            background: white;
+            margin-bottom: 20px;
+            padding: 25px;
+            border-radius: 14px;
+            border: 1px solid #e1e5eb;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+        }
+
+        .question-box h3 {
+            color: #1e3a8a;
+            line-height: 1.5;
+            margin-top: 0;
+        }
+
+        .option {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            color: #374151;
+        }
+
+        .option:hover {
+            background: #eff6ff;
+            border-color: #93c5fd;
+        }
+
+        .details {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 18px;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: #1e3a8a;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .button-area {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            margin: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .error-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .error-box h3 {
+            color: #dc2626;
+        }
+
+        @media (max-width: 600px) {
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .question-box,
+            .info-card {
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+                margin: 6px 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h1>🎓 Placement Preparation Portal</h1>
+
+</div>
+
+
+<div class="container">
+
+
+    <!-- PAGE TITLE -->
+
+    <div class="page-title">
+
+        <h2>📝 Topic Practice Questions</h2>
+
+        <p>
+            Practice important questions for your selected topic.
+        </p>
+
+    </div>
+
+
+    <!-- INFORMATION -->
+
+    <div class="info-card">
+
+        <h3 id="companyTitle"></h3>
+
+        <h3 id="roleTitle"></h3>
+
+        <h3 id="topicTitle"></h3>
+
+    </div>
+
+
+    <!-- QUESTIONS -->
+
+    <div id="questions">
+
+        <div class="loading">
+            🤖 Gemini is generating practice questions...
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="button-area">
+
+        <button onclick="goBack()">
+            ← Back to Topic Preparation
+        </button>
+
+        <button onclick="goDashboard()">
+            🏠 Dashboard
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+// ========================================
+// LOGIN PROTECTION
+// ========================================
+
+const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+if (!loggedInUser) {
+    window.location.href = "login.html";
+}
+
+// ========================================
+// GET COMPANY, ROLE AND TOPIC
+// ========================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const company =
+    params.get("company") ||
+    localStorage.getItem("selectedCompany") ||
+    "";
+
+
+const role =
+    params.get("role") ||
+    localStorage.getItem("selectedRole") ||
+    "";
+
+
+const topic =
+    params.get("topic") ||
+    localStorage.getItem("selectedTopic") ||
+    "";
+
+
+// ========================================
+// SAVE SELECTION
+// ========================================
+
+localStorage.setItem(
+    "selectedCompany",
+    company
+);
+
+localStorage.setItem(
+    "selectedRole",
+    role
+);
+
+localStorage.setItem(
+    "selectedTopic",
+    topic
+);
+
+
+// ========================================
+// DISPLAY COMPANY
+// ========================================
+
+document.getElementById(
+    "companyTitle"
+).innerText =
+    "🏢 Company: " + company;
+
+
+// ========================================
+// DISPLAY ROLE
+// ========================================
+
+document.getElementById(
+    "roleTitle"
+).innerText =
+    "💼 Role: " + role;
+
+
+// ========================================
+// DISPLAY TOPIC
+// ========================================
+
+document.getElementById(
+    "topicTitle"
+).innerText =
+    "📚 Topic: " + topic;
+
+
+// ========================================
+// AI PRACTICE QUESTION CACHE
+// ========================================
+
+const aiPracticeCacheKey =
+    "aiPractice_" +
+    company + "_" +
+    role + "_" +
+    topic;
+
+
+// ========================================
+// LOAD QUESTIONS
+// ========================================
+
+async function loadQuestions() {
+
+    const container =
+        document.getElementById(
+            "questions"
+        );
+
+
+    // ========================================
+    // CHECK SELECTION
+    // ========================================
+
+    if (
+        !company ||
+        !role ||
+        !topic
+    ) {
+
+        container.innerHTML = `
+
+            <div class="error-box">
+
+                <h3>
+                    ⚠️ Selection Missing
+                </h3>
+
+                <p>
+                    Please select a company,
+                    role and topic first.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    // ========================================
+    // CHECK CACHE
+    // ========================================
+
+    const cachedQuestions =
+        localStorage.getItem(
+            aiPracticeCacheKey
+        );
+
+
+    if (cachedQuestions) {
+
+        try {
+
+            const cachedData =
+                JSON.parse(
+                    cachedQuestions
+                );
+
+            console.log(
+                "Loading practice questions from cache"
+            );
+
+            displayQuestions(
+                cachedData.questions || []
+            );
+
+            return;
+
+        } catch (error) {
+
+            console.log(
+                "Invalid cached practice questions"
+            );
+
+            localStorage.removeItem(
+                aiPracticeCacheKey
+            );
+
+        }
+
+    }
+
+
+    // ========================================
+    // CALL GEMINI
+    // ========================================
+
+    try {
+
+        container.innerHTML = `
+
+            <div class="loading">
+                🤖 Gemini is generating 5 practice questions...
+            </div>
+
+        `;
+
+
+        const response =
+            await fetch(
+                "/api/generate-practice?topic=" +
+                encodeURIComponent(topic) +
+                "&company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role)
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.details ||
+                data.error ||
+                "Unable to generate practice questions"
+            );
+
+        }
+
+
+        // ========================================
+        // SAVE CACHE
+        // ========================================
+
+        localStorage.setItem(
+            aiPracticeCacheKey,
+            JSON.stringify(data)
+        );
+
+
+        console.log(
+            "AI practice questions generated successfully"
+        );
+
+
+        displayQuestions(
+            data.questions || []
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "AI practice question error:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="error-box">
+
+                <h3>
+                    ❌ Unable to generate AI questions
+                </h3>
+
+                <p>
+                    Please make sure the backend
+                    server is running.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// ========================================
+// DISPLAY QUESTIONS
+// ========================================
+
+function displayQuestions(
+    topicQuestions
+) {
+
+    const container =
+        document.getElementById(
+            "questions"
+        );
+
+
+    if (
+        !topicQuestions ||
+        topicQuestions.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="error-box">
+
+                <h3>
+                    ⚠️ No questions found
+                </h3>
+
+                <p>
+                    No practice questions are
+                    available for
+                    <strong>${topic}</strong>.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    // ========================================
+    // AI HEADER
+    // ========================================
+
+    const header =
+        document.createElement(
+            "div"
+        );
+
+
+    header.className =
+        "questions-header";
+
+
+    const badge =
+        document.createElement(
+            "div"
+        );
+
+
+    badge.className =
+        "ai-badge";
+
+
+    badge.innerText =
+        "🤖 AI-Generated Practice Questions";
+
+
+    header.appendChild(
+        badge
+    );
+
+
+    const total =
+        document.createElement(
+            "h3"
+        );
+
+
+    total.innerText =
+        "📊 Questions Found: " +
+        topicQuestions.length;
+
+
+    header.appendChild(
+        total
+    );
+
+
+    container.appendChild(
+        header
+    );
+
+
+    // ========================================
+    // DISPLAY EACH QUESTION
+    // ========================================
+
+    topicQuestions.forEach(
+        function(item, index) {
+
+            const box =
+                document.createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "question-box";
+
+
+            const heading =
+                document.createElement(
+                    "h3"
+                );
+
+
+            heading.innerText =
+                (index + 1) +
+                ". " +
+                item.question;
+
+
+            box.appendChild(
+                heading
+            );
+
+
+            // ========================================
+            // ANSWER
+            // ========================================
+
+            const answer =
+                document.createElement(
+                    "p"
+                );
+
+
+            answer.innerHTML =
+                "<strong>✅ Answer:</strong> " +
+                escapeHtml(
+                    item.answer ||
+                    "Answer not available"
+                );
+
+
+            box.appendChild(
+                answer
+            );
+
+
+            // ========================================
+            // EXPLANATION
+            // ========================================
+
+            const explanation =
+                document.createElement(
+                    "p"
+                );
+
+
+            explanation.innerHTML =
+                "<strong>💡 Explanation:</strong> " +
+                escapeHtml(
+                    item.explanation ||
+                    "Explanation not available"
+                );
+
+
+            box.appendChild(
+                explanation
+            );
+
+
+            // ========================================
+            // DETAILS
+            // ========================================
+
+            const details =
+                document.createElement(
+                    "p"
+                );
+
+
+            details.className =
+                "details";
+
+
+            details.innerText =
+                "📌 Type: AI Practice";
+
+
+            box.appendChild(
+                details
+            );
+
+
+            container.appendChild(
+                box
+            );
+
+        }
+    );
+
+}
+        // ========================================
+        // ESCAPE HTML
+        // ========================================
+
+        function escapeHtml(text) {
+
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        // ========================================
+        // BACK TO TOPIC PREPARATION
+        // ========================================
+
+        function goBack() {
+
+            window.location.href =
+                "topic-preparation.html?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role) +
+                "&topic=" +
+                encodeURIComponent(topic);
+
+        }
+
+
+        // ========================================
+        // DASHBOARD
+        // ========================================
+
+        function goDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+
+        // ========================================
+        // START
+        // ========================================
+
+        loadQuestions();
+
+
+    </script>
+
+
+</body>
+
+</html>

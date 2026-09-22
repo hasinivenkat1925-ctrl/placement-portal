@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Learning Videos</title>
+</head>
+
+<body>
+
+    <h1>🎬 Related Learning Videos</h1>
+
+    <h2 id="heading"></h2>
+
+    <hr>
+
+    <div id="videos"></div>
+
+
+<script>
+
+const company = localStorage.getItem("company");
+const role = localStorage.getItem("role");
+
+document.getElementById("heading").innerText =
+    company + " - " + role + " Preparation Videos";
+
+
+const topics = [
+    "Java OOP interview preparation",
+    "SQL interview questions",
+    "Data Structures interview preparation",
+    "Aptitude placement preparation"
+];
+
+
+const videoContainer =
+    document.getElementById("videos");
+
+
+topics.forEach(function(topic) {
+
+    const div = document.createElement("div");
+
+    const searchUrl =
+        "https://www.youtube.com/results?search_query="
+        + encodeURIComponent(topic);
+
+    div.innerHTML = `
+
+        <h3>▶️ ${topic}</h3>
+
+        <a href="${searchUrl}" target="_blank">
+
+            <button>
+                Watch Related Videos
+            </button>
+
+        </a>
+
+        <hr>
+
+    `;
+
+    videoContainer.appendChild(div);
+
+});
+
+</script>
+
+</body>
+
+</html>

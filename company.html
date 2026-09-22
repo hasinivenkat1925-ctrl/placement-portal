@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Company</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: #f5f7fb;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .company {
+            border: 1px solid #ddd;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        select {
+            padding: 8px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏢 Select Company</h1>
+
+    <p>Select a company and role to start your placement preparation.</p>
+
+    <hr>
+
+    <div class="company">
+        <h2>TCS</h2>
+
+        <label>Select Role:</label><br>
+
+        <select id="tcsRole">
+            <option value="Software Developer">Software Developer</option>
+            <option value="Java Developer">Java Developer</option>
+            <option value="Data Analyst">Data Analyst</option>
+        </select>
+
+        <br>
+
+        <button onclick="startPreparation('TCS', 'tcsRole')">
+            Start Preparation
+        </button>
+    </div>
+
+
+    <div class="company">
+        <h2>Infosys</h2>
+
+        <label>Select Role:</label><br>
+
+        <select id="infosysRole">
+            <option value="Software Developer">Software Developer</option>
+            <option value="Java Developer">Java Developer</option>
+            <option value="Data Analyst">Data Analyst</option>
+        </select>
+
+        <br>
+
+        <button onclick="startPreparation('Infosys', 'infosysRole')">
+            Start Preparation
+        </button>
+    </div>
+
+
+    <div class="company">
+        <h2>Wipro</h2>
+
+        <label>Select Role:</label><br>
+
+        <select id="wiproRole">
+            <option value="Software Developer">Software Developer</option>
+            <option value="Java Developer">Java Developer</option>
+            <option value="Data Analyst">Data Analyst</option>
+        </

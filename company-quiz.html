@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Company Placement Quiz</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        #timer {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .question-box {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .option {
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        .result-box {
+            padding: 25px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .result-box p {
+            font-size: 18px;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+
+        .unanswered {
+            color: gray;
+        }
+
+        .navigation {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .navigation button {
+            margin-right: 10px;
+        }
+
+        #questionNumber {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<h1>🏢 Company Placement Quiz</h1>
+
+<h2 id="companyTitle"></h2>
+
+<h3 id="roleTitle"></h3>
+
+<p id="quizInfo"></p>
+
+
+<!-- TIMER -->
+
+<h2 id="timer">
+    ⏱️ Time Left: 10:00
+</h2>
+
+<hr>
+
+
+<!-- QUESTION NUMBER -->
+
+<h3 id="questionNumber"></h3>
+
+
+<div id="quizContainer">
+    Loading questions...
+</div>
+
+
+<!-- NAVIGATION -->
+
+<div
+    id="navigation"
+    class="navigation"
+    style="display:none;">
+
+    <button
+        id="previousButton"
+        onclick="previousQuestion()">
+
+        ◀ Previous
+
+    </button>
+
+
+    <button
+        id="nextButton"
+        onclick="nextQuestion()">
+
+        Next ▶
+
+    </button>
+
+</div>
+
+
+<br>
+
+
+<button
+    id="submitButton"
+    onclick="submitQuiz()">
+
+    ✅ Submit Quiz
+
+</button>
+
+
+<h2 id="result"></h2>
+
+
+<br>
+
+
+<button onclick="goPreparation()">
+    ← Back to Preparation
+</button>
+
+
+<button onclick="goDashboard()">
+    🏠 Dashboard
+</button>
+
+
+
+<script>
+
+
+// ==========================================
+// GET COMPANY + ROLE
+// ==========================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const company =
+    params.get("company") || "";
+
+
+const role =
+    params.get("role") || "";
+
+
+
+// ==========================================
+// CHECK LOGIN
+// ==========================================
+
+const loggedInUser =
+    localStorage.getItem(
+        "loggedInUser"
+    );
+
+
+if (!loggedInUser) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+// ==========================================
+// GET STUDENT
+// ==========================================
+
+let currentUser = null;
+
+
+try {
+
+    currentUser =
+        JSON.parse(
+            loggedInUser
+        );
+
+} catch (error) {
+
+    localStorage.removeItem(
+        "loggedInUser"
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+// ==========================================
+// VARIABLES
+// ==========================================
+
+let questions = [];
+
+let currentQuestion = 0;
+
+let selectedAnswers = [];
+
+let timeLeft = 600;
+
+let timerInterval;
+
+let quizSubmitted = false;
+
+
+
+// ==========================================
+// DISPLAY COMPANY
+// ==========================================
+
+document.getElementById(
+    "companyTitle"
+).innerText =
+    "🏢 Company: " +
+    company;
+
+
+
+// ==========================================
+// DISPLAY ROLE
+// ==========================================
+
+document.getElementById(
+    "roleTitle"
+).innerText =
+    "💼 Role: " +
+    role;
+
+
+
+// ==========================================
+// DISPLAY INFO
+// ==========================================
+
+document.getElementById(
+    "quizInfo"
+).innerText =
+    "📚 Questions for " +
+    company +
+    " - " +
+    role;
+
+
+
+// ==========================================
+// LOAD QUESTIONS
+// ==========================================
+
+async function loadQuestions() {
+
+    try {
+
+        if (!company || !role) {
+
+            document.getElementById(
+                "quizContainer"
+            ).innerHTML =
+                "<h3>⚠️ Company or role missing.</h3>";
+
+            return;
+        }
+
+        document.getElementById(
+            "quizContainer"
+        ).innerHTML =
+            "<h3>🤖 Generating AI Quiz...</h3>" +
+            "<p>Please wait while Gemini prepares your questions.</p>";
+
+        const response =
+            await fetch(
+    "/api/generate-quiz?topic=" +
+    encodeURIComponent("Company Placement") +
+    "&company=" +
+    encodeURIComponent(company) +
+    "&role=" +
+    encodeURIComponent(role)
+);
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to generate AI quiz"
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        questions =
+            data.questions || [];
+
+        selectedAnswers =
+            new Array(
+                questions.length
+            ).fill(null);
+
+        if (questions.length > 0) {
+
+            displayQuestion();
+
+            startTimer();
+
+        }
+
+        else {
+
+            document.getElementById(
+                "quizContainer"
+            ).innerHTML =
+                "<h3>❌ No AI questions generated.</h3>";
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "AI Quiz Error:",
+            error
+        );
+
+        document.getElementById(
+            "quizContainer"
+        ).innerHTML =
+            "<h3>❌ Unable to generate AI quiz.</h3>" +
+            "<p>Please make sure the backend server and Gemini API are running.</p>";
+
+    }
+
+}
+
+
+// ==========================================
+// DISPLAY CURRENT QUESTION
+// ==========================================
+
+function displayQuestion() {
+
+    const container =
+        document.getElementById(
+            "quizContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        questions.length === 0
+    ) {
+
+        container.innerHTML =
+            "<h3>❌ No questions found for " +
+            company +
+            " - " +
+            role +
+            "</h3>";
+
+        return;
+
+    }
+
+
+    // ======================================
+    // QUESTION NUMBER
+    // ======================================
+
+    document.getElementById(
+        "questionNumber"
+    ).innerText =
+        "Question " +
+        (currentQuestion + 1) +
+        " of " +
+        questions.length;
+
+
+
+    const item =
+        questions[
+            currentQuestion
+        ];
+
+
+    const box =
+        document.createElement(
+            "div"
+        );
+
+
+    box.className =
+        "question-box";
+
+
+    let html = "";
+
+
+    // ======================================
+    // QUESTION
+    // ======================================
+
+    html +=
+        "<h3>" +
+        (currentQuestion + 1) +
+        ". " +
+        escapeHtml(
+            item.question
+        ) +
+        "</h3>";
+
+
+    // ======================================
+    // TOPIC
+    // ======================================
+
+    html +=
+        "<p>📚 Topic: " +
+        escapeHtml(
+            item.category ||
+            "General"
+        ) +
+        "</p>";
+
+
+
+    // ======================================
+    // OPTIONS
+    // ======================================
+
+    if (
+        Array.isArray(
+            item.options
+        )
+    ) {
+
+        item.options.forEach(
+            function(
+                option,
+                optionIndex
+            ) {
+
+                const letter =
+                    String.fromCharCode(
+                        65 +
+                        optionIndex
+                    );
+
+
+                const isChecked =
+                    selectedAnswers[
+                        currentQuestion
+                    ] ===
+                    option;
+
+
+                html +=
+
+                    '<div class="option">' +
+
+                    '<label>' +
+
+                    '<input type="radio" ' +
+
+                    'name="currentQuestion" ' +
+
+                    'value="' +
+                    escapeHtml(
+                        option
+                    ) +
+                    '"' +
+
+                    (
+                        isChecked
+                        ? " checked"
+                        : ""
+                    ) +
+
+                    ' onchange="saveAnswer(this.value)">' +
+
+                    " <b>" +
+                    letter +
+                    ".</b> " +
+
+                    escapeHtml(
+                        option
+                    ) +
+
+                    "</label>" +
+
+                    "</div>";
+
+            }
+        );
+
+    }
+
+
+    box.innerHTML =
+        html;
+
+
+    container.appendChild(
+        box
+    );
+
+
+    // ======================================
+    // NAVIGATION
+    // ======================================
+
+    document.getElementById(
+        "navigation"
+    ).style.display =
+        "block";
+
+
+    updateNavigationButtons();
+
+}
+
+
+
+// ==========================================
+// SAVE ANSWER
+// ==========================================
+
+function saveAnswer(value) {
+
+    selectedAnswers[
+        currentQuestion
+    ] = value;
+
+}
+
+
+
+// ==========================================
+// PREVIOUS QUESTION
+// ==========================================
+
+function previousQuestion() {
+
+    if (
+        currentQuestion <= 0
+    ) {
+
+        return;
+
+    }
+
+
+    currentQuestion--;
+
+
+    displayQuestion();
+
+}
+
+
+
+// ==========================================
+// NEXT QUESTION
+// ==========================================
+
+function nextQuestion() {
+
+    if (
+        currentQuestion >=
+        questions.length - 1
+    ) {
+
+        return;
+
+    }
+
+
+    currentQuestion++;
+
+
+    displayQuestion();
+
+}
+
+
+
+// ==========================================
+// UPDATE NAVIGATION BUTTONS
+// ==========================================
+
+function updateNavigationButtons() {
+
+    const previousButton =
+        document.getElementById(
+            "previousButton"
+        );
+
+
+    const nextButton =
+        document.getElementById(
+            "nextButton"
+        );
+
+
+    // Previous
+
+    if (
+        currentQuestion === 0
+    ) {
+
+        previousButton.disabled =
+            true;
+
+    }
+
+    else {
+
+        previousButton.disabled =
+            false;
+
+    }
+
+
+    // Next
+
+    if (
+        currentQuestion ===
+        questions.length - 1
+    ) {
+
+        nextButton.disabled =
+            true;
+
+    }
+
+    else {
+
+        nextButton.disabled =
+            false;
+
+    }
+
+}
+
+
+
+// ==========================================
+// TIMER
+// ==========================================
+
+function startTimer() {
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            function() {
+
+                timeLeft--;
+
+
+                updateTimer();
+
+
+                if (
+                    timeLeft <= 0
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+
+                    alert(
+                        "⏰ Time is over! Your quiz will be submitted."
+                    );
+
+
+                    submitQuiz();
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+
+// ==========================================
+// UPDATE TIMER
+// ==========================================
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(
+            timeLeft / 60
+        );
+
+
+    const seconds =
+        timeLeft % 60;
+
+
+    document.getElementById(
+        "timer"
+    ).innerText =
+        "⏱️ Time Left: " +
+        minutes +
+        ":" +
+        String(
+            seconds
+        ).padStart(
+            2,
+            "0"
+        );
+
+}
+
+
+
+// ==========================================
+// SUBMIT QUIZ
+// ==========================================
+
+// ==========================================
+// SUBMIT QUIZ
+// ==========================================
+
+async function submitQuiz() {
+
+    if (quizSubmitted) {
+        return;
+    }
+
+    if (questions.length === 0) {
+        return;
+    }
+
+    quizSubmitted = true;
+
+    clearInterval(timerInterval);
+
+    let score = 0;
+    let wrongAnswers = 0;
+    let unanswered = 0;
+
+
+    // ======================================
+    // CHECK ANSWERS
+    // ======================================
+
+    questions.forEach(function(item, index) {
+
+        const selected =
+            selectedAnswers[index];
+
+        if (!selected) {
+
+            unanswered++;
+
+        }
+
+        else if (
+            selected ===
+            String(item.answer)
+        ) {
+
+            score++;
+
+        }
+
+        else {
+
+            wrongAnswers++;
+
+        }
+
+    });
+
+
+    // ======================================
+    // PERCENTAGE
+    // ======================================
+
+    const percentage =
+        Math.round(
+            (score / questions.length) * 100
+        );
+
+
+    // ======================================
+    // SHOW RESULT
+    // ======================================
+
+    document.getElementById(
+        "questionNumber"
+    ).innerText =
+        "🎉 Quiz Finished";
+
+
+    document.getElementById(
+        "quizContainer"
+    ).innerHTML = `
+
+        <div class="result-box">
+
+            <h2>
+                🎉 Quiz Completed!
+            </h2>
+
+            <p>
+                👤 Student:
+                <strong>
+                    ${escapeHtml(currentUser.name)}
+                </strong>
+            </p>
+
+            <hr>
+
+            <p>
+                🏢 Company:
+                <strong>
+                    ${escapeHtml(company)}
+                </strong>
+            </p>
+
+            <p>
+                💼 Role:
+                <strong>
+                    ${escapeHtml(role)}
+                </strong>
+            </p>
+
+            <hr>
+
+            <p>
+                📊 Score:
+                <strong>
+                    ${score} / ${questions.length}
+                </strong>
+            </p>
+
+            <p>
+                📈 Percentage:
+                <strong>
+                    ${percentage}%
+                </strong>
+            </p>
+
+            <p class="correct">
+                ✅ Correct:
+                <strong>
+                    ${score}
+                </strong>
+            </p>
+
+            <p class="wrong">
+                ❌ Wrong:
+                <strong>
+                    ${wrongAnswers}
+                </strong>
+            </p>
+
+            <p class="unanswered">
+                ⚪ Unanswered:
+                <strong>
+                    ${unanswered}
+                </strong>
+            </p>
+
+            <br>
+
+            <button onclick="retakeQuiz()">
+                🔄 Retake Quiz
+            </button>
+
+        </div>
+
+    `;
+
+
+    // ======================================
+    // HIDE NAVIGATION
+    // ======================================
+
+    document.getElementById(
+        "navigation"
+    ).style.display =
+        "none";
+
+
+    // ======================================
+    // DISABLE SUBMIT BUTTON
+    // ======================================
+
+    document.getElementById(
+        "submitButton"
+    ).disabled = true;
+
+
+    // ======================================
+    // STUDENT EMAIL
+    // ======================================
+
+    const studentEmail =
+        currentUser.email
+            .toLowerCase()
+            .trim();
+
+
+    // ======================================
+    // SAVE OLD LOCAL PROGRESS
+    // ======================================
+
+    const progressKey =
+        "progress_" +
+        studentEmail +
+        "_" +
+        company +
+        "_" +
+        role;
+
+
+    localStorage.setItem(
+        progressKey,
+        percentage
+    );
+
+
+    // ======================================
+    // SAVE OLD LOCAL RESULT
+    // ======================================
+
+    const resultKey =
+        "quizResult_" +
+        studentEmail +
+        "_" +
+        company +
+        "_" +
+        role;
+
+
+    localStorage.setItem(
+        resultKey,
+        JSON.stringify({
+
+            student:
+                currentUser.name,
+
+            email:
+                currentUser.email,
+
+            company:
+                company,
+
+            role:
+                role,
+
+            score:
+                score,
+
+            total:
+                questions.length,
+
+            percentage:
+                percentage,
+
+            correct:
+                score,
+
+            wrong:
+                wrongAnswers,
+
+            unanswered:
+                unanswered,
+
+            date:
+                new Date().toLocaleString()
+
+        })
+    );
+
+
+    // ======================================
+    // SAVE RESULT TO BACKEND
+    // ======================================
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/performance",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            email:
+                                currentUser.email,
+
+                            type:
+                                "Company Quiz",
+
+                            company:
+                                company,
+
+                            role:
+                                role,
+
+                            score:
+                                score,
+
+                            percentage:
+                                percentage,
+
+                            correct:
+                                score,
+
+                            wrong:
+                                wrongAnswers,
+
+                            unanswered:
+                                unanswered
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (response.ok) {
+
+            console.log(
+                "Company quiz performance saved:",
+                data
+            );
+
+        }
+
+        else {
+
+            console.log(
+                "Performance save failed:",
+                data
+            );
+
+        }
+
+
+    } catch (error) {
+
+        console.log(
+            "Unable to save performance:",
+            error
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// RETAKE QUIZ
+// ==========================================
+
+function retakeQuiz() {
+
+    window.location.href =
+        "company-quiz.html?company=" +
+        encodeURIComponent(
+            company
+        ) +
+        "&role=" +
+        encodeURIComponent(
+            role
+        );
+
+}
+
+
+
+// ==========================================
+// ESCAPE HTML
+// ==========================================
+
+function escapeHtml(text) {
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+// ==========================================
+// BACK TO PREPARATION
+// ==========================================
+
+function goPreparation() {
+
+    window.location.href =
+        "preparation.html?company=" +
+        encodeURIComponent(
+            company
+        ) +
+        "&role=" +
+        encodeURIComponent(
+            role
+        );
+
+}
+
+
+
+// ==========================================
+// DASHBOARD
+// ==========================================
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+
+
+// ==========================================
+// START
+// ==========================================
+
+loadQuestions();
+
+</script>
+
+</body>
+
+</html>

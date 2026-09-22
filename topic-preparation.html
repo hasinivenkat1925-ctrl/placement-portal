@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Topic Preparation - Placement Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background: #f4f7fb;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #222;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 40px;
+            border-bottom: 1px solid #e1e5eb;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            margin: 0;
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 32px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .intro h2 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .intro p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            border: 1px solid #e1e5eb;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .info-box {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .info-box span {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 7px;
+        }
+
+        .info-box strong {
+            color: #1e3a8a;
+            font-size: 17px;
+        }
+
+        .description {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            border-radius: 7px;
+            color: #334155;
+        }
+
+        .resources-title {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #e1e5eb;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .resource-card h3 {
+            margin-top: 0;
+            color: #1e3a8a;
+        }
+
+        .resource-card p {
+            color: #666;
+            min-height: 42px;
+            line-height: 1.5;
+        }
+
+        .resource-card button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .resource-card button:hover {
+            background: #1d4ed8;
+        }
+
+        .quiz-card {
+            grid-column: span 2;
+            background: #eef4ff;
+            border: 1px solid #c7d7fe;
+        }
+
+        .quiz-card h3 {
+            color: #1e3a8a;
+        }
+
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .bottom-buttons button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .bottom-buttons button:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 700px) {
+
+            .header {
+                padding: 18px;
+            }
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+
+            .resources {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-card {
+                grid-column: span 1;
+            }
+
+            .bottom-buttons {
+                flex-direction: column;
+            }
+
+            .bottom-buttons button {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>🎓 Placement Preparation Portal</h1>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="intro">
+
+        <h2>📚 Topic Preparation</h2>
+
+        <p>
+            Build your placement skills with focused learning
+            resources, practice questions and quizzes.
+        </p>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- COMPANY / ROLE / TOPIC -->
+    <!-- ============================= -->
+
+    <div class="info-card">
+
+        <div class="info-row">
+
+            <div class="info-box">
+
+                <span>🏢 Company</span>
+
+                <strong id="companyTitle">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>💼 Role</span>
+
+                <strong id="roleTitle">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>📚 Topic</span>
+
+                <strong id="topicTitle">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="description"
+             id="topicDescription">
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- RESOURCES -->
+    <!-- ============================= -->
+
+    <h2 class="resources-title">
+        📖 Topic Resources
+    </h2>
+
+
+    <div class="resources">
+
+
+        <div class="resource-card">
+
+            <h3>📖 Topic Notes</h3>
+
+            <p>
+                Learn important concepts and
+                placement-focused topics.
+            </p>
+
+            <button onclick="openNotes()">
+                Open Notes
+            </button>
+
+        </div>
+
+
+        <div class="resource-card">
+
+            <h3>📝 Practice Questions</h3>
+
+            <p>
+                Practice questions to improve
+                your preparation.
+            </p>
+
+            <button onclick="openQuestions()">
+                Practice Questions
+            </button>
+
+        </div>
+
+
+        <div class="resource-card">
+
+            <h3>✅ Questions & Solutions</h3>
+
+            <p>
+                Review questions with answers
+                and explanations.
+            </p>
+
+            <button onclick="openSolutions()">
+                View Solutions
+            </button>
+
+        </div>
+
+
+        <div class="resource-card">
+
+            <h3>🎬 Related Videos</h3>
+
+            <p>
+                Watch useful videos related to
+                your selected topic.
+            </p>
+
+            <button onclick="openVideos()">
+                Watch Videos
+            </button>
+
+        </div>
+
+
+        <div class="resource-card quiz-card">
+
+            <h3>🧠 Topic Quiz</h3>
+
+            <p>
+                Test your knowledge with a
+                placement-focused quiz.
+            </p>
+
+            <button onclick="openQuiz()">
+                🚀 Start Topic Quiz
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- NAVIGATION -->
+    <!-- ============================= -->
+
+    <div class="bottom-buttons">
+
+        <button onclick="goTopics()">
+            ← Back to Topics
+        </button>
+
+        <button onclick="goDashboard()">
+            🏠 Dashboard
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+// ========================================
+// LOGIN PROTECTION
+// ========================================
+
+const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+if (!loggedInUser) {
+    window.location.href = "login.html";
+}
+
+// ========================================
+// GET COMPANY, ROLE AND TOPIC
+// ========================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const company =
+    params.get("company") ||
+    localStorage.getItem("selectedCompany") ||
+    "";
+
+
+const role =
+    params.get("role") ||
+    localStorage.getItem("selectedRole") ||
+    "";
+
+
+const topic =
+    params.get("topic") ||
+    localStorage.getItem("selectedTopic") ||
+    "";
+
+
+// ========================================
+// SAVE SELECTION
+// ========================================
+
+localStorage.setItem(
+    "selectedCompany",
+    company
+);
+
+localStorage.setItem(
+    "selectedRole",
+    role
+);
+
+localStorage.setItem(
+    "selectedTopic",
+    topic
+);
+
+
+// ========================================
+// DISPLAY INFORMATION
+// ========================================
+
+document.getElementById(
+    "companyTitle"
+).innerText =
+    company || "Not Selected";
+
+
+document.getElementById(
+    "roleTitle"
+).innerText =
+    role || "Not Selected";
+
+
+document.getElementById(
+    "topicTitle"
+).innerText =
+    topic || "Not Selected";
+
+
+document.getElementById(
+    "topicDescription"
+).innerText =
+    "Prepare " +
+    topic +
+    " for the " +
+    role +
+    " role at " +
+    company +
+    ".";
+
+
+// ========================================
+// TOPIC NOTES
+// ========================================
+
+function openNotes() {
+
+    window.location.href =
+        "topic-notes.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role) +
+        "&topic=" +
+        encodeURIComponent(topic);
+
+}
+
+
+// ========================================
+// PRACTICE QUESTIONS
+// ========================================
+
+function openQuestions() {
+
+    window.location.href =
+        "topic-questions.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role) +
+        "&topic=" +
+        encodeURIComponent(topic);
+
+}
+
+
+// ========================================
+// QUESTIONS AND SOLUTIONS
+// ========================================
+
+function openSolutions() {
+
+    window.location.href =
+        "topic-solutions.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role) +
+        "&topic=" +
+        encodeURIComponent(topic);
+
+}
+
+
+// ========================================
+// RELATED VIDEOS
+// ========================================
+
+function openVideos() {
+
+    const search =
+        encodeURIComponent(
+            company +
+            " " +
+            role +
+            " " +
+            topic +
+            " placement preparation"
+        );
+
+
+    window.open(
+        "https://www.youtube.com/results?search_query=" +
+        search,
+        "_blank"
+    );
+
+}
+
+
+// ========================================
+// TOPIC QUIZ
+// ========================================
+
+function openQuiz() {
+
+    window.location.href =
+        "topic-quiz.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role) +
+        "&topic=" +
+        encodeURIComponent(topic);
+
+}
+
+
+// ========================================
+// BACK TO TOPICS
+// ========================================
+
+function goTopics() {
+
+    window.location.href =
+        "topics.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role);
+
+}
+
+
+// ========================================
+// DASHBOARD
+// ========================================
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

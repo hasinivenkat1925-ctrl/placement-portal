@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Choose Login - Placement Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eaf3ff, #f7fbff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1f4e79;
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 17px;
+            margin-bottom: 40px;
+        }
+
+        .login-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .login-card {
+            width: 45%;
+            min-height: 280px;
+            border: 1px solid #d9e5f0;
+            border-radius: 15px;
+            padding: 35px 25px;
+            background: #ffffff;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon {
+            font-size: 55px;
+            margin-bottom: 18px;
+        }
+
+        .login-card h2 {
+            color: #1f4e79;
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .login-card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .login-btn {
+            width: 160px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #1f4e79;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #163a5c;
+        }
+
+        .back-btn {
+            margin-top: 35px;
+            background: transparent;
+            border: none;
+            color: #1f4e79;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 25px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+
+            .container {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .login-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .login-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Welcome to Placement Portal</h1>
+
+        <p class="subtitle">
+            Please select your login type to continue.
+        </p>
+
+
+        <div class="login-container">
+
+            <!-- Student Login -->
+            <div class="login-card">
+
+                <div class="icon">👨‍🎓</div>
+
+                <h2>Student Login</h2>
+
+                <p>
+                    Login to access your placement preparation portal.
+                </p>
+
+                <button
+                    class="login-btn"
+                    onclick="studentLogin()">
+                    Student Login
+                </button>
+
+            </div>
+
+
+            <!-- Admin Login -->
+            <div class="login-card">
+
+                <div class="icon">👨‍💼</div>
+
+                <h2>Admin Login</h2>
+
+                <p>
+                    Login to manage students, questions and reports.
+                </p>
+
+                <button
+                    class="login-btn"
+                    onclick="adminLogin()">
+                    Admin Login
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="back-btn"
+            onclick="goBack()">
+            ← Back to Introduction
+        </button>
+
+
+        <div class="footer">
+            Placement Preparation Portal
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function studentLogin() {
+
+            window.location.href = "login.html";
+
+        }
+
+
+        function adminLogin() {
+
+            window.location.href = "admin-login.html";
+
+        }
+
+
+        function goBack() {
+
+            window.location.href = "index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>

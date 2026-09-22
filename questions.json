@@ -1,0 +1,4502 @@
+[
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to create an object in Java?",
+    "options": [
+      "new",
+      "create",
+      "object",
+      "instance"
+    ],
+    "answer": "new"
+  },
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to inherit a class?",
+    "options": [
+      "extends",
+      "implements",
+      "inherits",
+      "super"
+    ],
+    "answer": "extends"
+  },
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method is the entry point of a Java program?",
+    "options": [
+      "start()",
+      "run()",
+      "main()",
+      "execute()"
+    ],
+    "answer": "main()"
+  },
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword refers to the current object?",
+    "options": [
+      "this",
+      "self",
+      "current",
+      "object"
+    ],
+    "answer": "this"
+  },
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword prevents method overriding?",
+    "options": [
+      "final",
+      "static",
+      "private",
+      "constant"
+    ],
+    "answer": "final"
+  },
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Compilation",
+      "Overloading"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a subclass to redefine a method?",
+    "options": [
+      "Overriding",
+      "Overloading",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Overriding"
+  },
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores key-value pairs?",
+    "options": [
+      "HashMap",
+      "ArrayList",
+      "HashSet",
+      "LinkedList"
+    ],
+    "answer": "HashMap"
+  },
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection does not allow duplicate elements?",
+    "options": [
+      "HashSet",
+      "ArrayList",
+      "LinkedList",
+      "Vector"
+    ],
+    "answer": "HashSet"
+  },
+  {
+    "company": "TCS",
+    "role": "Java Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which construct handles exceptions?",
+    "options": [
+      "try-catch",
+      "if-else",
+      "switch",
+      "for"
+    ],
+    "answer": "try-catch"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a function?",
+    "options": [
+      "def",
+      "func",
+      "function",
+      "define"
+    ],
+    "answer": "def"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which type stores key-value pairs?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Dictionary"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection is immutable?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Tuple"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword exits a loop?",
+    "options": [
+      "continue",
+      "pass",
+      "break",
+      "stop"
+    ],
+    "answer": "break"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method adds an item to a list?",
+    "options": [
+      "add()",
+      "append()",
+      "push()",
+      "insertEnd()"
+    ],
+    "answer": "append()"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword skips the current iteration?",
+    "options": [
+      "skip",
+      "pass",
+      "continue",
+      "break"
+    ],
+    "answer": "continue"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function converts a string to integer?",
+    "options": [
+      "str()",
+      "float()",
+      "int()",
+      "number()"
+    ],
+    "answer": "int()"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword handles exceptions?",
+    "options": [
+      "catch",
+      "except",
+      "error",
+      "handle"
+    ],
+    "answer": "except"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores unique values?",
+    "options": [
+      "List",
+      "Tuple",
+      "Set",
+      "String"
+    ],
+    "answer": "Set"
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a class?",
+    "options": [
+      "class",
+      "struct",
+      "object",
+      "define"
+    ],
+    "answer": "class"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function counts rows?",
+    "options": [
+      "COUNT()",
+      "SUM()",
+      "AVG()",
+      "MAX()"
+    ],
+    "answer": "COUNT()"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause filters rows?",
+    "options": [
+      "WHERE",
+      "GROUP BY",
+      "ORDER BY",
+      "HAVING"
+    ],
+    "answer": "WHERE"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause groups rows?",
+    "options": [
+      "GROUP BY",
+      "ORDER BY",
+      "WHERE",
+      "SELECT"
+    ],
+    "answer": "GROUP BY"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause sorts results?",
+    "options": [
+      "ORDER BY",
+      "GROUP BY",
+      "WHERE",
+      "HAVING"
+    ],
+    "answer": "ORDER BY"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function calculates average?",
+    "options": [
+      "SUM()",
+      "AVG()",
+      "COUNT()",
+      "MAX()"
+    ],
+    "answer": "AVG()"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key uniquely identifies a record?",
+    "options": [
+      "Primary Key",
+      "Foreign Key",
+      "Candidate Key",
+      "Alternate Key"
+    ],
+    "answer": "Primary Key"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key connects two tables?",
+    "options": [
+      "Foreign Key",
+      "Primary Key",
+      "Super Key",
+      "Alternate Key"
+    ],
+    "answer": "Foreign Key"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "Excel",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which feature summarizes large datasets?",
+    "options": [
+      "PivotTable",
+      "WordArt",
+      "Spell Check",
+      "Page Layout"
+    ],
+    "answer": "PivotTable"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "Statistics",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which measure represents the middle value?",
+    "options": [
+      "Mean",
+      "Median",
+      "Mode",
+      "Range"
+    ],
+    "answer": "Median"
+  },
+  {
+    "company": "TCS",
+    "role": "Data Analyst",
+    "category": "Power BI",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is Power BI mainly used for?",
+    "options": [
+      "Data visualization",
+      "Video editing",
+      "Web browsing",
+      "Text editing"
+    ],
+    "answer": "Data visualization"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks individual units?",
+    "options": [
+      "Unit Testing",
+      "System Testing",
+      "Acceptance Testing",
+      "Load Testing"
+    ],
+    "answer": "Unit Testing"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing is performed after software changes?",
+    "options": [
+      "Regression Testing",
+      "Load Testing",
+      "Security Testing",
+      "Usability Testing"
+    ],
+    "answer": "Regression Testing"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks performance under workload?",
+    "options": [
+      "Load Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Acceptance Testing"
+    ],
+    "answer": "Load Testing"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing quickly checks build stability?",
+    "options": [
+      "Smoke Testing",
+      "Stress Testing",
+      "Unit Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Smoke Testing"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies business requirements?",
+    "options": [
+      "Acceptance Testing",
+      "Unit Testing",
+      "Load Testing",
+      "Mutation Testing"
+    ],
+    "answer": "Acceptance Testing"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing focuses on security vulnerabilities?",
+    "options": [
+      "Security Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Regression Testing"
+    ],
+    "answer": "Security Testing"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks different browsers and operating systems?",
+    "options": [
+      "Compatibility Testing",
+      "Unit Testing",
+      "Stress Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Compatibility Testing"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks recovery after failure?",
+    "options": [
+      "Recovery Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Compatibility Testing"
+    ],
+    "answer": "Recovery Testing"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies the complete system?",
+    "options": [
+      "System Testing",
+      "Unit Testing",
+      "Component Testing",
+      "Code Review"
+    ],
+    "answer": "System Testing"
+  },
+  {
+    "company": "TCS",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the main purpose of software testing?",
+    "options": [
+      "Find defects",
+      "Design hardware",
+      "Increase file size",
+      "Create operating systems"
+    ],
+    "answer": "Find defects"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows LIFO?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Tree",
+      "Graph"
+    ],
+    "answer": "Stack"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows FIFO?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Tree",
+      "Heap"
+    ],
+    "answer": "Queue"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is binary search complexity?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "answer": "O(log n)"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which sorting algorithm uses divide and conquer?",
+    "options": [
+      "Merge Sort",
+      "Bubble Sort",
+      "Selection Sort",
+      "Linear Search"
+    ],
+    "answer": "Merge Sort"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a child class to acquire parent properties?",
+    "options": [
+      "Inheritance",
+      "Encapsulation",
+      "Abstraction",
+      "Compilation"
+    ],
+    "answer": "Inheritance"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure represents hierarchical data?",
+    "options": [
+      "Tree",
+      "Stack",
+      "Queue",
+      "Array"
+    ],
+    "answer": "Tree"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which search checks elements one by one?",
+    "options": [
+      "Linear Search",
+      "Binary Search",
+      "Merge Sort",
+      "Quick Sort"
+    ],
+    "answer": "Linear Search"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure is commonly used for priority queues?",
+    "options": [
+      "Heap",
+      "Stack",
+      "Array",
+      "Linked List"
+    ],
+    "answer": "Heap"
+  },
+  {
+    "company": "TCS",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the worst-case complexity of linear search?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "answer": "O(n)"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to create an object in Java?",
+    "options": [
+      "new",
+      "create",
+      "object",
+      "instance"
+    ],
+    "answer": "new"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to inherit a class?",
+    "options": [
+      "extends",
+      "implements",
+      "inherits",
+      "super"
+    ],
+    "answer": "extends"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method is the entry point of a Java program?",
+    "options": [
+      "start()",
+      "run()",
+      "main()",
+      "execute()"
+    ],
+    "answer": "main()"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword refers to the current object?",
+    "options": [
+      "this",
+      "self",
+      "current",
+      "object"
+    ],
+    "answer": "this"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword prevents method overriding?",
+    "options": [
+      "final",
+      "static",
+      "private",
+      "constant"
+    ],
+    "answer": "final"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Compilation",
+      "Overloading"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a subclass to redefine a method?",
+    "options": [
+      "Overriding",
+      "Overloading",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Overriding"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores key-value pairs?",
+    "options": [
+      "HashMap",
+      "ArrayList",
+      "HashSet",
+      "LinkedList"
+    ],
+    "answer": "HashMap"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection does not allow duplicate elements?",
+    "options": [
+      "HashSet",
+      "ArrayList",
+      "LinkedList",
+      "Vector"
+    ],
+    "answer": "HashSet"
+  },
+  {
+    "company": "Infosys",
+    "role": "Java Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which construct handles exceptions?",
+    "options": [
+      "try-catch",
+      "if-else",
+      "switch",
+      "for"
+    ],
+    "answer": "try-catch"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a function?",
+    "options": [
+      "def",
+      "func",
+      "function",
+      "define"
+    ],
+    "answer": "def"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which type stores key-value pairs?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Dictionary"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection is immutable?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Tuple"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword exits a loop?",
+    "options": [
+      "continue",
+      "pass",
+      "break",
+      "stop"
+    ],
+    "answer": "break"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method adds an item to a list?",
+    "options": [
+      "add()",
+      "append()",
+      "push()",
+      "insertEnd()"
+    ],
+    "answer": "append()"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword skips the current iteration?",
+    "options": [
+      "skip",
+      "pass",
+      "continue",
+      "break"
+    ],
+    "answer": "continue"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function converts a string to integer?",
+    "options": [
+      "str()",
+      "float()",
+      "int()",
+      "number()"
+    ],
+    "answer": "int()"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword handles exceptions?",
+    "options": [
+      "catch",
+      "except",
+      "error",
+      "handle"
+    ],
+    "answer": "except"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores unique values?",
+    "options": [
+      "List",
+      "Tuple",
+      "Set",
+      "String"
+    ],
+    "answer": "Set"
+  },
+  {
+    "company": "Infosys",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a class?",
+    "options": [
+      "class",
+      "struct",
+      "object",
+      "define"
+    ],
+    "answer": "class"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function counts rows?",
+    "options": [
+      "COUNT()",
+      "SUM()",
+      "AVG()",
+      "MAX()"
+    ],
+    "answer": "COUNT()"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause filters rows?",
+    "options": [
+      "WHERE",
+      "GROUP BY",
+      "ORDER BY",
+      "HAVING"
+    ],
+    "answer": "WHERE"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause groups rows?",
+    "options": [
+      "GROUP BY",
+      "ORDER BY",
+      "WHERE",
+      "SELECT"
+    ],
+    "answer": "GROUP BY"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause sorts results?",
+    "options": [
+      "ORDER BY",
+      "GROUP BY",
+      "WHERE",
+      "HAVING"
+    ],
+    "answer": "ORDER BY"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function calculates average?",
+    "options": [
+      "SUM()",
+      "AVG()",
+      "COUNT()",
+      "MAX()"
+    ],
+    "answer": "AVG()"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key uniquely identifies a record?",
+    "options": [
+      "Primary Key",
+      "Foreign Key",
+      "Candidate Key",
+      "Alternate Key"
+    ],
+    "answer": "Primary Key"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key connects two tables?",
+    "options": [
+      "Foreign Key",
+      "Primary Key",
+      "Super Key",
+      "Alternate Key"
+    ],
+    "answer": "Foreign Key"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "Excel",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which feature summarizes large datasets?",
+    "options": [
+      "PivotTable",
+      "WordArt",
+      "Spell Check",
+      "Page Layout"
+    ],
+    "answer": "PivotTable"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "Statistics",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which measure represents the middle value?",
+    "options": [
+      "Mean",
+      "Median",
+      "Mode",
+      "Range"
+    ],
+    "answer": "Median"
+  },
+  {
+    "company": "Infosys",
+    "role": "Data Analyst",
+    "category": "Power BI",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is Power BI mainly used for?",
+    "options": [
+      "Data visualization",
+      "Video editing",
+      "Web browsing",
+      "Text editing"
+    ],
+    "answer": "Data visualization"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks individual units?",
+    "options": [
+      "Unit Testing",
+      "System Testing",
+      "Acceptance Testing",
+      "Load Testing"
+    ],
+    "answer": "Unit Testing"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing is performed after software changes?",
+    "options": [
+      "Regression Testing",
+      "Load Testing",
+      "Security Testing",
+      "Usability Testing"
+    ],
+    "answer": "Regression Testing"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks performance under workload?",
+    "options": [
+      "Load Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Acceptance Testing"
+    ],
+    "answer": "Load Testing"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing quickly checks build stability?",
+    "options": [
+      "Smoke Testing",
+      "Stress Testing",
+      "Unit Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Smoke Testing"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies business requirements?",
+    "options": [
+      "Acceptance Testing",
+      "Unit Testing",
+      "Load Testing",
+      "Mutation Testing"
+    ],
+    "answer": "Acceptance Testing"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing focuses on security vulnerabilities?",
+    "options": [
+      "Security Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Regression Testing"
+    ],
+    "answer": "Security Testing"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks different browsers and operating systems?",
+    "options": [
+      "Compatibility Testing",
+      "Unit Testing",
+      "Stress Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Compatibility Testing"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks recovery after failure?",
+    "options": [
+      "Recovery Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Compatibility Testing"
+    ],
+    "answer": "Recovery Testing"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies the complete system?",
+    "options": [
+      "System Testing",
+      "Unit Testing",
+      "Component Testing",
+      "Code Review"
+    ],
+    "answer": "System Testing"
+  },
+  {
+    "company": "Infosys",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the main purpose of software testing?",
+    "options": [
+      "Find defects",
+      "Design hardware",
+      "Increase file size",
+      "Create operating systems"
+    ],
+    "answer": "Find defects"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows LIFO?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Tree",
+      "Graph"
+    ],
+    "answer": "Stack"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows FIFO?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Tree",
+      "Heap"
+    ],
+    "answer": "Queue"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is binary search complexity?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "answer": "O(log n)"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which sorting algorithm uses divide and conquer?",
+    "options": [
+      "Merge Sort",
+      "Bubble Sort",
+      "Selection Sort",
+      "Linear Search"
+    ],
+    "answer": "Merge Sort"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a child class to acquire parent properties?",
+    "options": [
+      "Inheritance",
+      "Encapsulation",
+      "Abstraction",
+      "Compilation"
+    ],
+    "answer": "Inheritance"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure represents hierarchical data?",
+    "options": [
+      "Tree",
+      "Stack",
+      "Queue",
+      "Array"
+    ],
+    "answer": "Tree"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which search checks elements one by one?",
+    "options": [
+      "Linear Search",
+      "Binary Search",
+      "Merge Sort",
+      "Quick Sort"
+    ],
+    "answer": "Linear Search"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure is commonly used for priority queues?",
+    "options": [
+      "Heap",
+      "Stack",
+      "Array",
+      "Linked List"
+    ],
+    "answer": "Heap"
+  },
+  {
+    "company": "Infosys",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the worst-case complexity of linear search?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "answer": "O(n)"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to create an object in Java?",
+    "options": [
+      "new",
+      "create",
+      "object",
+      "instance"
+    ],
+    "answer": "new"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to inherit a class?",
+    "options": [
+      "extends",
+      "implements",
+      "inherits",
+      "super"
+    ],
+    "answer": "extends"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method is the entry point of a Java program?",
+    "options": [
+      "start()",
+      "run()",
+      "main()",
+      "execute()"
+    ],
+    "answer": "main()"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword refers to the current object?",
+    "options": [
+      "this",
+      "self",
+      "current",
+      "object"
+    ],
+    "answer": "this"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword prevents method overriding?",
+    "options": [
+      "final",
+      "static",
+      "private",
+      "constant"
+    ],
+    "answer": "final"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Compilation",
+      "Overloading"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a subclass to redefine a method?",
+    "options": [
+      "Overriding",
+      "Overloading",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Overriding"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores key-value pairs?",
+    "options": [
+      "HashMap",
+      "ArrayList",
+      "HashSet",
+      "LinkedList"
+    ],
+    "answer": "HashMap"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection does not allow duplicate elements?",
+    "options": [
+      "HashSet",
+      "ArrayList",
+      "LinkedList",
+      "Vector"
+    ],
+    "answer": "HashSet"
+  },
+  {
+    "company": "Wipro",
+    "role": "Java Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which construct handles exceptions?",
+    "options": [
+      "try-catch",
+      "if-else",
+      "switch",
+      "for"
+    ],
+    "answer": "try-catch"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a function?",
+    "options": [
+      "def",
+      "func",
+      "function",
+      "define"
+    ],
+    "answer": "def"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which type stores key-value pairs?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Dictionary"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection is immutable?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Tuple"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword exits a loop?",
+    "options": [
+      "continue",
+      "pass",
+      "break",
+      "stop"
+    ],
+    "answer": "break"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method adds an item to a list?",
+    "options": [
+      "add()",
+      "append()",
+      "push()",
+      "insertEnd()"
+    ],
+    "answer": "append()"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword skips the current iteration?",
+    "options": [
+      "skip",
+      "pass",
+      "continue",
+      "break"
+    ],
+    "answer": "continue"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function converts a string to integer?",
+    "options": [
+      "str()",
+      "float()",
+      "int()",
+      "number()"
+    ],
+    "answer": "int()"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword handles exceptions?",
+    "options": [
+      "catch",
+      "except",
+      "error",
+      "handle"
+    ],
+    "answer": "except"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores unique values?",
+    "options": [
+      "List",
+      "Tuple",
+      "Set",
+      "String"
+    ],
+    "answer": "Set"
+  },
+  {
+    "company": "Wipro",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a class?",
+    "options": [
+      "class",
+      "struct",
+      "object",
+      "define"
+    ],
+    "answer": "class"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function counts rows?",
+    "options": [
+      "COUNT()",
+      "SUM()",
+      "AVG()",
+      "MAX()"
+    ],
+    "answer": "COUNT()"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause filters rows?",
+    "options": [
+      "WHERE",
+      "GROUP BY",
+      "ORDER BY",
+      "HAVING"
+    ],
+    "answer": "WHERE"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause groups rows?",
+    "options": [
+      "GROUP BY",
+      "ORDER BY",
+      "WHERE",
+      "SELECT"
+    ],
+    "answer": "GROUP BY"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause sorts results?",
+    "options": [
+      "ORDER BY",
+      "GROUP BY",
+      "WHERE",
+      "HAVING"
+    ],
+    "answer": "ORDER BY"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function calculates average?",
+    "options": [
+      "SUM()",
+      "AVG()",
+      "COUNT()",
+      "MAX()"
+    ],
+    "answer": "AVG()"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key uniquely identifies a record?",
+    "options": [
+      "Primary Key",
+      "Foreign Key",
+      "Candidate Key",
+      "Alternate Key"
+    ],
+    "answer": "Primary Key"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key connects two tables?",
+    "options": [
+      "Foreign Key",
+      "Primary Key",
+      "Super Key",
+      "Alternate Key"
+    ],
+    "answer": "Foreign Key"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "Excel",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which feature summarizes large datasets?",
+    "options": [
+      "PivotTable",
+      "WordArt",
+      "Spell Check",
+      "Page Layout"
+    ],
+    "answer": "PivotTable"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "Statistics",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which measure represents the middle value?",
+    "options": [
+      "Mean",
+      "Median",
+      "Mode",
+      "Range"
+    ],
+    "answer": "Median"
+  },
+  {
+    "company": "Wipro",
+    "role": "Data Analyst",
+    "category": "Power BI",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is Power BI mainly used for?",
+    "options": [
+      "Data visualization",
+      "Video editing",
+      "Web browsing",
+      "Text editing"
+    ],
+    "answer": "Data visualization"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks individual units?",
+    "options": [
+      "Unit Testing",
+      "System Testing",
+      "Acceptance Testing",
+      "Load Testing"
+    ],
+    "answer": "Unit Testing"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing is performed after software changes?",
+    "options": [
+      "Regression Testing",
+      "Load Testing",
+      "Security Testing",
+      "Usability Testing"
+    ],
+    "answer": "Regression Testing"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks performance under workload?",
+    "options": [
+      "Load Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Acceptance Testing"
+    ],
+    "answer": "Load Testing"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing quickly checks build stability?",
+    "options": [
+      "Smoke Testing",
+      "Stress Testing",
+      "Unit Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Smoke Testing"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies business requirements?",
+    "options": [
+      "Acceptance Testing",
+      "Unit Testing",
+      "Load Testing",
+      "Mutation Testing"
+    ],
+    "answer": "Acceptance Testing"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing focuses on security vulnerabilities?",
+    "options": [
+      "Security Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Regression Testing"
+    ],
+    "answer": "Security Testing"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks different browsers and operating systems?",
+    "options": [
+      "Compatibility Testing",
+      "Unit Testing",
+      "Stress Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Compatibility Testing"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks recovery after failure?",
+    "options": [
+      "Recovery Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Compatibility Testing"
+    ],
+    "answer": "Recovery Testing"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies the complete system?",
+    "options": [
+      "System Testing",
+      "Unit Testing",
+      "Component Testing",
+      "Code Review"
+    ],
+    "answer": "System Testing"
+  },
+  {
+    "company": "Wipro",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the main purpose of software testing?",
+    "options": [
+      "Find defects",
+      "Design hardware",
+      "Increase file size",
+      "Create operating systems"
+    ],
+    "answer": "Find defects"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows LIFO?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Tree",
+      "Graph"
+    ],
+    "answer": "Stack"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows FIFO?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Tree",
+      "Heap"
+    ],
+    "answer": "Queue"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is binary search complexity?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "answer": "O(log n)"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which sorting algorithm uses divide and conquer?",
+    "options": [
+      "Merge Sort",
+      "Bubble Sort",
+      "Selection Sort",
+      "Linear Search"
+    ],
+    "answer": "Merge Sort"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a child class to acquire parent properties?",
+    "options": [
+      "Inheritance",
+      "Encapsulation",
+      "Abstraction",
+      "Compilation"
+    ],
+    "answer": "Inheritance"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure represents hierarchical data?",
+    "options": [
+      "Tree",
+      "Stack",
+      "Queue",
+      "Array"
+    ],
+    "answer": "Tree"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which search checks elements one by one?",
+    "options": [
+      "Linear Search",
+      "Binary Search",
+      "Merge Sort",
+      "Quick Sort"
+    ],
+    "answer": "Linear Search"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure is commonly used for priority queues?",
+    "options": [
+      "Heap",
+      "Stack",
+      "Array",
+      "Linked List"
+    ],
+    "answer": "Heap"
+  },
+  {
+    "company": "Wipro",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the worst-case complexity of linear search?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "answer": "O(n)"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to create an object in Java?",
+    "options": [
+      "new",
+      "create",
+      "object",
+      "instance"
+    ],
+    "answer": "new"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to inherit a class?",
+    "options": [
+      "extends",
+      "implements",
+      "inherits",
+      "super"
+    ],
+    "answer": "extends"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method is the entry point of a Java program?",
+    "options": [
+      "start()",
+      "run()",
+      "main()",
+      "execute()"
+    ],
+    "answer": "main()"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword refers to the current object?",
+    "options": [
+      "this",
+      "self",
+      "current",
+      "object"
+    ],
+    "answer": "this"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword prevents method overriding?",
+    "options": [
+      "final",
+      "static",
+      "private",
+      "constant"
+    ],
+    "answer": "final"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Compilation",
+      "Overloading"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a subclass to redefine a method?",
+    "options": [
+      "Overriding",
+      "Overloading",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Overriding"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores key-value pairs?",
+    "options": [
+      "HashMap",
+      "ArrayList",
+      "HashSet",
+      "LinkedList"
+    ],
+    "answer": "HashMap"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection does not allow duplicate elements?",
+    "options": [
+      "HashSet",
+      "ArrayList",
+      "LinkedList",
+      "Vector"
+    ],
+    "answer": "HashSet"
+  },
+  {
+    "company": "Accenture",
+    "role": "Java Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which construct handles exceptions?",
+    "options": [
+      "try-catch",
+      "if-else",
+      "switch",
+      "for"
+    ],
+    "answer": "try-catch"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a function?",
+    "options": [
+      "def",
+      "func",
+      "function",
+      "define"
+    ],
+    "answer": "def"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which type stores key-value pairs?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Dictionary"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection is immutable?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Tuple"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword exits a loop?",
+    "options": [
+      "continue",
+      "pass",
+      "break",
+      "stop"
+    ],
+    "answer": "break"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method adds an item to a list?",
+    "options": [
+      "add()",
+      "append()",
+      "push()",
+      "insertEnd()"
+    ],
+    "answer": "append()"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword skips the current iteration?",
+    "options": [
+      "skip",
+      "pass",
+      "continue",
+      "break"
+    ],
+    "answer": "continue"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function converts a string to integer?",
+    "options": [
+      "str()",
+      "float()",
+      "int()",
+      "number()"
+    ],
+    "answer": "int()"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword handles exceptions?",
+    "options": [
+      "catch",
+      "except",
+      "error",
+      "handle"
+    ],
+    "answer": "except"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores unique values?",
+    "options": [
+      "List",
+      "Tuple",
+      "Set",
+      "String"
+    ],
+    "answer": "Set"
+  },
+  {
+    "company": "Accenture",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a class?",
+    "options": [
+      "class",
+      "struct",
+      "object",
+      "define"
+    ],
+    "answer": "class"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function counts rows?",
+    "options": [
+      "COUNT()",
+      "SUM()",
+      "AVG()",
+      "MAX()"
+    ],
+    "answer": "COUNT()"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause filters rows?",
+    "options": [
+      "WHERE",
+      "GROUP BY",
+      "ORDER BY",
+      "HAVING"
+    ],
+    "answer": "WHERE"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause groups rows?",
+    "options": [
+      "GROUP BY",
+      "ORDER BY",
+      "WHERE",
+      "SELECT"
+    ],
+    "answer": "GROUP BY"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause sorts results?",
+    "options": [
+      "ORDER BY",
+      "GROUP BY",
+      "WHERE",
+      "HAVING"
+    ],
+    "answer": "ORDER BY"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function calculates average?",
+    "options": [
+      "SUM()",
+      "AVG()",
+      "COUNT()",
+      "MAX()"
+    ],
+    "answer": "AVG()"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key uniquely identifies a record?",
+    "options": [
+      "Primary Key",
+      "Foreign Key",
+      "Candidate Key",
+      "Alternate Key"
+    ],
+    "answer": "Primary Key"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key connects two tables?",
+    "options": [
+      "Foreign Key",
+      "Primary Key",
+      "Super Key",
+      "Alternate Key"
+    ],
+    "answer": "Foreign Key"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "Excel",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which feature summarizes large datasets?",
+    "options": [
+      "PivotTable",
+      "WordArt",
+      "Spell Check",
+      "Page Layout"
+    ],
+    "answer": "PivotTable"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "Statistics",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which measure represents the middle value?",
+    "options": [
+      "Mean",
+      "Median",
+      "Mode",
+      "Range"
+    ],
+    "answer": "Median"
+  },
+  {
+    "company": "Accenture",
+    "role": "Data Analyst",
+    "category": "Power BI",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is Power BI mainly used for?",
+    "options": [
+      "Data visualization",
+      "Video editing",
+      "Web browsing",
+      "Text editing"
+    ],
+    "answer": "Data visualization"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks individual units?",
+    "options": [
+      "Unit Testing",
+      "System Testing",
+      "Acceptance Testing",
+      "Load Testing"
+    ],
+    "answer": "Unit Testing"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing is performed after software changes?",
+    "options": [
+      "Regression Testing",
+      "Load Testing",
+      "Security Testing",
+      "Usability Testing"
+    ],
+    "answer": "Regression Testing"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks performance under workload?",
+    "options": [
+      "Load Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Acceptance Testing"
+    ],
+    "answer": "Load Testing"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing quickly checks build stability?",
+    "options": [
+      "Smoke Testing",
+      "Stress Testing",
+      "Unit Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Smoke Testing"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies business requirements?",
+    "options": [
+      "Acceptance Testing",
+      "Unit Testing",
+      "Load Testing",
+      "Mutation Testing"
+    ],
+    "answer": "Acceptance Testing"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing focuses on security vulnerabilities?",
+    "options": [
+      "Security Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Regression Testing"
+    ],
+    "answer": "Security Testing"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks different browsers and operating systems?",
+    "options": [
+      "Compatibility Testing",
+      "Unit Testing",
+      "Stress Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Compatibility Testing"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks recovery after failure?",
+    "options": [
+      "Recovery Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Compatibility Testing"
+    ],
+    "answer": "Recovery Testing"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies the complete system?",
+    "options": [
+      "System Testing",
+      "Unit Testing",
+      "Component Testing",
+      "Code Review"
+    ],
+    "answer": "System Testing"
+  },
+  {
+    "company": "Accenture",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the main purpose of software testing?",
+    "options": [
+      "Find defects",
+      "Design hardware",
+      "Increase file size",
+      "Create operating systems"
+    ],
+    "answer": "Find defects"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows LIFO?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Tree",
+      "Graph"
+    ],
+    "answer": "Stack"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows FIFO?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Tree",
+      "Heap"
+    ],
+    "answer": "Queue"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is binary search complexity?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "answer": "O(log n)"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which sorting algorithm uses divide and conquer?",
+    "options": [
+      "Merge Sort",
+      "Bubble Sort",
+      "Selection Sort",
+      "Linear Search"
+    ],
+    "answer": "Merge Sort"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a child class to acquire parent properties?",
+    "options": [
+      "Inheritance",
+      "Encapsulation",
+      "Abstraction",
+      "Compilation"
+    ],
+    "answer": "Inheritance"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure represents hierarchical data?",
+    "options": [
+      "Tree",
+      "Stack",
+      "Queue",
+      "Array"
+    ],
+    "answer": "Tree"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which search checks elements one by one?",
+    "options": [
+      "Linear Search",
+      "Binary Search",
+      "Merge Sort",
+      "Quick Sort"
+    ],
+    "answer": "Linear Search"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure is commonly used for priority queues?",
+    "options": [
+      "Heap",
+      "Stack",
+      "Array",
+      "Linked List"
+    ],
+    "answer": "Heap"
+  },
+  {
+    "company": "Accenture",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the worst-case complexity of linear search?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "answer": "O(n)"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to create an object in Java?",
+    "options": [
+      "new",
+      "create",
+      "object",
+      "instance"
+    ],
+    "answer": "new"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to inherit a class?",
+    "options": [
+      "extends",
+      "implements",
+      "inherits",
+      "super"
+    ],
+    "answer": "extends"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method is the entry point of a Java program?",
+    "options": [
+      "start()",
+      "run()",
+      "main()",
+      "execute()"
+    ],
+    "answer": "main()"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword refers to the current object?",
+    "options": [
+      "this",
+      "self",
+      "current",
+      "object"
+    ],
+    "answer": "this"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword prevents method overriding?",
+    "options": [
+      "final",
+      "static",
+      "private",
+      "constant"
+    ],
+    "answer": "final"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Compilation",
+      "Overloading"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a subclass to redefine a method?",
+    "options": [
+      "Overriding",
+      "Overloading",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Overriding"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores key-value pairs?",
+    "options": [
+      "HashMap",
+      "ArrayList",
+      "HashSet",
+      "LinkedList"
+    ],
+    "answer": "HashMap"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection does not allow duplicate elements?",
+    "options": [
+      "HashSet",
+      "ArrayList",
+      "LinkedList",
+      "Vector"
+    ],
+    "answer": "HashSet"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Java Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which construct handles exceptions?",
+    "options": [
+      "try-catch",
+      "if-else",
+      "switch",
+      "for"
+    ],
+    "answer": "try-catch"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a function?",
+    "options": [
+      "def",
+      "func",
+      "function",
+      "define"
+    ],
+    "answer": "def"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which type stores key-value pairs?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Dictionary"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection is immutable?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Tuple"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword exits a loop?",
+    "options": [
+      "continue",
+      "pass",
+      "break",
+      "stop"
+    ],
+    "answer": "break"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method adds an item to a list?",
+    "options": [
+      "add()",
+      "append()",
+      "push()",
+      "insertEnd()"
+    ],
+    "answer": "append()"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword skips the current iteration?",
+    "options": [
+      "skip",
+      "pass",
+      "continue",
+      "break"
+    ],
+    "answer": "continue"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function converts a string to integer?",
+    "options": [
+      "str()",
+      "float()",
+      "int()",
+      "number()"
+    ],
+    "answer": "int()"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword handles exceptions?",
+    "options": [
+      "catch",
+      "except",
+      "error",
+      "handle"
+    ],
+    "answer": "except"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores unique values?",
+    "options": [
+      "List",
+      "Tuple",
+      "Set",
+      "String"
+    ],
+    "answer": "Set"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a class?",
+    "options": [
+      "class",
+      "struct",
+      "object",
+      "define"
+    ],
+    "answer": "class"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function counts rows?",
+    "options": [
+      "COUNT()",
+      "SUM()",
+      "AVG()",
+      "MAX()"
+    ],
+    "answer": "COUNT()"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause filters rows?",
+    "options": [
+      "WHERE",
+      "GROUP BY",
+      "ORDER BY",
+      "HAVING"
+    ],
+    "answer": "WHERE"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause groups rows?",
+    "options": [
+      "GROUP BY",
+      "ORDER BY",
+      "WHERE",
+      "SELECT"
+    ],
+    "answer": "GROUP BY"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause sorts results?",
+    "options": [
+      "ORDER BY",
+      "GROUP BY",
+      "WHERE",
+      "HAVING"
+    ],
+    "answer": "ORDER BY"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function calculates average?",
+    "options": [
+      "SUM()",
+      "AVG()",
+      "COUNT()",
+      "MAX()"
+    ],
+    "answer": "AVG()"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key uniquely identifies a record?",
+    "options": [
+      "Primary Key",
+      "Foreign Key",
+      "Candidate Key",
+      "Alternate Key"
+    ],
+    "answer": "Primary Key"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key connects two tables?",
+    "options": [
+      "Foreign Key",
+      "Primary Key",
+      "Super Key",
+      "Alternate Key"
+    ],
+    "answer": "Foreign Key"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "Excel",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which feature summarizes large datasets?",
+    "options": [
+      "PivotTable",
+      "WordArt",
+      "Spell Check",
+      "Page Layout"
+    ],
+    "answer": "PivotTable"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "Statistics",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which measure represents the middle value?",
+    "options": [
+      "Mean",
+      "Median",
+      "Mode",
+      "Range"
+    ],
+    "answer": "Median"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Data Analyst",
+    "category": "Power BI",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is Power BI mainly used for?",
+    "options": [
+      "Data visualization",
+      "Video editing",
+      "Web browsing",
+      "Text editing"
+    ],
+    "answer": "Data visualization"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks individual units?",
+    "options": [
+      "Unit Testing",
+      "System Testing",
+      "Acceptance Testing",
+      "Load Testing"
+    ],
+    "answer": "Unit Testing"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing is performed after software changes?",
+    "options": [
+      "Regression Testing",
+      "Load Testing",
+      "Security Testing",
+      "Usability Testing"
+    ],
+    "answer": "Regression Testing"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks performance under workload?",
+    "options": [
+      "Load Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Acceptance Testing"
+    ],
+    "answer": "Load Testing"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing quickly checks build stability?",
+    "options": [
+      "Smoke Testing",
+      "Stress Testing",
+      "Unit Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Smoke Testing"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies business requirements?",
+    "options": [
+      "Acceptance Testing",
+      "Unit Testing",
+      "Load Testing",
+      "Mutation Testing"
+    ],
+    "answer": "Acceptance Testing"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing focuses on security vulnerabilities?",
+    "options": [
+      "Security Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Regression Testing"
+    ],
+    "answer": "Security Testing"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks different browsers and operating systems?",
+    "options": [
+      "Compatibility Testing",
+      "Unit Testing",
+      "Stress Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Compatibility Testing"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks recovery after failure?",
+    "options": [
+      "Recovery Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Compatibility Testing"
+    ],
+    "answer": "Recovery Testing"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies the complete system?",
+    "options": [
+      "System Testing",
+      "Unit Testing",
+      "Component Testing",
+      "Code Review"
+    ],
+    "answer": "System Testing"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the main purpose of software testing?",
+    "options": [
+      "Find defects",
+      "Design hardware",
+      "Increase file size",
+      "Create operating systems"
+    ],
+    "answer": "Find defects"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows LIFO?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Tree",
+      "Graph"
+    ],
+    "answer": "Stack"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows FIFO?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Tree",
+      "Heap"
+    ],
+    "answer": "Queue"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is binary search complexity?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "answer": "O(log n)"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which sorting algorithm uses divide and conquer?",
+    "options": [
+      "Merge Sort",
+      "Bubble Sort",
+      "Selection Sort",
+      "Linear Search"
+    ],
+    "answer": "Merge Sort"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a child class to acquire parent properties?",
+    "options": [
+      "Inheritance",
+      "Encapsulation",
+      "Abstraction",
+      "Compilation"
+    ],
+    "answer": "Inheritance"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure represents hierarchical data?",
+    "options": [
+      "Tree",
+      "Stack",
+      "Queue",
+      "Array"
+    ],
+    "answer": "Tree"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which search checks elements one by one?",
+    "options": [
+      "Linear Search",
+      "Binary Search",
+      "Merge Sort",
+      "Quick Sort"
+    ],
+    "answer": "Linear Search"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure is commonly used for priority queues?",
+    "options": [
+      "Heap",
+      "Stack",
+      "Array",
+      "Linked List"
+    ],
+    "answer": "Heap"
+  },
+  {
+    "company": "Cognizant",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the worst-case complexity of linear search?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "answer": "O(n)"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to create an object in Java?",
+    "options": [
+      "new",
+      "create",
+      "object",
+      "instance"
+    ],
+    "answer": "new"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to inherit a class?",
+    "options": [
+      "extends",
+      "implements",
+      "inherits",
+      "super"
+    ],
+    "answer": "extends"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method is the entry point of a Java program?",
+    "options": [
+      "start()",
+      "run()",
+      "main()",
+      "execute()"
+    ],
+    "answer": "main()"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword refers to the current object?",
+    "options": [
+      "this",
+      "self",
+      "current",
+      "object"
+    ],
+    "answer": "this"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "Java",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword prevents method overriding?",
+    "options": [
+      "final",
+      "static",
+      "private",
+      "constant"
+    ],
+    "answer": "final"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Compilation",
+      "Overloading"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a subclass to redefine a method?",
+    "options": [
+      "Overriding",
+      "Overloading",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Overriding"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores key-value pairs?",
+    "options": [
+      "HashMap",
+      "ArrayList",
+      "HashSet",
+      "LinkedList"
+    ],
+    "answer": "HashMap"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "Collections",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection does not allow duplicate elements?",
+    "options": [
+      "HashSet",
+      "ArrayList",
+      "LinkedList",
+      "Vector"
+    ],
+    "answer": "HashSet"
+  },
+  {
+    "company": "NatWest",
+    "role": "Java Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which construct handles exceptions?",
+    "options": [
+      "try-catch",
+      "if-else",
+      "switch",
+      "for"
+    ],
+    "answer": "try-catch"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a function?",
+    "options": [
+      "def",
+      "func",
+      "function",
+      "define"
+    ],
+    "answer": "def"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which type stores key-value pairs?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Dictionary"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection is immutable?",
+    "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+    ],
+    "answer": "Tuple"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword exits a loop?",
+    "options": [
+      "continue",
+      "pass",
+      "break",
+      "stop"
+    ],
+    "answer": "break"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which method adds an item to a list?",
+    "options": [
+      "add()",
+      "append()",
+      "push()",
+      "insertEnd()"
+    ],
+    "answer": "append()"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword skips the current iteration?",
+    "options": [
+      "skip",
+      "pass",
+      "continue",
+      "break"
+    ],
+    "answer": "continue"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function converts a string to integer?",
+    "options": [
+      "str()",
+      "float()",
+      "int()",
+      "number()"
+    ],
+    "answer": "int()"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Exception Handling",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword handles exceptions?",
+    "options": [
+      "catch",
+      "except",
+      "error",
+      "handle"
+    ],
+    "answer": "except"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which collection stores unique values?",
+    "options": [
+      "List",
+      "Tuple",
+      "Set",
+      "String"
+    ],
+    "answer": "Set"
+  },
+  {
+    "company": "NatWest",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword defines a class?",
+    "options": [
+      "class",
+      "struct",
+      "object",
+      "define"
+    ],
+    "answer": "class"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function counts rows?",
+    "options": [
+      "COUNT()",
+      "SUM()",
+      "AVG()",
+      "MAX()"
+    ],
+    "answer": "COUNT()"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause filters rows?",
+    "options": [
+      "WHERE",
+      "GROUP BY",
+      "ORDER BY",
+      "HAVING"
+    ],
+    "answer": "WHERE"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause groups rows?",
+    "options": [
+      "GROUP BY",
+      "ORDER BY",
+      "WHERE",
+      "SELECT"
+    ],
+    "answer": "GROUP BY"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which clause sorts results?",
+    "options": [
+      "ORDER BY",
+      "GROUP BY",
+      "WHERE",
+      "HAVING"
+    ],
+    "answer": "ORDER BY"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "SQL",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function calculates average?",
+    "options": [
+      "SUM()",
+      "AVG()",
+      "COUNT()",
+      "MAX()"
+    ],
+    "answer": "AVG()"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key uniquely identifies a record?",
+    "options": [
+      "Primary Key",
+      "Foreign Key",
+      "Candidate Key",
+      "Alternate Key"
+    ],
+    "answer": "Primary Key"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "DBMS",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which key connects two tables?",
+    "options": [
+      "Foreign Key",
+      "Primary Key",
+      "Super Key",
+      "Alternate Key"
+    ],
+    "answer": "Foreign Key"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "Excel",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which feature summarizes large datasets?",
+    "options": [
+      "PivotTable",
+      "WordArt",
+      "Spell Check",
+      "Page Layout"
+    ],
+    "answer": "PivotTable"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "Statistics",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which measure represents the middle value?",
+    "options": [
+      "Mean",
+      "Median",
+      "Mode",
+      "Range"
+    ],
+    "answer": "Median"
+  },
+  {
+    "company": "NatWest",
+    "role": "Data Analyst",
+    "category": "Power BI",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is Power BI mainly used for?",
+    "options": [
+      "Data visualization",
+      "Video editing",
+      "Web browsing",
+      "Text editing"
+    ],
+    "answer": "Data visualization"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks individual units?",
+    "options": [
+      "Unit Testing",
+      "System Testing",
+      "Acceptance Testing",
+      "Load Testing"
+    ],
+    "answer": "Unit Testing"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing is performed after software changes?",
+    "options": [
+      "Regression Testing",
+      "Load Testing",
+      "Security Testing",
+      "Usability Testing"
+    ],
+    "answer": "Regression Testing"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks performance under workload?",
+    "options": [
+      "Load Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Acceptance Testing"
+    ],
+    "answer": "Load Testing"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing quickly checks build stability?",
+    "options": [
+      "Smoke Testing",
+      "Stress Testing",
+      "Unit Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Smoke Testing"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies business requirements?",
+    "options": [
+      "Acceptance Testing",
+      "Unit Testing",
+      "Load Testing",
+      "Mutation Testing"
+    ],
+    "answer": "Acceptance Testing"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing focuses on security vulnerabilities?",
+    "options": [
+      "Security Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Regression Testing"
+    ],
+    "answer": "Security Testing"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks different browsers and operating systems?",
+    "options": [
+      "Compatibility Testing",
+      "Unit Testing",
+      "Stress Testing",
+      "Recovery Testing"
+    ],
+    "answer": "Compatibility Testing"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing checks recovery after failure?",
+    "options": [
+      "Recovery Testing",
+      "Unit Testing",
+      "Smoke Testing",
+      "Compatibility Testing"
+    ],
+    "answer": "Recovery Testing"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which testing verifies the complete system?",
+    "options": [
+      "System Testing",
+      "Unit Testing",
+      "Component Testing",
+      "Code Review"
+    ],
+    "answer": "System Testing"
+  },
+  {
+    "company": "NatWest",
+    "role": "Tester",
+    "category": "Testing",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the main purpose of software testing?",
+    "options": [
+      "Find defects",
+      "Design hardware",
+      "Increase file size",
+      "Create operating systems"
+    ],
+    "answer": "Find defects"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows LIFO?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Tree",
+      "Graph"
+    ],
+    "answer": "Stack"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which data structure follows FIFO?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Tree",
+      "Heap"
+    ],
+    "answer": "Queue"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is binary search complexity?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "answer": "O(log n)"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which sorting algorithm uses divide and conquer?",
+    "options": [
+      "Merge Sort",
+      "Bubble Sort",
+      "Selection Sort",
+      "Linear Search"
+    ],
+    "answer": "Merge Sort"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept hides implementation details?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Encapsulation",
+      "Compilation"
+    ],
+    "answer": "Abstraction"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "OOP",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which concept allows a child class to acquire parent properties?",
+    "options": [
+      "Inheritance",
+      "Encapsulation",
+      "Abstraction",
+      "Compilation"
+    ],
+    "answer": "Inheritance"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure represents hierarchical data?",
+    "options": [
+      "Tree",
+      "Stack",
+      "Queue",
+      "Array"
+    ],
+    "answer": "Tree"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which search checks elements one by one?",
+    "options": [
+      "Linear Search",
+      "Binary Search",
+      "Merge Sort",
+      "Quick Sort"
+    ],
+    "answer": "Linear Search"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "DSA",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which structure is commonly used for priority queues?",
+    "options": [
+      "Heap",
+      "Stack",
+      "Array",
+      "Linked List"
+    ],
+    "answer": "Heap"
+  },
+  {
+    "company": "NatWest",
+    "role": "Software Developer",
+    "category": "Algorithms",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the worst-case complexity of linear search?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "answer": "O(n)"
+  }
+]

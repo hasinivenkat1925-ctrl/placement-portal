@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Placement Questions</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .question-box {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .option {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>📝 Previous Year Placement Questions</h1>
+
+    <h2 id="companyTitle"></h2>
+    <h3 id="roleTitle"></h3>
+
+    <hr>
+
+    <div id="questions">
+        <p>Loading questions...</p>
+    </div>
+
+    <br>
+
+    <button onclick="goBack()">
+        ← Back to Preparation
+    </button>
+
+    <button onclick="goDashboard()">
+        🏠 Dashboard
+    </button>
+
+
+<script>
+
+/* ==========================================
+   GET COMPANY AND ROLE
+========================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const company =
+    params.get("company") ||
+    localStorage.getItem("selectedCompany") ||
+    "Company";
+
+const role =
+    params.get("role") ||
+    localStorage.getItem("selectedRole") ||
+    "Role";
+
+
+/* ==========================================
+   DISPLAY COMPANY AND ROLE
+========================================== */
+
+document.getElementById(
+    "companyTitle"
+).innerText =
+    "🏢 Company: " + company;
+
+document.getElementById(
+    "roleTitle"
+).innerText =
+    "💼 Role: " + role;
+
+
+/* ==========================================
+   LOAD QUESTIONS
+========================================== */
+
+/* ==========================================
+   LOAD AI COMPANY QUESTIONS
+========================================== */
+
+async function loadQuestions() {
+
+    const container =
+        document.getElementById("questions");
+
+    try {
+
+        container.innerHTML =
+            "<h3>🤖 Generating AI questions...</h3>" +
+            "<p>Please wait...</p>";
+
+        const response =
+            await fetch(
+                "/api/generate-company-questions?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role)
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Unable to generate AI questions"
+            );
+        }
+
+        const data =
+            await response.json();
+
+        const questions =
+            data.questions || [];
+
+        if (questions.length === 0) {
+            throw new Error(
+                "No AI questions generated"
+            );
+        }
+
+        container.innerHTML = "";
+
+        const total =
+            document.createElement("h3");
+
+        total.innerText =
+            "🤖 AI Questions: " +
+            questions.length;
+
+        container.appendChild(total);
+
+        const info =
+            document.createElement("p");
+
+        info.innerHTML =
+            "📚 AI-generated placement questions for " +
+            "<strong>" +
+            company +
+            " - " +
+            role +
+            "</strong>";
+
+        container.appendChild(info);
+
+        const line =
+            document.createElement("hr");
+
+        container.appendChild(line);
+
+
+        questions.forEach(
+            (item, index) => {
+
+                const box =
+                    document.createElement("div");
+
+                box.className =
+                    "question-box";
+
+
+                const heading =
+                    document.createElement("h3");
+
+                heading.innerText =
+                    (index + 1) +
+                    ". " +
+                    item.question;
+
+                box.appendChild(heading);
+
+
+                const answer =
+                    document.createElement("p");
+
+                answer.innerHTML =
+                    "<strong>✅ Answer:</strong> " +
+                    item.answer;
+
+                box.appendChild(answer);
+
+
+                const explanation =
+                    document.createElement("p");
+
+                explanation.innerHTML =
+                    "<strong>💡 Explanation:</strong> " +
+                    item.explanation;
+
+                box.appendChild(explanation);
+
+
+                const separator =
+                    document.createElement("hr");
+
+                box.appendChild(separator);
+
+                container.appendChild(box);
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "AI Questions Error:",
+            error
+        );
+
+        container.innerHTML = `
+            <h3>❌ Unable to generate AI questions</h3>
+
+            <p>
+                Please make sure the backend
+                server and Gemini API are running.
+            </p>
+        `;
+
+    }
+}
+
+/* ==========================================
+   BACK
+========================================== */
+
+function goBack() {
+
+    window.location.href =
+        "preparation.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role);
+}
+
+
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+loadQuestions();
+
+</script>
+
+</body>
+
+</html>

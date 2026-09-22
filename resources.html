@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Placement Resources</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #1e3a8a;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h2 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #64748b;
+        }
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            border: 1px solid #e1e5eb;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .resource-card h3 {
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .resource-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .resource-card button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .resource-card button:hover {
+            background: #1d4ed8;
+        }
+
+        .button-area {
+            text-align: center;
+            margin: 35px 0;
+        }
+
+        .button-area button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            margin: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .button-area button:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 850px) {
+
+            .resources {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .resources {
+                grid-template-columns: 1fr;
+            }
+
+            .button-area button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h1>🎓 Placement Preparation Portal</h1>
+
+</div>
+
+
+<div class="container">
+
+
+    <!-- PAGE TITLE -->
+
+    <div class="page-title">
+
+        <h2>📚 Placement Resources</h2>
+
+        <p>
+            Useful resources to help you prepare for placements.
+        </p>
+
+    </div>
+
+
+    <!-- RESOURCES -->
+
+    <div class="resources">
+
+
+        <div class="resource-card">
+
+            <h3>📄 Resume Preparation</h3>
+
+            <p>
+                Learn how to create a professional
+                resume for placement opportunities.
+            </p>
+
+            <button onclick="showResource('resume')">
+                View Tips
+            </button>
+
+        </div>
+
+
+        <div class="resource-card">
+
+            <h3>🧠 Aptitude Preparation</h3>
+
+            <p>
+                Improve your quantitative,
+                logical and reasoning skills.
+            </p>
+
+            <button onclick="showResource('aptitude')">
+                View Tips
+            </button>
+
+        </div>
+
+
+        <div class="resource-card">
+
+            <h3>💻 Technical Interview</h3>
+
+            <p>
+                Prepare for technical interviews
+                with important preparation tips.
+            </p>
+
+            <button onclick="showResource('technical')">
+                View Tips
+            </button>
+
+        </div>
+
+
+        <div class="resource-card">
+
+            <h3>🎤 HR Interview</h3>
+
+            <p>
+                Learn how to answer common HR
+                interview questions confidently.
+            </p>
+
+            <button onclick="showResource('hr')">
+                View Tips
+            </button>
+
+        </div>
+
+
+        <div class="resource-card">
+
+            <h3>👥 Group Discussion</h3>
+
+            <p>
+                Improve your communication,
+                confidence and discussion skills.
+            </p>
+
+            <button onclick="showResource('gd')">
+                View Tips
+            </button>
+
+        </div>
+
+
+        <div class="resource-card">
+
+            <h3>💬 Communication Skills</h3>
+
+            <p>
+                Develop professional communication
+                skills for interviews and workplaces.
+            </p>
+
+            <button onclick="showResource('communication')">
+                View Tips
+            </button>
+
+        </div>
+
+
+        <div class="resource-card">
+
+            <h3>🎯 Placement Strategy</h3>
+
+            <p>
+                Follow a structured strategy to
+                prepare effectively for placements.
+            </p>
+
+            <button onclick="showResource('strategy')">
+                View Tips
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- RESOURCE CONTENT -->
+
+    <div
+        id="resourceContent"
+        style="
+            background:white;
+            margin-top:25px;
+            padding:25px;
+            border-radius:14px;
+            display:none;
+            box-shadow:0 4px 14px rgba(0,0,0,0.06);
+        "
+    >
+
+        <h2 id="resourceTitle"></h2>
+
+        <ul id="resourceList"></ul>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <div class="button-area">
+
+        <button onclick="goDashboard()">
+            🏠 Dashboard
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+// ========================================
+// LOGIN PROTECTION
+// ========================================
+
+const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+if (!loggedInUser) {
+    window.location.href = "login.html";
+}
+
+const resources = {
+
+    resume: {
+
+        title: "📄 Resume Preparation",
+
+        tips: [
+
+            "Keep your resume clear and professional.",
+            "Highlight your technical skills and projects.",
+            "Mention relevant internships and certifications.",
+            "Use simple and professional formatting.",
+            "Check your resume carefully for spelling mistakes."
+
+        ]
+
+    },
+
+
+    aptitude: {
+
+        title: "🧠 Aptitude Preparation",
+
+        tips: [
+
+            "Practice percentages, ratios and averages.",
+            "Practice time and work problems.",
+            "Learn shortcuts for faster calculations.",
+            "Practice logical reasoning regularly.",
+            "Solve questions with a time limit."
+
+        ]
+
+    },
+
+
+    technical: {
+
+        title: "💻 Technical Interview",
+
+        tips: [
+
+            "Understand your programming language fundamentals.",
+            "Practice SQL and DBMS questions.",
+            "Revise OOP concepts.",
+            "Practice data structures and algorithms.",
+            "Be prepared to explain your projects."
+
+        ]
+
+    },
+
+
+    hr: {
+
+        title: "🎤 HR Interview",
+
+        tips: [
+
+            "Prepare a clear self-introduction.",
+            "Know your strengths and weaknesses.",
+            "Research the company before the interview.",
+            "Answer questions honestly and confidently.",
+            "Maintain professional communication."
+
+        ]
+
+    },
+
+
+    gd: {
+
+        title: "👥 Group Discussion",
+
+        tips: [
+
+            "Listen carefully to other participants.",
+            "Speak clearly and confidently.",
+            "Support your points with examples.",
+            "Do not interrupt others unnecessarily.",
+            "Try to contribute useful points."
+
+        ]
+
+    },
+
+
+    communication: {
+
+        title: "💬 Communication Skills",
+
+        tips: [
+
+            "Speak clearly and confidently.",
+            "Use simple professional language.",
+            "Improve your vocabulary regularly.",
+            "Practice speaking English every day.",
+            "Maintain good eye contact during interviews."
+
+        ]
+
+    },
+
+
+    strategy: {
+
+        title: "🎯 Placement Strategy",
+
+        tips: [
+
+            "Create a daily preparation schedule.",
+            "Practice aptitude regularly.",
+            "Strengthen programming fundamentals.",
+            "Solve company-specific questions.",
+            "Take mock quizzes and interviews.",
+            "Track your preparation progress."
+
+        ]
+
+    }
+
+};
+
+
+// ========================================
+// SHOW RESOURCE
+// ========================================
+
+function showResource(type) {
+
+    const resource =
+        resources[type];
+
+    document.getElementById(
+        "resourceTitle"
+    ).innerText =
+        resource.title;
+
+
+    const list =
+        document.getElementById(
+            "resourceList"
+        );
+
+    list.innerHTML = "";
+
+
+    resource.tips.forEach(
+        function(tip) {
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+            li.innerText = tip;
+
+            list.appendChild(li);
+
+        }
+    );
+
+
+    const content =
+        document.getElementById(
+            "resourceContent"
+        );
+
+    content.style.display = "block";
+
+
+    content.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+// ========================================
+// DASHBOARD
+// ========================================
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

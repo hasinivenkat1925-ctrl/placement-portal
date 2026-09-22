@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Placement Preparation Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eaf3ff, #f7fbff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            min-height: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .left-section {
+            width: 50%;
+            background: #1f4e79;
+            color: white;
+            padding: 70px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left-section h1 {
+            font-size: 42px;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .left-section h1 span {
+            color: #a9d6ff;
+        }
+
+        .left-section p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #e8f3ff;
+        }
+
+        .right-section {
+            width: 50%;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-section h2 {
+            color: #1f4e79;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .right-section p {
+            color: #555;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .quote {
+            padding: 20px;
+            background: #f0f6fc;
+            border-left: 5px solid #1f4e79;
+            border-radius: 8px;
+            margin-bottom: 35px;
+            color: #444;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .continue-btn {
+            width: 200px;
+            padding: 15px;
+            background: #1f4e79;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .continue-btn:hover {
+            background: #163a5c;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        @media (max-width: 800px) {
+
+            .container {
+                flex-direction: column;
+                width: 94%;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+            }
+
+            .left-section {
+                padding: 45px 30px;
+            }
+
+            .right-section {
+                padding: 40px 30px;
+            }
+
+            .left-section h1 {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Left Side -->
+        <div class="left-section">
+
+            <h1>
+                Placement
+                <span>Preparation</span>
+                Portal
+            </h1>
+
+            <p>
+                A dedicated platform created to support students
+                throughout their placement preparation journey.
+            </p>
+
+        </div>
+
+
+        <!-- Right Side -->
+        <div class="right-section">
+
+            <h2>Welcome!</h2>
+
+            <p>
+                The Placement Preparation Portal is designed to
+                provide students with a structured environment
+                for preparing for campus placements.
+            </p>
+
+            <div class="quote">
+                Prepare with confidence, improve your knowledge,
+                and take a step closer to achieving your career goals.
+            </div>
+
+            <button
+                class="continue-btn"
+                onclick="continueToLogin()">
+                Continue →
+            </button>
+
+            <div class="footer">
+                Start your placement preparation journey today.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function continueToLogin() {
+
+            window.location.href = "landing-login.html";
+
+        }
+
+    </script>
+
+</body>
+</html>

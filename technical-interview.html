@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Technical Interview</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 36px;
+        }
+
+        .info {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 18px;
+            color: #444;
+        }
+
+        .progress {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+
+        .question-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .question {
+            font-size: 20px;
+            font-weight: bold;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef6ff;
+            border-left: 4px solid #2563eb;
+            line-height: 1.6;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .complete-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .complete-button {
+            background: #16a34a;
+            font-size: 16px;
+            padding: 12px 25px;
+        }
+
+        .complete-button:hover {
+            background: #15803d;
+        }
+
+        .completion-message {
+            display: none;
+            text-align: center;
+            background: #dcfce7;
+            color: #166534;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .bottom-buttons {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .bottom-buttons button {
+            margin: 8px;
+        }
+
+        .message {
+            text-align: center;
+            font-size: 20px;
+            color: #555;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>💻 Technical Interview</h1>
+
+    <div class="info">
+        <div id="companyText"></div>
+        <div id="roleText"></div>
+    </div>
+
+    <div class="progress" id="progressText">
+        Loading...
+    </div>
+
+    <div id="questionsContainer"></div>
+
+    <div class="message" id="message"></div>
+
+    <div class="navigation">
+
+        <button
+            id="previousButton"
+            onclick="previousQuestion()"
+        >
+            ⬅ Previous
+        </button>
+
+        <button
+            id="nextButton"
+            onclick="nextQuestion()"
+        >
+            Next ➡
+        </button>
+
+    </div>
+
+    <div class="complete-section">
+
+        <button
+            class="complete-button"
+            id="completeButton"
+            onclick="markCompleted()"
+        >
+            ✅ Mark as Completed
+        </button>
+
+        <div
+            class="completion-message"
+            id="completionMessage"
+        >
+            🎉 Technical Interview Completed!
+        </div>
+
+    </div>
+
+    <div class="bottom-buttons">
+
+        <button onclick="goBack()">
+            ⬅ Back to Interview
+        </button>
+
+        <button onclick="goDashboard()">
+            🏠 Dashboard
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+    // ==============================
+    // CHECK LOGIN
+    // ==============================
+
+    const loggedInUser =
+        localStorage.getItem("loggedInUser");
+
+    if (!loggedInUser) {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    let currentUser = null;
+
+    try {
+
+        currentUser =
+            JSON.parse(loggedInUser);
+
+    } catch (error) {
+
+        localStorage.removeItem("loggedInUser");
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    // ==============================
+    // GET COMPANY AND ROLE
+    // ==============================
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    let company =
+        params.get("company");
+
+    let role =
+        params.get("role");
+
+
+    if (!company) {
+
+        company =
+            localStorage.getItem("selectedCompany");
+
+    }
+
+
+    if (!role) {
+
+        role =
+            localStorage.getItem("selectedRole");
+
+    }
+
+
+    document.getElementById("companyText").innerHTML =
+        "<strong>Company:</strong> " +
+        (company || "General");
+
+
+    document.getElementById("roleText").innerHTML =
+        "<strong>Role:</strong> " +
+        (role || "General");
+
+
+    // ==============================
+    // PROGRESS KEY
+    // ==============================
+
+    const studentEmail =
+        currentUser
+            ? String(currentUser.email || "")
+                .trim()
+                .toLowerCase()
+            : "guest";
+
+
+    const interviewProgressKey =
+        "technicalInterviewCompleted_" +
+        studentEmail + "_" +
+        String(company || "")
+            .replace(/\s+/g, "_") +
+        "_" +
+        String(role || "")
+            .replace(/\s+/g, "_");
+
+
+    // ==============================
+    // VARIABLES
+    // ==============================
+
+    let questions = [];
+
+    let currentQuestion = 0;
+
+
+    // ==============================
+    // LOAD QUESTIONS
+    // ==============================
+
+    async function loadQuestions() {
+
+        const message =
+            document.getElementById("message");
+
+        try {
+
+            const response = await fetch(
+                `http://localhost:5000/api/questions?company=${encodeURIComponent(company)}&role=${encodeURIComponent(role)}`
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load questions"
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Technical Interview Data:",
+                data
+            );
+
+
+            questions =
+                data.questions || [];
+
+
+            if (questions.length === 0) {
+
+                message.innerHTML =
+                    "No technical interview questions found for this company and role.";
+
+                document.querySelector(
+                    ".navigation"
+                ).style.display = "none";
+
+                document.querySelector(
+                    ".complete-section"
+                ).style.display = "none";
+
+                return;
+
+            }
+
+
+            questions =
+                questions.slice(0, 10);
+
+
+            showQuestion();
+
+            checkCompletion();
+
+        } catch (error) {
+
+            console.error(
+                "Technical Interview Error:",
+                error
+            );
+
+
+            message.innerHTML =
+                "Unable to load interview questions. Please make sure the backend server is running.";
+
+            document.querySelector(
+                ".navigation"
+            ).style.display = "none";
+
+        }
+
+    }
+
+
+    // ==============================
+    // SHOW CURRENT QUESTION
+    // ==============================
+
+    function showQuestion() {
+
+        const container =
+            document.getElementById(
+                "questionsContainer"
+            );
+
+
+        const progressText =
+            document.getElementById(
+                "progressText"
+            );
+
+
+        const previousButton =
+            document.getElementById(
+                "previousButton"
+            );
+
+
+        const nextButton =
+            document.getElementById(
+                "nextButton"
+            );
+
+
+        const question =
+            questions[currentQuestion];
+
+
+        progressText.innerHTML =
+            `Question ${currentQuestion + 1} of ${questions.length}`;
+
+
+        container.innerHTML = `
+
+            <div class="question-card">
+
+                <div class="question">
+                    ${currentQuestion + 1}. ${question.question}
+                </div>
+
+                <button
+                    onclick="toggleAnswer()"
+                >
+                    👁 Show Answer
+                </button>
+
+                <div
+                    class="answer"
+                    id="currentAnswer"
+                >
+
+                    <strong>Answer:</strong>
+
+                    <br><br>
+
+                    ${
+                        question.explanation ||
+                        question.answer ||
+                        "Answer not available."
+                    }
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        previousButton.disabled =
+            currentQuestion === 0;
+
+
+        if (
+            currentQuestion ===
+            questions.length - 1
+        ) {
+
+            nextButton.innerHTML =
+                "Finish ➡";
+
+        } else {
+
+            nextButton.innerHTML =
+                "Next ➡";
+
+        }
+
+    }
+
+
+    // ==============================
+    // SHOW / HIDE ANSWER
+    // ==============================
+
+    function toggleAnswer() {
+
+        const answer =
+            document.getElementById(
+                "currentAnswer"
+            );
+
+
+        if (
+            answer.style.display === "none" ||
+            answer.style.display === ""
+        ) {
+
+            answer.style.display =
+                "block";
+
+        } else {
+
+            answer.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // ==============================
+    // PREVIOUS QUESTION
+    // ==============================
+
+    function previousQuestion() {
+
+        if (currentQuestion > 0) {
+
+            currentQuestion--;
+
+            showQuestion();
+
+        }
+
+    }
+
+
+    // ==============================
+    // NEXT QUESTION
+    // ==============================
+
+    function nextQuestion() {
+
+        if (
+            currentQuestion <
+            questions.length - 1
+        ) {
+
+            currentQuestion++;
+
+            showQuestion();
+
+        } else {
+
+            alert(
+                "You have reached the end of the technical interview!"
+            );
+
+        }
+
+    }
+
+
+    // ==============================
+    // MARK COMPLETED
+    // ==============================
+
+    function markCompleted() {
+
+    const completionKey =
+        "technicalInterviewCompleted_" +
+        studentEmail + "_" +
+        company.replace(/\s+/g, "_") + "_" +
+        role.replace(/\s+/g, "_");
+
+    // Save completion for this student
+    localStorage.setItem(
+        completionKey,
+        "true"
+    );
+
+    // Save Technical Interview performance
+    fetch("/api/performance", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: studentEmail,
+            type: "Technical Interview",
+            company: company,
+            role: role,
+            topic: "",
+            score: 1,
+            percentage: 100,
+            correct: 1,
+            wrong: 0,
+            unanswered: 0
+        })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+
+        console.log(
+            "Technical Interview performance saved:",
+            data
+        );
+
+        alert("Technical Interview completed successfully!");
+
+        // Reload page
+        location.reload();
+    })
+    .catch(function(error) {
+
+        console.log(
+            "Technical Interview performance save error:",
+            error
+        );
+
+        alert(
+            "Interview completed, but performance could not be saved."
+        );
+    });
+}
+
+    // ==============================
+    // CHECK PREVIOUS COMPLETION
+    // ==============================
+
+    function checkCompletion() {
+
+        const completed =
+            localStorage.getItem(
+                interviewProgressKey
+            );
+
+
+        if (completed === "true") {
+
+            document.getElementById(
+                "completionMessage"
+            ).style.display =
+                "block";
+
+
+            // IMPORTANT:
+            // This does NOT disable the interview.
+            // The student can retake it.
+
+            document.getElementById(
+                "completeButton"
+            ).innerHTML =
+                "🔄 Complete Again";
+
+
+            document.getElementById(
+                "completeButton"
+            ).disabled = false;
+
+        }
+
+    }
+
+
+    // ==============================
+    // NAVIGATION
+    // ==============================
+
+    function goBack() {
+
+        window.location.href =
+            "interview.html";
+
+    }
+
+
+    function goDashboard() {
+
+        window.location.href =
+            "dashboard.html";
+
+    }
+
+
+    // ==============================
+    // START
+    // ==============================
+
+    loadQuestions();
+
+</script>
+
+</body>
+</html>

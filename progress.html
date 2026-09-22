@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Progress</title>
+</head>
+
+<body>
+
+    <h1>📊 My Placement Progress</h1>
+
+    <hr>
+
+    <h2>👤 Student Progress</h2>
+
+    <p>Track your preparation progress for different topics.</p>
+
+    <hr>
+
+    <h3>☕ Java</h3>
+    <progress value="40" max="100"></progress>
+    <span> 40%</span>
+
+    <h3>🗄️ SQL</h3>
+    <progress value="60" max="100"></progress>
+    <span> 60%</span>
+
+    <h3>💾 DBMS</h3>
+    <progress value="50" max="100"></progress>
+    <span> 50%</span>
+
+    <h3>🧠 Data Structures</h3>
+    <progress value="30" max="100"></progress>
+    <span> 30%</span>
+
+    <h3>📐 Aptitude</h3>
+    <progress value="70" max="100"></progress>
+    <span> 70%</span>
+
+    <hr>
+
+    <h2>📝 Latest Quiz Result</h2>
+
+    <p id="quizResult">
+        No quiz completed yet.
+    </p>
+
+    <hr>
+
+    <button onclick="goDashboard()">
+        ⬅ Back to Dashboard
+    </button>
+
+
+    <script>
+
+        let score = localStorage.getItem("quizScore");
+        let total = localStorage.getItem("quizTotal");
+
+        if (score !== null && total !== null) {
+
+            document.getElementById("quizResult").innerText =
+                "Latest Quiz Score: " + score + " / " + total;
+
+        }
+
+
+        function goDashboard() {
+
+            window.location.href = "dashboard.html";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

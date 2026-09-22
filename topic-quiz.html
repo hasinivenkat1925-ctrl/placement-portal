@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Topic Quiz</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .quiz-box {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 25px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            margin: 12px 0;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .option:hover {
+            background: #f0f0f0;
+        }
+
+        .selected {
+            background: #dbeafe;
+            border-color: #2563eb;
+        }
+
+        #timer {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #result {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .result-box {
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .result-box p {
+            font-size: 18px;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+
+        .unanswered {
+            color: gray;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .navigation button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: #3730a3;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            font-size: 18px;
+        }
+
+        .error-box {
+            text-align: center;
+            padding: 25px;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>🧠 Topic Quiz</h1>
+
+    <hr>
+
+    <h2 id="companyTitle"></h2>
+
+    <h3 id="roleTitle"></h3>
+
+    <h2 id="topicTitle"></h2>
+
+    <div style="text-align:center;">
+
+    <span id="quizSourceBadge" class="ai-badge">
+        ⏳ Loading Quiz...
+    </span>
+
+</div>
+
+    <hr>
+
+
+    <div class="quiz-box">
+
+        <div id="timer">
+            ⏱️ Time: 10:00
+        </div>
+
+        <br>
+
+        <div id="quiz">
+
+            <div class="loading">
+
+                🤖 Preparing your quiz...
+
+                <br><br>
+
+                Please wait.
+
+            </div>
+
+        </div>
+
+
+        <div class="navigation">
+
+            <button
+                id="previousButton"
+                onclick="previousQuestion()">
+
+                ← Previous
+
+            </button>
+
+
+            <button
+                id="nextButton"
+                onclick="nextQuestion()">
+
+                Next →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div id="result"></div>
+
+
+    <hr>
+
+
+    <button onclick="goBack()">
+
+        ← Back to Topic Preparation
+
+    </button>
+
+
+    <button onclick="goDashboard()">
+
+        🏠 Dashboard
+
+    </button>
+
+
+
+<script>
+
+
+// =========================================
+// CHECK LOGIN
+// =========================================
+
+const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+
+if (!loggedInUser) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+let currentUser = null;
+
+
+try {
+
+    currentUser =
+        JSON.parse(loggedInUser);
+
+}
+catch (error) {
+
+    localStorage.removeItem(
+        "loggedInUser"
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+// =========================================
+// STUDENT EMAIL
+// =========================================
+
+const studentEmail =
+    String(
+        currentUser.email || ""
+    )
+    .trim()
+    .toLowerCase();
+
+
+
+// =========================================
+// GET URL VALUES
+// =========================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const company =
+    params.get("company") ||
+    localStorage.getItem(
+        "selectedCompany"
+    ) ||
+    "";
+
+
+const role =
+    params.get("role") ||
+    localStorage.getItem(
+        "selectedRole"
+    ) ||
+    "";
+
+
+const topic =
+    params.get("topic") ||
+    localStorage.getItem(
+        "selectedTopic"
+    ) ||
+    "";
+
+
+
+// =========================================
+// SAVE SELECTION
+// =========================================
+
+localStorage.setItem(
+    "selectedCompany",
+    company
+);
+
+localStorage.setItem(
+    "selectedRole",
+    role
+);
+
+localStorage.setItem(
+    "selectedTopic",
+    topic
+);
+
+
+
+// =========================================
+// DISPLAY DETAILS
+// =========================================
+
+document.getElementById(
+    "companyTitle"
+).innerText =
+    "🏢 Company: " + company;
+
+
+document.getElementById(
+    "roleTitle"
+).innerText =
+    "💼 Role: " + role;
+
+
+document.getElementById(
+    "topicTitle"
+).innerText =
+    "📚 Topic: " + topic;
+
+
+
+// =========================================
+// VARIABLES
+// =========================================
+
+let questions = [];
+
+let currentQuestion = 0;
+
+let selectedAnswers = [];
+
+let timeLeft = 600;
+
+let timerInterval;
+
+let quizFinished = false;
+
+
+
+// =========================================
+// AI CACHE KEY
+// =========================================
+
+const aiQuizCacheKey =
+    "aiQuiz_" +
+    studentEmail +
+    "_" +
+    company +
+    "_" +
+    role +
+    "_" +
+    topic;
+
+
+
+// =========================================
+// LOAD QUIZ
+// =========================================
+
+async function loadQuiz() {
+
+    const quiz =
+        document.getElementById(
+            "quiz"
+        );
+
+
+    // =====================================
+    // CHECK SELECTION
+    // =====================================
+
+    if (
+        !company ||
+        !role ||
+        !topic
+    ) {
+
+        quiz.innerHTML = `
+
+            <div class="error-box">
+
+                <h3>
+                    ⚠️ Selection Missing
+                </h3>
+
+                <p>
+                    Please select a company,
+                    role and topic first.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    // =====================================
+    // CHECK EXISTING AI QUIZ
+    // =====================================
+
+    const cachedQuiz =
+        localStorage.getItem(
+            aiQuizCacheKey
+        );
+
+
+    if (cachedQuiz) {
+
+        try {
+
+            const cachedData =
+                JSON.parse(
+                    cachedQuiz
+                );
+
+
+            if (
+                cachedData.questions &&
+                Array.isArray(
+                    cachedData.questions
+                ) &&
+                cachedData.questions.length >= 5
+            ) {
+
+                console.log(
+                    "Using saved AI quiz"
+                );
+
+
+                questions =
+                    cachedData.questions
+                        .slice(0, 5);
+
+
+                prepareQuiz();
+
+                return;
+
+            }
+
+        }
+        catch (error) {
+
+            console.log(
+                "Invalid cached quiz"
+            );
+
+        }
+
+    }
+
+
+
+    // =====================================
+    // SHOW LOADING
+    // =====================================
+
+    quiz.innerHTML = `
+
+        <div class="loading">
+
+            🤖 Gemini is generating
+            your quiz...
+
+            <br><br>
+
+            📚 Topic:
+            <strong>
+                ${escapeHtml(topic)}
+            </strong>
+
+            <br><br>
+
+            💼 Role:
+            <strong>
+                ${escapeHtml(role)}
+            </strong>
+
+            <br><br>
+
+            Please wait...
+
+        </div>
+
+    `;
+
+
+    // =====================================
+    // TRY GEMINI
+    // =====================================
+
+    try {
+
+        const aiUrl =
+            "/api/generate-quiz?" +
+            "topic=" +
+            encodeURIComponent(topic) +
+            "&company=" +
+            encodeURIComponent(company) +
+            "&role=" +
+            encodeURIComponent(role);
+
+
+        console.log(
+            "Requesting AI quiz:"
+        );
+
+        console.log(
+            aiUrl
+        );
+
+
+        const response =
+            await fetch(
+                aiUrl
+            );
+
+
+        const data =
+            await response.json()
+                .catch(() => ({}));
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.details ||
+                data.error ||
+                "Gemini quiz generation failed"
+            );
+
+        }
+
+
+        if (
+            !data.questions ||
+            !Array.isArray(
+                data.questions
+            )
+        ) {
+
+            throw new Error(
+                "Gemini returned invalid questions"
+            );
+
+        }
+
+
+        if (
+            data.questions.length < 5
+        ) {
+
+            throw new Error(
+                "Gemini returned fewer than 5 questions"
+            );
+
+        }
+
+
+        // =================================
+        // STORE QUESTIONS
+        // =================================
+
+        questions =
+            data.questions.slice(
+                0,
+                5
+            );
+
+
+        // =================================
+        // CACHE QUESTIONS
+        // =================================
+
+        localStorage.setItem(
+
+            aiQuizCacheKey,
+
+            JSON.stringify({
+
+                company:
+                    company,
+
+                role:
+                    role,
+
+                topic:
+                    topic,
+
+                questions:
+                    questions,
+
+                generatedAt:
+                    new Date().toISOString()
+
+            })
+
+        );
+
+
+        console.log(
+            "AI quiz generated successfully"
+        );
+
+
+        prepareQuiz();
+
+    }
+
+
+    // =====================================
+    // GEMINI FAILED
+    // =====================================
+
+    catch (error) {
+
+        console.error(
+            "Gemini Error:",
+            error
+        );
+
+
+        // =================================
+        // FALLBACK TO DATABASE
+        // =================================
+
+        quiz.innerHTML = `
+
+            <div class="loading">
+
+                ⚠️ AI quiz is temporarily
+                unavailable.
+
+                <br><br>
+
+                Loading existing questions...
+
+            </div>
+
+        `;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/topic-questions?company=" +
+                    encodeURIComponent(
+                        company
+                    ) +
+                    "&role=" +
+                    encodeURIComponent(
+                        role
+                    ) +
+                    "&topic=" +
+                    encodeURIComponent(
+                        topic
+                    )
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Database request failed"
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            questions =
+    data.questions || [];
+
+
+if (
+    questions.length === 0
+) {
+
+    throw new Error(
+        "No existing questions for this topic"
+    );
+
+}
+
+
+            questions =
+                shuffleArray(
+                    questions
+                );
+
+
+            questions =
+                questions.slice(
+                    0,
+                    5
+                );
+
+
+            prepareQuiz();
+
+
+            console.log(
+                "Fallback questions loaded"
+            );
+
+
+        }
+        catch (fallbackError) {
+
+            console.error(
+                "Fallback Error:",
+                fallbackError
+            );
+
+
+            quiz.innerHTML = `
+
+                <div class="error-box">
+
+                    <h3>
+                        ❌ Unable to load quiz
+                    </h3>
+
+                    <p>
+                        Gemini could not generate
+                        the quiz and no existing
+                        questions were found.
+                    </p>
+
+                    <br>
+
+                    <button
+                        onclick="location.reload()">
+
+                        🔄 Try Again
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+
+// =========================================
+// PREPARE QUIZ
+// =========================================
+
+function prepareQuiz() {
+
+    if (
+        !questions ||
+        questions.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    // =====================================
+    // SHUFFLE
+    // =====================================
+
+    questions =
+        shuffleArray(
+            questions
+        );
+
+
+    // =====================================
+    // ONLY 5 QUESTIONS
+    // =====================================
+
+    questions =
+        questions.slice(
+            0,
+            5
+        );
+
+
+    // =====================================
+    // ANSWERS
+    // =====================================
+
+    selectedAnswers =
+        new Array(
+            questions.length
+        ).fill(null);
+
+
+    currentQuestion = 0;
+
+    quizFinished = false;
+
+
+    // =====================================
+    // START TIMER
+    // =====================================
+
+    startTimer();
+
+
+    // =====================================
+    // SHOW FIRST QUESTION
+    // =====================================
+
+    showQuestion();
+
+}
+
+
+
+// =========================================
+// SHUFFLE
+// =========================================
+
+function shuffleArray(array) {
+
+    return [...array].sort(
+        () =>
+            Math.random() -
+            0.5
+    );
+
+}
+
+
+
+// =========================================
+// SHOW QUESTION
+// =========================================
+
+function showQuestion() {
+
+    const quiz =
+        document.getElementById(
+            "quiz"
+        );
+
+
+    const item =
+        questions[
+            currentQuestion
+        ];
+
+
+    if (!item) {
+
+        return;
+
+    }
+
+
+    quiz.innerHTML = "";
+
+
+
+    // =====================================
+    // QUESTION NUMBER
+    // =====================================
+
+    const progress =
+        document.createElement(
+            "p"
+        );
+
+
+    progress.innerText =
+        "Question " +
+        (
+            currentQuestion + 1
+        ) +
+        " of " +
+        questions.length;
+
+
+    quiz.appendChild(
+        progress
+    );
+
+
+
+    // =====================================
+    // QUESTION
+    // =====================================
+
+    const question =
+        document.createElement(
+            "h2"
+        );
+
+
+    question.innerText =
+        item.question;
+
+
+    quiz.appendChild(
+        question
+    );
+
+
+
+    // =====================================
+    // OPTIONS
+    // =====================================
+
+    if (
+        Array.isArray(
+            item.options
+        )
+    ) {
+
+        item.options.forEach(
+            function (
+                option,
+                index
+            ) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.className =
+                    "option";
+
+
+                button.innerText =
+                    String.fromCharCode(
+                        65 + index
+                    ) +
+                    ". " +
+                    option;
+
+
+                button.onclick =
+                    function () {
+
+                        selectAnswer(
+                            option,
+                            button
+                        );
+
+                    };
+
+
+                // =================================
+                // RESTORE ANSWER
+                // =================================
+
+                if (
+                    selectedAnswers[
+                        currentQuestion
+                    ] === option
+                ) {
+
+                    button.classList.add(
+                        "selected"
+                    );
+
+                }
+
+
+                quiz.appendChild(
+                    button
+                );
+
+            }
+        );
+
+    }
+
+
+
+    // =====================================
+    // NAVIGATION
+    // =====================================
+
+    const previousButton =
+        document.getElementById(
+            "previousButton"
+        );
+
+
+    const nextButton =
+        document.getElementById(
+            "nextButton"
+        );
+
+
+    previousButton.disabled =
+        currentQuestion === 0;
+
+
+    if (
+        currentQuestion ===
+        questions.length - 1
+    ) {
+
+        nextButton.innerText =
+            "Submit Quiz";
+
+    }
+    else {
+
+        nextButton.innerText =
+            "Next →";
+
+    }
+
+}
+
+
+
+// =========================================
+// SELECT ANSWER
+// =========================================
+
+function selectAnswer(
+    answer,
+    button
+) {
+
+    selectedAnswers[
+        currentQuestion
+    ] = answer;
+
+
+    const options =
+        document.querySelectorAll(
+            ".option"
+        );
+
+
+    options.forEach(
+        function (option) {
+
+            option.classList.remove(
+                "selected"
+            );
+
+        }
+    );
+
+
+    button.classList.add(
+        "selected"
+    );
+
+}
+
+
+
+// =========================================
+// PREVIOUS
+// =========================================
+
+function previousQuestion() {
+
+    if (quizFinished) {
+
+        return;
+
+    }
+
+
+    if (
+        currentQuestion > 0
+    ) {
+
+        currentQuestion--;
+
+        showQuestion();
+
+    }
+
+}
+
+
+
+// =========================================
+// NEXT
+// =========================================
+
+function nextQuestion() {
+
+    if (quizFinished) {
+
+        return;
+
+    }
+
+
+    // =====================================
+    // REQUIRE ANSWER
+    // =====================================
+
+    if (
+        selectedAnswers[
+            currentQuestion
+        ] === null
+    ) {
+
+        alert(
+            "Please select an answer."
+        );
+
+        return;
+
+    }
+
+
+    // =====================================
+    // LAST QUESTION
+    // =====================================
+
+    if (
+        currentQuestion ===
+        questions.length - 1
+    ) {
+
+        finishQuiz();
+
+        return;
+
+    }
+
+
+    currentQuestion++;
+
+    showQuestion();
+
+}
+
+
+
+// =========================================
+// TIMER
+// =========================================
+
+function startTimer() {
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    timeLeft = 600;
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            function () {
+
+                timeLeft--;
+
+                updateTimer();
+
+
+                if (
+                    timeLeft <= 0
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    finishQuiz();
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+
+// =========================================
+// UPDATE TIMER
+// =========================================
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(
+            timeLeft / 60
+        );
+
+
+    const seconds =
+        timeLeft % 60;
+
+
+    document.getElementById(
+        "timer"
+    ).innerText =
+        "⏱️ Time: " +
+        String(minutes)
+            .padStart(2, "0") +
+        ":" +
+        String(seconds)
+            .padStart(2, "0");
+
+}
+
+
+
+// =========================================
+// FINISH QUIZ
+// =========================================
+
+async function finishQuiz() {
+
+    if (quizFinished) {
+        return;
+    }
+
+    quizFinished = true;
+
+    clearInterval(timerInterval);
+
+
+    // =====================================
+    // CALCULATE RESULT
+    // =====================================
+
+    let score = 0;
+    let wrongAnswers = 0;
+    let unanswered = 0;
+
+
+    questions.forEach(function(question, index) {
+
+        const answer =
+            selectedAnswers[index];
+
+
+        if (answer === null) {
+
+            unanswered++;
+
+        }
+        else if (answer === question.answer) {
+
+            score++;
+
+        }
+        else {
+
+            wrongAnswers++;
+
+        }
+
+    });
+
+
+    const percentage =
+        Math.round(
+            (score / questions.length) * 100
+        );
+
+
+    // =====================================
+    // HIDE NAVIGATION
+    // =====================================
+
+    document.getElementById(
+        "previousButton"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display = "none";
+
+
+    // =====================================
+    // SHOW RESULT
+    // =====================================
+
+    const quiz =
+        document.getElementById("quiz");
+
+
+    quiz.innerHTML = `
+
+        <div class="result-box">
+
+            <h2>
+                🎉 Quiz Completed!
+            </h2>
+
+            <p>
+                🏢 Company:
+                <strong>
+                    ${escapeHtml(company)}
+                </strong>
+            </p>
+
+            <p>
+                💼 Role:
+                <strong>
+                    ${escapeHtml(role)}
+                </strong>
+            </p>
+
+            <p>
+                📚 Topic:
+                <strong>
+                    ${escapeHtml(topic)}
+                </strong>
+            </p>
+
+            <hr>
+
+            <p>
+                📊 Score:
+                <strong>
+                    ${score} / ${questions.length}
+                </strong>
+            </p>
+
+            <p>
+                📈 Percentage:
+                <strong>
+                    ${percentage}%
+                </strong>
+            </p>
+
+            <p class="correct">
+                ✅ Correct:
+                <strong>
+                    ${score}
+                </strong>
+            </p>
+
+            <p class="wrong">
+                ❌ Wrong:
+                <strong>
+                    ${wrongAnswers}
+                </strong>
+            </p>
+
+            <p class="unanswered">
+                ⚪ Unanswered:
+                <strong>
+                    ${unanswered}
+                </strong>
+            </p>
+
+            <br>
+
+            <button onclick="retakeQuiz()">
+                🔄 Retake Quiz
+            </button>
+
+        </div>
+
+    `;
+
+
+    // =====================================
+    // SAVE PROGRESS
+    // =====================================
+
+    const progressKey =
+        "topicProgress_" +
+        studentEmail +
+        "_" +
+        company +
+        "_" +
+        role +
+        "_" +
+        topic;
+
+
+    localStorage.setItem(
+        progressKey,
+        percentage
+    );
+
+
+    // =====================================
+    // SAVE RESULT
+    // =====================================
+
+    const resultKey =
+        "topicQuizResult_" +
+        studentEmail +
+        "_" +
+        company +
+        "_" +
+        role +
+        "_" +
+        topic;
+
+
+    localStorage.setItem(
+
+        resultKey,
+
+        JSON.stringify({
+
+            studentEmail:
+                studentEmail,
+
+            company:
+                company,
+
+            role:
+                role,
+
+            topic:
+                topic,
+
+            score:
+                score,
+
+            total:
+                questions.length,
+
+            percentage:
+                percentage,
+
+            correct:
+                score,
+
+            wrong:
+                wrongAnswers,
+
+            unanswered:
+                unanswered,
+
+            date:
+                new Date().toISOString()
+
+        })
+
+    );
+
+
+    // =====================================
+    // SAVE PERFORMANCE TO BACKEND
+    // =====================================
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/performance",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        email:
+                            studentEmail,
+
+                        type:
+                            "Topic Quiz",
+
+                        company:
+                            company,
+
+                        role:
+                            role,
+
+                        topic:
+                            topic,
+
+                        score:
+                            score,
+
+                        percentage:
+                            percentage,
+
+                        correct:
+                            score,
+
+                        wrong:
+                            wrongAnswers,
+
+                        unanswered:
+                            unanswered
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Topic Quiz performance saved:",
+            data
+        );
+
+    }
+    catch (error) {
+
+        console.log(
+            "Topic Quiz performance save error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// =========================================
+// RETAKE QUIZ
+// =========================================
+
+function retakeQuiz() {
+
+    // Remove the old AI quiz
+    localStorage.removeItem(
+        aiQuizCacheKey
+    );
+
+
+    // Open the same topic again
+    window.location.href =
+        "topic-quiz.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role) +
+        "&topic=" +
+        encodeURIComponent(topic);
+
+}
+
+
+
+// =========================================
+// ESCAPE HTML
+// =========================================
+
+function escapeHtml(text) {
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+// =========================================
+// BACK TO TOPIC PREPARATION
+// =========================================
+
+function goBack() {
+
+    window.location.href =
+        "topic-preparation.html?company=" +
+        encodeURIComponent(company) +
+        "&role=" +
+        encodeURIComponent(role) +
+        "&topic=" +
+        encodeURIComponent(topic);
+
+}
+
+
+
+// =========================================
+// DASHBOARD
+// =========================================
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+
+
+// =========================================
+// START QUIZ
+// =========================================
+
+loadQuiz();
+
+</script>
+
+</body>
+
+</html>

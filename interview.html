@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Interview Preparation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 36px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .selection-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .interview-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .card h2 {
+            color: #1e3a8a;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .back-button {
+            display: block;
+            margin: 30px auto 0;
+        }
+
+        @media (max-width: 700px) {
+            .interview-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎤 Interview Preparation</h1>
+
+    <div class="subtitle">
+        Select a company and role to begin your interview preparation.
+    </div>
+
+
+    <!-- COMPANY & ROLE SELECTION -->
+
+    <div class="selection-card">
+
+        <label for="company">
+            🏢 Select Company
+        </label>
+
+        <select id="company">
+
+            <option value="">
+                -- Select Company --
+            </option>
+
+            <option value="TCS">
+                TCS
+            </option>
+
+            <option value="Infosys">
+                Infosys
+            </option>
+
+            <option value="Wipro">
+                Wipro
+            </option>
+
+            <option value="Accenture">
+                Accenture
+            </option>
+
+            <option value="Cognizant">
+                Cognizant
+            </option>
+
+            <option value="NatWest">
+                NatWest
+            </option>
+
+        </select>
+
+
+        <label for="role">
+            💼 Select Role
+        </label>
+
+        <select id="role">
+
+            <option value="">
+                -- Select Role --
+            </option>
+
+            <option value="Software Developer">
+                Software Developer
+            </option>
+
+            <option value="Java Developer">
+                Java Developer
+            </option>
+
+            <option value="Python Developer">
+                Python Developer
+            </option>
+
+            <option value="Data Analyst">
+                Data Analyst
+            </option>
+
+            <option value="Tester">
+                Tester
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- INTERVIEW OPTIONS -->
+
+    <div class="interview-cards">
+
+        <!-- HR INTERVIEW -->
+
+        <div class="card">
+
+            <h2>👤 HR Interview</h2>
+
+            <p>
+                Practice common HR questions,
+                company-specific questions,
+                and role-based questions.
+            </p>
+
+            <button onclick="startHR()">
+                👤 Start HR Interview
+            </button>
+
+        </div>
+
+
+        <!-- TECHNICAL INTERVIEW -->
+
+        <div class="card">
+
+            <h2>💻 Technical Interview</h2>
+
+            <p>
+                Practice technical questions
+                based on your selected company
+                and role.
+            </p>
+
+            <button onclick="startTechnical()">
+                💻 Start Technical Interview
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <button
+        class="back-button"
+        onclick="goDashboard()"
+    >
+        🏠 Back to Dashboard
+    </button>
+
+</div>
+
+
+<script>
+
+    // ==============================
+    // LOGIN CHECK
+    // ==============================
+
+    const loggedInUser =
+        localStorage.getItem("loggedInUser");
+
+    if (!loggedInUser) {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    // ==============================
+    // LOAD PREVIOUS SELECTION
+    // ==============================
+
+    const savedCompany =
+        localStorage.getItem(
+            "selectedCompany"
+        );
+
+    const savedRole =
+        localStorage.getItem(
+            "selectedRole"
+        );
+
+
+    if (savedCompany) {
+
+        document.getElementById(
+            "company"
+        ).value = savedCompany;
+
+    }
+
+
+    if (savedRole) {
+
+        document.getElementById(
+            "role"
+        ).value = savedRole;
+
+    }
+
+
+    // ==============================
+    // GET SELECTION
+    // ==============================
+
+    function getSelection() {
+
+        const company =
+            document.getElementById(
+                "company"
+            ).value;
+
+        const role =
+            document.getElementById(
+                "role"
+            ).value;
+
+
+        if (!company || !role) {
+
+            alert(
+                "Please select both company and role."
+            );
+
+            return null;
+
+        }
+
+
+        // Save selection
+
+        localStorage.setItem(
+            "selectedCompany",
+            company
+        );
+
+        localStorage.setItem(
+            "selectedRole",
+            role
+        );
+
+
+        return {
+            company,
+            role
+        };
+
+    }
+
+
+    // ==============================
+    // START HR INTERVIEW
+    // ==============================
+
+    function startHR() {
+
+        const selection =
+            getSelection();
+
+
+        if (!selection) {
+            return;
+        }
+
+
+        window.location.href =
+            "hr-interview.html?company=" +
+            encodeURIComponent(
+                selection.company
+            ) +
+            "&role=" +
+            encodeURIComponent(
+                selection.role
+            );
+
+    }
+
+
+    // ==============================
+    // START TECHNICAL INTERVIEW
+    // ==============================
+
+    function startTechnical() {
+
+        const selection =
+            getSelection();
+
+
+        if (!selection) {
+            return;
+        }
+
+
+        window.location.href =
+            "technical-interview.html?company=" +
+            encodeURIComponent(
+                selection.company
+            ) +
+            "&role=" +
+            encodeURIComponent(
+                selection.role
+            );
+
+    }
+
+
+    // ==============================
+    // DASHBOARD
+    // ==============================
+
+    function goDashboard() {
+
+        window.location.href =
+            "dashboard.html";
+
+    }
+
+</script>
+
+</body>
+</html>

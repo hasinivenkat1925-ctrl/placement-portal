@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Performance Reports</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #1e3a8a;
+            color: white;
+            padding: 20px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .back-btn {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #475569;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .info {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .info h2 {
+            margin-top: 0;
+            color: #1e3a8a;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 20px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+
+            text-align: center;
+        }
+
+        .summary-card h3 {
+            color: #1e3a8a;
+            font-size: 15px;
+        }
+
+        .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .reports {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+
+            overflow-x: auto;
+
+            margin-bottom: 30px;
+        }
+
+        .reports h2 {
+            color: #1e3a8a;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            min-width: 800px;
+        }
+
+        th {
+            background: #1e3a8a;
+            color: white;
+            padding: 13px;
+            text-align: left;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #e1e5eb;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .percentage {
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+        .correct {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .wrong {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .unanswered {
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 6px;
+            background: #dbeafe;
+            color: #1e40af;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .message {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+        }
+
+        .detail-section {
+            margin-top: 30px;
+        }
+
+        .detail-section h2 {
+            color: #1e3a8a;
+        }
+
+        .empty-details {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 900px) {
+
+            .summary {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 21px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>📊 Performance Reports</h1>
+
+    <button
+        class="back-btn"
+        onclick="goBack()">
+        ← Admin Dashboard
+    </button>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="info">
+
+        <h2>📈 Student Performance</h2>
+
+        <p>
+            View quiz and interview completion
+            information for registered students.
+        </p>
+
+    </div>
+
+
+    <div class="summary">
+
+
+        <div class="summary-card">
+
+            <h3>👨‍🎓 Students</h3>
+
+            <div
+                class="number"
+                id="studentCount">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h3>🏢 Company Quizzes</h3>
+
+            <div
+                class="number"
+                id="companyQuizCount">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h3>📚 Topic Quizzes</h3>
+
+            <div
+                class="number"
+                id="topicQuizCount">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h3>🎤 Interviews</h3>
+
+            <div
+                class="number"
+                id="interviewCount">
+                0
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="reports">
+
+        <h2>👨‍🎓 Registered Students</h2>
+
+        <div id="reportContainer">
+
+            <div class="message">
+                Loading performance reports...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         DETAILED PERFORMANCE
+         ===================================== -->
+
+    <div class="reports detail-section">
+
+        <h2>📊 Detailed Performance Records</h2>
+
+        <p>
+            View detailed quiz and interview performance
+            for all students.
+        </p>
+
+        <div id="performanceContainer">
+
+            <div class="message">
+                Loading detailed performance...
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script>
+    // ========================================
+// ADMIN LOGIN PROTECTION
+// ========================================
+
+const adminLoggedIn =
+    localStorage.getItem("adminLoggedIn");
+
+if (adminLoggedIn !== "true") {
+    window.location.href = "admin-login.html";
+}
+    // ========================================
+// ADMIN LOGIN CHECK
+// ========================================
+
+if (
+    localStorage.getItem("adminLoggedIn")
+    !== "true"
+) {
+
+    window.location.href =
+        "admin-login.html";
+
+}
+
+
+// ========================================
+// LOAD REPORTS
+// ========================================
+
+async function loadReports() {
+
+    try {
+
+        // ======================================
+        // GET REGISTERED STUDENTS
+        // ======================================
+
+        const studentsResponse =
+            await fetch("/api/admin/students");
+
+        const studentsData =
+            await studentsResponse.json();
+
+        if (!studentsResponse.ok) {
+
+            throw new Error(
+                studentsData.error ||
+                "Unable to load students"
+            );
+
+        }
+
+        const students =
+            studentsData.students || [];
+
+
+        // ======================================
+        // GET PERFORMANCE DATA
+        // ======================================
+
+        const performanceResponse =
+            await fetch("/api/performance");
+
+        const performanceData =
+            await performanceResponse.json();
+
+        if (!performanceResponse.ok) {
+
+            throw new Error(
+                performanceData.error ||
+                "Unable to load performance"
+            );
+
+        }
+
+        const performance =
+            Array.isArray(performanceData)
+                ? performanceData
+                : [];
+
+
+        // ======================================
+        // SUMMARY COUNTS
+        // ======================================
+
+        const companyQuizzes =
+            performance.filter(function(item) {
+
+                return item.type === "Company Quiz";
+
+            });
+
+
+        const topicQuizzes =
+            performance.filter(function(item) {
+
+                return item.type === "Topic Quiz";
+
+            });
+
+
+        const interviews =
+            performance.filter(function(item) {
+
+                return (
+                    item.type === "HR Interview" ||
+                    item.type === "Technical Interview"
+                );
+
+            });
+
+
+        document.getElementById(
+            "studentCount"
+        ).innerText =
+            students.length;
+
+
+        document.getElementById(
+            "companyQuizCount"
+        ).innerText =
+            companyQuizzes.length;
+
+
+        document.getElementById(
+            "topicQuizCount"
+        ).innerText =
+            topicQuizzes.length;
+
+
+        document.getElementById(
+            "interviewCount"
+        ).innerText =
+            interviews.length;
+
+
+        // ======================================
+        // STUDENT TABLE
+        // ======================================
+
+        const container =
+            document.getElementById(
+                "reportContainer"
+            );
+
+
+        if (students.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="message">
+                    No students registered yet.
+                </div>
+
+            `;
+
+        } else {
+
+            let html = `
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Name</th>
+
+                            <th>Email</th>
+
+                            <th>Company Quiz</th>
+
+                            <th>Topic Quiz</th>
+
+                            <th>Interviews</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+            `;
+
+
+            students.forEach(
+                function(student) {
+
+                    const studentEmail =
+                        String(
+                            student.email || ""
+                        )
+                        .toLowerCase()
+                        .trim();
+
+
+                    const studentCompanyQuizzes =
+                        companyQuizzes.filter(
+                            function(item) {
+
+                                return (
+                                    String(
+                                        item.email || ""
+                                    )
+                                    .toLowerCase()
+                                    .trim()
+                                    ===
+                                    studentEmail
+                                );
+
+                            }
+                        );
+
+
+                    const studentTopicQuizzes =
+                        topicQuizzes.filter(
+                            function(item) {
+
+                                return (
+                                    String(
+                                        item.email || ""
+                                    )
+                                    .toLowerCase()
+                                    .trim()
+                                    ===
+                                    studentEmail
+                                );
+
+                            }
+                        );
+
+
+                    const studentInterviews =
+                        interviews.filter(
+                            function(item) {
+
+                                return (
+                                    String(
+                                        item.email || ""
+                                    )
+                                    .toLowerCase()
+                                    .trim()
+                                    ===
+                                    studentEmail
+                                );
+
+                            }
+                        );
+
+
+                    html += `
+
+                        <tr>
+
+                            <td>
+                                ${student.id}
+                            </td>
+
+                            <td>
+                                ${student.name}
+                            </td>
+
+                            <td>
+                                ${student.email}
+                            </td>
+
+                            <td class="score">
+                                ${studentCompanyQuizzes.length}
+                            </td>
+
+                            <td class="score">
+                                ${studentTopicQuizzes.length}
+                            </td>
+
+                            <td class="score">
+                                ${studentInterviews.length}
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                }
+            );
+
+
+            html += `
+
+                    </tbody>
+
+                </table>
+
+            `;
+
+
+            container.innerHTML =
+                html;
+
+        }
+
+
+        // ======================================
+        // DETAILED PERFORMANCE TABLE
+        // ======================================
+
+        const performanceContainer =
+            document.getElementById(
+                "performanceContainer"
+            );
+
+
+        if (performance.length === 0) {
+
+            performanceContainer.innerHTML = `
+
+                <div class="empty-details">
+
+                    No performance records available yet.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        // Create student email → name map
+
+        const studentNames = {};
+
+
+        students.forEach(
+            function(student) {
+
+                studentNames[
+                    String(
+                        student.email || ""
+                    )
+                    .toLowerCase()
+                    .trim()
+                ] =
+                    student.name || "Unknown";
+
+            }
+        );
+
+
+        // Sort latest performance first
+
+        const sortedPerformance =
+            [...performance].sort(
+                function(a, b) {
+
+                    return (
+                        new Date(
+                            b.date || 0
+                        ) -
+                        new Date(
+                            a.date || 0
+                        )
+                    );
+
+                }
+            );
+
+
+        let performanceHTML = `
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Student</th>
+
+                        <th>Type</th>
+
+                        <th>Company</th>
+
+                        <th>Role</th>
+
+                        <th>Topic</th>
+
+                        <th>Score</th>
+
+                        <th>Percentage</th>
+
+                        <th>Correct</th>
+
+                        <th>Wrong</th>
+
+                        <th>Unanswered</th>
+
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+        `;
+
+
+        sortedPerformance.forEach(
+            function(item) {
+
+                const email =
+                    String(
+                        item.email || ""
+                    )
+                    .toLowerCase()
+                    .trim();
+
+
+                const studentName =
+                    studentNames[email] ||
+                    email ||
+                    "Unknown";
+
+
+                const dateText =
+                    item.date
+                        ? new Date(
+                            item.date
+                        ).toLocaleString()
+                        : "-";
+
+
+                performanceHTML += `
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                ${studentName}
+                            </strong>
+
+                            <br>
+
+                            <small>
+                                ${email}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="type-badge">
+                                ${item.type || "-"}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            ${item.company || "-"}
+                        </td>
+
+
+                        <td>
+                            ${item.role || "-"}
+                        </td>
+
+
+                        <td>
+                            ${item.topic || "-"}
+                        </td>
+
+
+                        <td class="score">
+                            ${item.score ?? "-"}
+                        </td>
+
+
+                        <td class="percentage">
+                            ${item.percentage ?? 0}%
+                        </td>
+
+
+                        <td class="correct">
+                            ${item.correct ?? 0}
+                        </td>
+
+
+                        <td class="wrong">
+                            ${item.wrong ?? 0}
+                        </td>
+
+
+                        <td class="unanswered">
+                            ${item.unanswered ?? 0}
+                        </td>
+
+
+                        <td>
+                            ${dateText}
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
+
+
+        performanceHTML += `
+
+                </tbody>
+
+            </table>
+
+        `;
+
+
+        performanceContainer.innerHTML =
+            performanceHTML;
+
+
+    } catch (error) {
+
+        console.log(
+            "Performance report error:",
+            error
+        );
+
+
+        document.getElementById(
+            "reportContainer"
+        ).innerHTML = `
+
+            <div class="message">
+                Unable to load performance reports.
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "performanceContainer"
+        ).innerHTML = `
+
+            <div class="empty-details">
+                Unable to load detailed performance.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// ========================================
+// BACK
+// ========================================
+
+function goBack() {
+
+    window.location.href =
+        "admin-dashboard.html";
+
+}
+
+
+// ========================================
+// START
+// ========================================
+
+loadReports();
+
+</script>
+
+
+</body>
+
+</html>
+
+
