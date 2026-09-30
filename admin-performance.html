@@ -429,9 +429,10 @@ async function loadReports() {
 
         if (students.length === 0) {
             students = [
-                { id: 101, name: "Hasini Venkat", email: "hasinivenkat1925@gmail.com" },
-                { id: 102, name: "Prasanthi Chinni", email: "prasanthichinni2805@gmail.com" },
-                { id: 103, name: "Placement Student", email: "student@placement.edu" }
+                { id: 101, name: "kavya", email: "kavyasithalam4@gmail.com" },
+                { id: 102, name: "Hasini Venkat", email: "hasinivenkat1925@gmail.com" },
+                { id: 103, name: "Prasanthi Chinni", email: "prasanthichinni2805@gmail.com" },
+                { id: 104, name: "Placement Student", email: "student@placement.edu" }
             ];
         }
 
@@ -445,6 +446,76 @@ async function loadReports() {
             }
         } catch (e) {
             console.warn("Performance fetch fallback:", e);
+        }
+
+        // Fallback default performance records if empty
+        if (!performance || performance.length === 0) {
+            performance = [
+                {
+                    id: "1790780560727",
+                    email: "kavyasithalam4@gmail.com",
+                    student: "kavya",
+                    type: "Company Quiz",
+                    company: "Cisco",
+                    role: "Java Developer",
+                    topic: "-",
+                    score: 2,
+                    percentage: 20,
+                    correct: 2,
+                    wrong: 8,
+                    unanswered: 0,
+                    date: "2026-09-30T15:02:40.727Z",
+                    displayDate: "9/30/2026, 8:32:40 PM"
+                },
+                {
+                    id: "1790776598617",
+                    email: "kavyasithalam4@gmail.com",
+                    student: "kavya",
+                    type: "Company Quiz",
+                    company: "TCS",
+                    role: "UI/UX Designer",
+                    topic: "-",
+                    score: 2,
+                    percentage: 20,
+                    correct: 2,
+                    wrong: 8,
+                    unanswered: 0,
+                    date: "2026-09-30T13:56:38.617Z",
+                    displayDate: "9/30/2026, 7:26:38 PM"
+                },
+                {
+                    id: "1790774099071",
+                    email: "kavyasithalam4@gmail.com",
+                    student: "kavya",
+                    type: "Technical Interview",
+                    company: "TCS",
+                    role: "Python Developer",
+                    topic: "-",
+                    score: 1,
+                    percentage: 100,
+                    correct: 1,
+                    wrong: 0,
+                    unanswered: 0,
+                    date: "2026-09-30T13:14:59.071Z",
+                    displayDate: "9/30/2026, 6:44:59 PM"
+                },
+                {
+                    id: "1790774072274",
+                    email: "kavyasithalam4@gmail.com",
+                    student: "kavya",
+                    type: "HR Interview",
+                    company: "TCS",
+                    role: "Python Developer",
+                    topic: "-",
+                    score: 1,
+                    percentage: 100,
+                    correct: 1,
+                    wrong: 0,
+                    unanswered: 0,
+                    date: "2026-09-30T13:10:12.274Z",
+                    displayDate: "9/30/2026, 6:40:12 PM"
+                }
+            ];
         }
 
 

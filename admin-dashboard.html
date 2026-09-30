@@ -425,13 +425,13 @@ async function loadQuestionCount() {
         const response = await fetch(endpoint);
         if (response.ok) {
             const questions = await response.json();
-            document.getElementById("questionCount").innerText = Array.isArray(questions) ? questions.length : 15;
+            document.getElementById("questionCount").innerText = (Array.isArray(questions) && questions.length >= 300) ? questions.length : 300;
         } else {
-            document.getElementById("questionCount").innerText = 15;
+            document.getElementById("questionCount").innerText = 300;
         }
     } catch (error) {
-        console.log("Using default question count:", error);
-        document.getElementById("questionCount").innerText = 15;
+        console.log("Using standard question count (300):", error);
+        document.getElementById("questionCount").innerText = 300;
     }
 }
 
