@@ -107,6 +107,19 @@ function resolveFrontendPath() {
 const frontendPath = resolveFrontendPath();
 
 app.use(express.static(frontendPath));
+app.use("/CSS", express.static(path.join(frontendPath, "CSS")));
+app.use("/css", express.static(path.join(frontendPath, "CSS")));
+
+app.get(["/style.css", "/CSS/style.css", "/css/style.css"], (req, res) => {
+    const cssPath = fs.existsSync(path.join(frontendPath, "CSS", "style.css")) 
+        ? path.join(frontendPath, "CSS", "style.css")
+        : path.join(frontendPath, "style.css");
+    res.type("text/css").sendFile(cssPath);
+});
+
+app.get(["/nav-header.js"], (req, res) => {
+    res.type("application/javascript").sendFile(path.join(frontendPath, "nav-header.js"));
+});
 
 
 // ========================================
