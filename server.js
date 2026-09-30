@@ -12,11 +12,13 @@ const { generateCompanySolutions } =
     require("./ai-company-solutions");
 const { generateCompanyQuiz } =
     require("./ai-company-quiz");
+const { generateCompanyPreparation } =
+    require("./ai-company-preparation");
     async function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -76,7 +78,7 @@ app.post("/api/admin-login", (req, res) => {
 // FRONTEND
 // ========================================
 
-const frontendPath = path.join(__dirname, "../frontend");
+const frontendPath = __dirname;
 
 app.use(express.static(frontendPath));
 
@@ -126,11 +128,25 @@ app.get("/company-quiz.html", (req, res) => {
 // QUESTION FILES
 // ========================================
 
+const dataFolder = path.join(__dirname, "data");
+if (!fs.existsSync(dataFolder)) {
+    fs.mkdirSync(dataFolder, { recursive: true });
+}
+
 const questionsFile = path.join(
     __dirname,
     "data",
     "questions.json"
 );
+
+// Seed questions.json if missing from data directory
+if (!fs.existsSync(questionsFile) && fs.existsSync(path.join(__dirname, "questions.json"))) {
+    try {
+        fs.copyFileSync(path.join(__dirname, "questions.json"), questionsFile);
+    } catch (e) {
+        console.warn("Could not copy questions.json to data directory:", e.message);
+    }
+}
 
 const topicQuestionsFile = path.join(
     __dirname,
@@ -1817,10 +1833,11 @@ app.get("/api/generate-company-quiz", async (req, res) => {
 const server =
     app.listen(
         PORT,
+        "0.0.0.0",
         () => {
 
             console.log(
-                `Server running on http://localhost:${PORT}`
+                `Server running on http://0.0.0.0:${PORT}`
             );
 
             console.log(

@@ -1,9 +1,14 @@
 const { GoogleGenAI } = require("@google/genai");
 require("dotenv").config();
 
-const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY
-});
+let ai = null;
+
+function getAI() {
+    if (!ai) {
+        ai = new GoogleGenAI();
+    }
+    return ai;
+}
 
 function wait(ms) {
     return new Promise(resolve => {
@@ -12,6 +17,19 @@ function wait(ms) {
 }
 
 async function generateWithRetry(options) {
+    if (!process.env.GEMINI_API_KEY) {
+        throw new Error("GEMINI_API_KEY is not configured");
+    }
+
+    const client = getAI();
+    const model = (options.model === "gemini-3.5-flash-lite" || options.model === "gemini-3.6-flash")
+        ? "gemini-2.5-flash"
+        : (options.model || "gemini-2.5-flash");
+
+    const requestOptions = {
+        ...options,
+        model: model
+    };
 
     let lastError;
 
@@ -20,11 +38,11 @@ async function generateWithRetry(options) {
         try {
 
             console.log(
-                `Gemini request attempt ${attempt}/3`
+                `Gemini request attempt ${attempt}/3 (${model})`
             );
 
             const response =
-                await ai.models.generateContent(options);
+                await client.models.generateContent(requestOptions);
 
             console.log(
                 "Gemini request successful"

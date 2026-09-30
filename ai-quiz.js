@@ -52,7 +52,7 @@ Use exactly this format:
         // Try Gemini first
         const response =
             await generateWithRetry({
-                model: "gemini-3.1-flash-lite",
+                model: "gemini-2.5-flash",
                 contents: prompt,
                 config: {
                     responseMimeType: "application/json"

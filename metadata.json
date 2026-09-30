@@ -1,0 +1,5 @@
+{
+  "name": "Placement Preparation Portal",
+  "description": "Comprehensive placement preparation platform with company-specific questions, topic quizzes, notes, interviews, and progress tracking.",
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

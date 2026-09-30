@@ -1,4 +1,22 @@
 const { generateWithRetry } = require("./gemini-helper");
+
+const fallbackCompanyQuestions = {
+    "Java Developer": [
+        { question: "What is the difference between Comparable and Comparator in Java?", answer: "Comparable provides single natural ordering with compareTo(); Comparator provides multiple custom sort orders with compare().", explanation: "Comparable is implemented by the domain class itself; Comparator is implemented in a separate class or lambda." },
+        { question: "How does HashMap work internally in Java?", answer: "It uses an array of buckets, hashing the key to determine bucket index, and uses linked lists or red-black trees for collision resolution.", explanation: "Java 8 converts linked list chains to balanced trees once threshold exceeds 8 elements." },
+        { question: "What is the difference between String, StringBuilder, and StringBuffer?", answer: "String is immutable; StringBuilder is mutable and not thread-safe (fastest); StringBuffer is mutable and thread-safe (synchronized).", explanation: "For frequent string modifications in single-threaded contexts, StringBuilder is preferred." },
+        { question: "Explain the purpose of the final, finally, and finalize keywords in Java.", answer: "final is an access modifier; finally is a block associated with try-catch that always executes; finalize is a deprecated garbage collection method.", explanation: "final applies to variables, methods, and classes; finally is for resource cleanup." },
+        { question: "What is Dependency Injection in Spring?", answer: "A design pattern where an object receives its dependencies from an external container (IoC) rather than creating them itself.", explanation: "DI decouples object creation from business logic, promoting modularity and unit testability." }
+    ],
+    "default": [
+        { question: "Explain the difference between process and thread.", answer: "A process is an independent execution unit with its own address space, while a thread is a lightweight execution unit sharing the process memory.", explanation: "Threads share code, data, and OS resources of the parent process, minimizing context switching overhead." },
+        { question: "What is an index in a database and what are its pros and cons?", answer: "An index is a data structure (commonly B-tree) that speeds up data retrieval operations at the cost of additional storage and slower writes.", explanation: "Indexes optimize SELECT queries but add overhead to INSERT, UPDATE, and DELETE operations." },
+        { question: "What is the difference between TCP and UDP?", answer: "TCP is connection-oriented, reliable, and guarantees in-order delivery; UDP is connectionless, faster, with no delivery guarantee.", explanation: "TCP is used for web traffic and files; UDP is used for live streaming and gaming." },
+        { question: "What are ACID properties in database transactions?", answer: "Atomicity (all or nothing), Consistency (valid state transitions), Isolation (independent transactions), Durability (persisted changes).", explanation: "ACID guarantees that database transactions are processed reliably." },
+        { question: "What is the difference between BFS and DFS?", answer: "BFS explores level by level using a Queue; DFS explores as deep as possible along each branch using a Stack or recursion.", explanation: "BFS finds the shortest path in unweighted graphs; DFS is useful for cycle detection and topological sorting." }
+    ]
+};
+
 async function generateCompanyQuestions(
     company,
     role
@@ -47,150 +65,49 @@ Use exactly this format:
 }
 `;
 
-    // =========================================
-    // GEMINI REQUEST WITH AUTOMATIC RETRY
-    // =========================================
-
-    let response;
-    let lastError;
-
-    for (let attempt = 1; attempt <= 3; attempt++) {
-
-        try {
-
-            console.log(
-                `Gemini company questions attempt ${attempt}/3`
-            );
-
-           response =
-    await generateWithRetry({
-
-                    model: "gemini-3.1-flash-lite",
-
-                    contents: prompt,
-
-                    config: {
-                        responseMimeType: "application/json"
-                    }
-
-                });
-
-            // Success
-            break;
-
-        } catch (error) {
-
-            lastError = error;
-
-            const errorText =
-                String(error.message || error);
-
-            const is503 =
-                errorText.includes("503") ||
-                errorText.includes("UNAVAILABLE") ||
-                errorText.includes("high demand") ||
-                errorText.includes("overloaded");
-
-            console.log(
-                "Gemini error:",
-                errorText
-            );
-
-            // If it is not a temporary overload error,
-            // stop immediately.
-            if (!is503) {
-                throw error;
+    try {
+        const response = await generateWithRetry({
+            model: "gemini-2.5-flash",
+            contents: prompt,
+            config: {
+                responseMimeType: "application/json"
             }
+        });
 
-            // If this was the last attempt,
-            // return the final error.
-            if (attempt === 3) {
-                break;
-            }
+        let text = response.text ? response.text.trim() : "";
 
-            // Wait before trying again.
-            const delay =
-                attempt === 1
-                    ? 2000
-                    : 5000;
-
-            console.log(
-                `Gemini temporarily unavailable. Retrying in ${delay / 1000} seconds...`
-            );
-
-            await new Promise(resolve =>
-                setTimeout(resolve, delay)
-            );
+        if (text.startsWith("```")) {
+            text = text
+                .replace(/^```json\s*/i, "")
+                .replace(/^```\s*/i, "")
+                .replace(/\s*```$/i, "")
+                .trim();
         }
+
+        text = text.replace(/[\u0000-\u001F\u007F]/g, " ");
+
+        const data = JSON.parse(text);
+
+        if (data && Array.isArray(data.questions) && data.questions.length > 0) {
+            return {
+                company: company,
+                role: role,
+                questions: data.questions,
+                source: "ai"
+            };
+        }
+
+        throw new Error("Invalid questions structure");
+    } catch (error) {
+        console.warn("AI company questions fallback active:", error.message);
+        const questions = fallbackCompanyQuestions[role] || fallbackCompanyQuestions["default"];
+        return {
+            company: company,
+            role: role,
+            questions: questions,
+            source: "fallback"
+        };
     }
-
-    // If all 3 attempts failed
-    if (!response) {
-
-        throw new Error(
-            "Gemini service is temporarily unavailable after 3 attempts. Please try again."
-        );
-    }
-
-    // =========================================
-    // READ GEMINI RESPONSE
-    // =========================================
-
-    let text = response.text;
-
-    if (!text) {
-        throw new Error(
-            "Gemini returned an empty response"
-        );
-    }
-
-    text = text.trim();
-
-    // Remove markdown code fences if Gemini adds them
-    if (text.startsWith("```")) {
-
-        text = text
-            .replace(/^```json\s*/i, "")
-            .replace(/^```\s*/i, "")
-            .replace(/\s*```$/i, "")
-            .trim();
-
-    }
-
-    // Remove invalid control characters
-    text = text.replace(
-        /[\u0000-\u001F\u007F]/g,
-        " "
-    );
-
-    // Convert JSON text into JavaScript object
-    const data =
-        JSON.parse(text);
-
-    // =========================================
-    // VALIDATE RESPONSE
-    // =========================================
-
-    if (
-        !data.questions ||
-        !Array.isArray(data.questions)
-    ) {
-
-        throw new Error(
-            "Invalid company questions format"
-        );
-    }
-
-    if (data.questions.length !== 5) {
-
-        throw new Error(
-            "Gemini generated " +
-            data.questions.length +
-            " questions instead of 5"
-        );
-    }
-
-    return data;
 }
 
 module.exports = {

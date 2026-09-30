@@ -51,7 +51,7 @@ Use exactly this format:
 
     const response =
     await generateWithRetry({
-            model: "gemini-3.6-flash",
+            model: "gemini-2.5-flash",
 
             contents: prompt,
 

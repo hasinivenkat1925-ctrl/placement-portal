@@ -1,0 +1,65 @@
+{
+  "general__general__java": {
+    "quiz": {
+      "topic": "Java",
+      "questions": [
+        {
+          "question": "Which statement best describes Java?",
+          "options": [
+            "It is a fundamental concept related to Java",
+            "It is a computer networking protocol",
+            "It is an operating system command",
+            "It is a hardware component"
+          ],
+          "answer": "It is a fundamental concept related to Java",
+          "explanation": "Java is an important concept in computer science and placement preparation."
+        },
+        {
+          "question": "Why is Java important in computer science?",
+          "options": [
+            "It helps solve computing problems",
+            "It only controls computer hardware",
+            "It is used only for drawing graphics",
+            "It has no practical application"
+          ],
+          "answer": "It helps solve computing problems",
+          "explanation": "Java is studied because it provides concepts and techniques useful in computer science."
+        },
+        {
+          "question": "Which activity is most closely associated with Java?",
+          "options": [
+            "Understanding and applying its concepts",
+            "Replacing computer hardware",
+            "Managing electrical power",
+            "Installing a printer"
+          ],
+          "answer": "Understanding and applying its concepts",
+          "explanation": "Learning Java involves understanding its concepts and applying them to problems."
+        },
+        {
+          "question": "What is a good way to prepare Java for placements?",
+          "options": [
+            "Learn concepts and practice problems",
+            "Memorize unrelated topics",
+            "Avoid practical questions",
+            "Study only computer hardware"
+          ],
+          "answer": "Learn concepts and practice problems",
+          "explanation": "Placement preparation requires understanding concepts and practicing relevant questions."
+        },
+        {
+          "question": "Which approach is useful when studying Java?",
+          "options": [
+            "Understand concepts and apply them",
+            "Skip the basic concepts",
+            "Practice only unrelated subjects",
+            "Avoid solving problems"
+          ],
+          "answer": "Understand concepts and apply them",
+          "explanation": "Understanding fundamentals and applying them through practice is useful when learning Java."
+        }
+      ],
+      "source": "fallback"
+    }
+  }
+}

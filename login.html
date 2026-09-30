@@ -738,37 +738,7 @@
                    DETERMINE BACKEND URL
                 ================================= */
 
-                let loginURL;
-
-
-                /*
-                 * LOCAL COMPUTER
-                 */
-
-                if (
-                    window.location.hostname ===
-                    "localhost" ||
-
-                    window.location.hostname ===
-                    "127.0.0.1"
-                ) {
-
-                    loginURL =
-                        "http://localhost:5000/login";
-
-                }
-
-
-                /*
-                 * DEPLOYED NETLIFY WEBSITE
-                 */
-
-                else {
-
-                    loginURL =
-                        "/.netlify/functions/api/login";
-
-                }
+                let loginURL = "/login";
 
 
 
