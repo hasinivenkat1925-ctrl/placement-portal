@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Choose Login - Placement Portal</title>
+    <title>Select Portal Access - Placement Preparation Portal</title>
+    <link rel="stylesheet" href="CSS/style.css">
 
     <style>
         * {
@@ -14,115 +15,143 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #eaf3ff, #f7fbff);
+            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 60%, #030712 100%);
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 30px 15px;
+            color: #f8fafc;
         }
 
         .container {
-            width: 90%;
-            max-width: 1000px;
-            background: white;
-            padding: 50px;
+            width: 100%;
+            max-width: 950px;
+            background: #111827;
+            border: 1px solid #1f293d;
+            padding: 45px 35px;
             border-radius: 20px;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(59, 130, 246, 0.15);
             text-align: center;
         }
 
         h1 {
-            color: #1f4e79;
-            font-size: 36px;
-            margin-bottom: 12px;
+            color: #f8fafc;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
         }
 
         .subtitle {
-            color: #666;
-            font-size: 17px;
+            color: #94a3b8;
+            font-size: 15px;
             margin-bottom: 40px;
         }
 
         .login-container {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             justify-content: center;
         }
 
         .login-card {
-            width: 45%;
+            flex: 1;
+            max-width: 400px;
             min-height: 280px;
-            border: 1px solid #d9e5f0;
-            border-radius: 15px;
+            border: 1px solid #1f293d;
+            border-radius: 16px;
             padding: 35px 25px;
-            background: #ffffff;
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+            background: #1e293b;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-4px);
+            border-color: #3b82f6;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(59, 130, 246, 0.2);
         }
 
         .icon {
-            font-size: 55px;
-            margin-bottom: 18px;
+            font-size: 50px;
+            margin-bottom: 14px;
         }
 
         .login-card h2 {
-            color: #1f4e79;
-            font-size: 25px;
-            margin-bottom: 12px;
+            color: #f8fafc;
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
 
         .login-card p {
-            color: #666;
+            color: #94a3b8;
+            font-size: 14px;
             line-height: 1.5;
-            margin-bottom: 25px;
+            margin-bottom: 22px;
         }
 
         .login-btn {
-            width: 160px;
-            padding: 13px;
+            width: 100%;
+            padding: 12px;
             border: none;
-            border-radius: 8px;
-            background: #1f4e79;
+            border-radius: 10px;
+            background: #3b82f6;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .login-btn:hover {
-            background: #163a5c;
+            background: #2563eb;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .admin-btn {
+            background: #10b981;
+        }
+
+        .admin-btn:hover {
+            background: #059669;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
         }
 
         .back-btn {
             margin-top: 35px;
             background: transparent;
             border: none;
-            color: #1f4e79;
+            color: #3b82f6;
             font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .back-btn:hover {
             text-decoration: underline;
+            color: #60a5fa;
         }
 
         .footer {
             margin-top: 25px;
-            color: #888;
+            color: #64748b;
             font-size: 13px;
         }
 
         @media (max-width: 700px) {
-
             .container {
-                padding: 35px 20px;
+                padding: 30px 20px;
             }
 
             h1 {
-                font-size: 30px;
+                font-size: 26px;
             }
 
             .login-container {
@@ -144,7 +173,7 @@
         <h1>Welcome to Placement Portal</h1>
 
         <p class="subtitle">
-            Please select your login type to continue.
+            Please select your portal login type to continue
         </p>
 
 
@@ -152,49 +181,37 @@
 
             <!-- Student Login -->
             <div class="login-card">
-
-                <div class="icon">👨‍🎓</div>
-
-                <h2>Student Login</h2>
-
-                <p>
-                    Login to access your placement preparation portal.
-                </p>
-
-                <button
-                    class="login-btn"
-                    onclick="studentLogin()">
-                    Student Login
+                <div>
+                    <div class="icon">👨‍🎓</div>
+                    <h2>Student Portal</h2>
+                    <p>
+                        Access company PYQs, topic quizzes, notes, and mock interview practice.
+                    </p>
+                </div>
+                <button class="login-btn" onclick="studentLogin()">
+                    👨‍🎓 Student Login
                 </button>
-
             </div>
 
 
             <!-- Admin Login -->
             <div class="login-card">
-
-                <div class="icon">👨‍💼</div>
-
-                <h2>Admin Login</h2>
-
-                <p>
-                    Login to manage students, questions and reports.
-                </p>
-
-                <button
-                    class="login-btn"
-                    onclick="adminLogin()">
-                    Admin Login
+                <div>
+                    <div class="icon">👨‍💼</div>
+                    <h2>Admin Portal</h2>
+                    <p>
+                        Manage company roles, question sets, student profiles, and analytics.
+                    </p>
+                </div>
+                <button class="login-btn admin-btn" onclick="adminLogin()">
+                    👨‍💼 Admin Login
                 </button>
-
             </div>
 
         </div>
 
 
-        <button
-            class="back-btn"
-            onclick="goBack()">
+        <button class="back-btn" onclick="goBack()">
             ← Back to Introduction
         </button>
 
@@ -207,27 +224,17 @@
 
 
     <script>
-
         function studentLogin() {
-
             window.location.href = "login.html";
-
         }
-
 
         function adminLogin() {
-
             window.location.href = "admin-login.html";
-
         }
-
 
         function goBack() {
-
             window.location.href = "index.html";
-
         }
-
     </script>
 
 </body>

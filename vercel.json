@@ -6,11 +6,7 @@
       "destination": "/api/index.js"
     },
     {
-      "source": "/login",
-      "destination": "/api/index.js"
-    },
-    {
-      "source": "/register",
+      "source": "/(.*)",
       "destination": "/api/index.js"
     }
   ]

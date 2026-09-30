@@ -104,9 +104,57 @@ app.get("/", (req, res) => {
     );
 });
 
+// Explicit HTML routes for Vercel Serverless
+app.get(["/landing-login", "/landing-login.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "landing-login.html"));
+});
+
+app.get(["/login.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "login.html"));
+});
+
+app.get(["/register.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "register.html"));
+});
+
+app.get(["/dashboard", "/dashboard.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "dashboard.html"));
+});
+
+app.get(["/interview", "/interview.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "interview.html"));
+});
+
+app.get(["/preparation", "/preparation.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "preparation.html"));
+});
+
+app.get(["/progress", "/progress.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "progress.html"));
+});
+
+app.get(["/resources", "/resources.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "resources.html"));
+});
+
+app.get(["/topics", "/topics.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "topics.html"));
+});
+
+app.get(["/videos", "/videos.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "videos.html"));
+});
+
+app.get(["/admin-login", "/admin-login.html"], (req, res) => {
+    res.sendFile(path.join(frontendPath, "admin-login.html"));
+});
+
 // Automatic routing for any .html page
 app.get("/:page", (req, res, next) => {
     let page = req.params.page;
+    if (page.startsWith("api")) {
+        return next();
+    }
     if (!page.includes(".")) {
         page = page + ".html";
     }
