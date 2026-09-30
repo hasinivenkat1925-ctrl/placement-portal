@@ -206,30 +206,85 @@ if (data.source === "fallback") {
         }
 
         catch (error) {
+            console.warn("Backend quiz unavailable, generating client fallback quiz for:", topic, error);
+            const compName = company || "TCS";
+            const roleName = role || "Software Developer";
+            
+            const fallbackQuestions = [
+                {
+                    question: `What is the primary role of ${topic} in developing applications for ${compName}?`,
+                    options: [
+                        `To enable modular, scalable, and optimized system execution`,
+                        `To slow down database transactions`,
+                        `To bypass all standard code reviews`,
+                        `To prevent memory from ever being allocated`
+                    ],
+                    answer: `To enable modular, scalable, and optimized system execution`
+                },
+                {
+                    question: `Which fundamental principle is recommended when working with ${topic}?`,
+                    options: [
+                        `High cohesion and low coupling`,
+                        `Global mutable state across all modules`,
+                        `Ignoring exception handling entirely`,
+                        `Writing all code in a single unformatted function`
+                    ],
+                    answer: `High cohesion and low coupling`
+                },
+                {
+                    question: `How are resources efficiently managed in ${topic}?`,
+                    options: [
+                        `Via systematic memory cleanup and structured lifecycle protocols`,
+                        `By ignoring memory limits and letting the system crash`,
+                        `By allocating infinite static arrays`,
+                        `By disabling garbage collection permanently`
+                    ],
+                    answer: `Via systematic memory cleanup and structured lifecycle protocols`
+                },
+                {
+                    question: `In a technical interview for a ${roleName} role, what is the best practice for handling edge cases in ${topic}?`,
+                    options: [
+                        `Defensive input validation and robust unit testing`,
+                        `Assuming inputs are always valid and non-null`,
+                        `Silently catching all exceptions without logging`,
+                        `Relying purely on user complaints to find bugs`
+                    ],
+                    answer: `Defensive input validation and robust unit testing`
+                },
+                {
+                    question: `What time complexity is targeted for standard data retrieval operations in ${topic}?`,
+                    options: [
+                        `O(1) or O(log N)`,
+                        `O(N!) factorial time`,
+                        `O(2^N) exponential time`,
+                        `O(N^3) cubic time`
+                    ],
+                    answer: `O(1) or O(log N)`
+                }
+            ];
 
-            console.error(
-                "Quiz loading error:",
-                error
-            );
+            topicTitle.innerText = `Topic: ${topic} (Placement Quiz)`;
+            window.currentQuestions = fallbackQuestions;
 
-
-            quizForm.innerHTML = `
-                <p style="color:red;">
-                    ❌ Unable to load quiz
-                </p>
-
-                <p>
-                    Please try again.
-                </p>
-
-                <button
-                    type="button"
-                    onclick="loadQuiz()"
-                >
-                    🔄 Try Again
-                </button>
-            `;
-
+            quizForm.innerHTML = "";
+            fallbackQuestions.forEach(function(q, index) {
+                let html = `
+                    <div style="margin-bottom: 20px; padding: 15px; border-radius: 8px; background: #f8fafc; border: 1px solid #e2e8f0;">
+                        <h3 style="font-size: 16px; color: #1e293b; margin-bottom: 10px;">
+                            ${index + 1}. ${q.question}
+                        </h3>
+                `;
+                q.options.forEach(function(option, optionIndex) {
+                    html += `
+                        <label style="display: block; margin: 8px 0; cursor: pointer; color: #334155;">
+                            <input type="radio" name="q${index}" value="${optionIndex}" style="margin-right: 8px;">
+                            ${option}
+                        </label>
+                    `;
+                });
+                html += `</div>`;
+                quizForm.innerHTML += html;
+            });
         }
 
     }

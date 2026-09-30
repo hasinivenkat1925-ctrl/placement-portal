@@ -1143,121 +1143,57 @@ if (!loggedInUser) {
         // ========================================
 
         function loadFallbackNotes() {
+            const compName = company || "TCS";
+            const roleName = role || "Software Developer";
+            const topicNormalized = (topic || "General Technical").toLowerCase();
 
-            const currentNotes =
-                topicNotes[topic];
-
-
-            if (!currentNotes) {
-
-                document.getElementById(
-                    "loadingMessage"
-                ).innerText =
-                    "⚠️ AI notes are unavailable and no stored notes were found.";
-
-                return;
-
+            let matched = null;
+            for (const key in topicNotes) {
+                if (topicNormalized.includes(key.toLowerCase()) || key.toLowerCase().includes(topicNormalized)) {
+                    matched = topicNotes[key];
+                    break;
+                }
             }
 
+            let notesData = {
+                title: `${topic} - Placement Master Class for ${compName}`,
+                introduction: (matched && matched.intro) || `Comprehensive placement study guide on ${topic} specially curated for ${compName}'s ${roleName} technical evaluations.`,
+                sections: [],
+                importantPoints: (matched && matched.importantPoints) || [
+                    `Master the fundamental principles and operational trade-offs of ${topic}.`,
+                    `Practice coding algorithms, time-complexity analysis, and standard placement problem patterns.`,
+                    `Be prepared to explain real-world industry application and edge-case handling.`
+                ],
+                interviewTips: [
+                    `For ${compName}, prepare to explain how ${topic} is leveraged in large-scale enterprise workflows.`,
+                    `Practice live coding and whiteboard explanation for standard questions on ${topic}.`,
+                    `Review common recruiter traps and subtle syntax or architectural differences.`
+                ]
+            };
 
-            document.getElementById(
-                "loadingMessage"
-            ).style.display =
-                "none";
+            if (matched && matched.concepts) {
+                notesData.sections = matched.concepts.map((c, i) => ({
+                    heading: `${i + 1}. ${c}`,
+                    content: `In-depth coverage of ${c} in ${topic}. Key focus areas include core mechanics, optimization guidelines, best practices, and interview-specific implementation patterns.`
+                }));
+            } else {
+                notesData.sections = [
+                    {
+                        heading: `1. Core Architecture & Fundamentals`,
+                        content: `${topic} is a cornerstone concept for technical interviews. Understanding its runtime execution model, memory allocation, and data flow is essential for the ${roleName} position at ${compName}.`
+                    },
+                    {
+                        heading: `2. Critical Concepts & Key Algorithms`,
+                        content: `Focus on mastering the underlying algorithms, standard operations, and performance trade-offs associated with ${topic}. Always analyze time and space complexity before implementing solutions.`
+                    },
+                    {
+                        heading: `3. Best Practices & Design Considerations`,
+                        content: `Industry-grade applications demand robust error handling, clean modular architecture, code readability, and security compliance when working with ${topic}.`
+                    }
+                ];
+            }
 
-
-            document.getElementById(
-                "notesContent"
-            ).style.display =
-                "block";
-
-
-            document.getElementById(
-                "notesTitle"
-            ).innerText =
-                "📚 Study Notes";
-
-
-            document.getElementById(
-                "topicIntro"
-            ).innerText =
-                currentNotes.intro;
-
-
-            // ========================================
-            // DISPLAY CONCEPTS
-            // ========================================
-
-            const concepts =
-                document.getElementById(
-                    "concepts"
-                );
-
-            concepts.innerHTML = "";
-
-
-            currentNotes.concepts.forEach(
-                function(item) {
-
-                    const li =
-                        document.createElement(
-                            "li"
-                        );
-
-                    li.innerText =
-                        item;
-
-                    concepts.appendChild(
-                        li
-                    );
-
-                }
-            );
-
-
-            // ========================================
-            // DISPLAY IMPORTANT POINTS
-            // ========================================
-
-            const importantPoints =
-                document.getElementById(
-                    "importantPoints"
-                );
-
-            importantPoints.innerHTML = "";
-
-
-            currentNotes.importantPoints.forEach(
-                function(item) {
-
-                    const li =
-                        document.createElement(
-                            "li"
-                        );
-
-                    li.innerText =
-                        item;
-
-                    importantPoints.appendChild(
-                        li
-                    );
-
-                }
-            );
-
-
-            // Clear AI sections
-
-            document.getElementById(
-                "sectionsContainer"
-            ).innerHTML = "";
-
-
-            document.getElementById(
-                "interviewTipsSection"
-            ).style.display =
-                "none";
-
+            displayNotes(notesData);
         }
 
 

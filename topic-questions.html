@@ -508,30 +508,53 @@ async function loadQuestions() {
 
 
     } catch (error) {
+        console.warn("Backend unavailable, generating local practice questions for:", topic, error);
+        const compName = company || "TCS";
+        const roleName = role || "Software Developer";
+        const fallbackQuestions = [
+            {
+                question: `Explain the fundamental concept of ${topic} and how it is applied in enterprise software development at ${compName}.`,
+                difficulty: "Medium",
+                type: "Conceptual",
+                hint: `Focus on core principles, architecture, and practical use cases for a ${roleName}.`,
+                answer: `${topic} provides the architectural foundation for scalable computing. It is utilized in ${compName} systems to ensure high availability, modularity, maintainability, and resource optimization.`,
+                explanation: `Candidates are expected to explain the theory, memory model or execution lifecycle, and practical trade-offs when implementing solutions in ${topic}.`
+            },
+            {
+                question: `What are the primary differences between compile-time and runtime behaviors or operations in ${topic}?`,
+                difficulty: "Medium",
+                type: "Technical",
+                hint: `Think about static vs dynamic resolution, execution phases, and error handling.`,
+                answer: `Compile-time focuses on syntax verification, type checking, and optimization, whereas runtime deals with memory allocation, dynamic dispatch, and execution state management.`,
+                explanation: `Understanding this distinction helps avoid subtle runtime exceptions and optimizes system throughput during high load.`
+            },
+            {
+                question: `How do you optimize memory management and algorithmic time complexity when dealing with ${topic}?`,
+                difficulty: "Hard",
+                type: "Problem Solving",
+                hint: `Consider data structure selection, caching, and garbage collection / cleanup mechanisms.`,
+                answer: `Optimization is achieved by selecting suitable data structures (e.g. HashMaps vs TreeMaps), minimizing unnecessary object allocations, leveraging in-memory caching, and applying efficient algorithms with low Big-O complexity.`,
+                explanation: `In technical interview rounds at ${compName}, interviewers frequently test your ability to analyze Big-O time and space complexity.`
+            },
+            {
+                question: `What are the most common pitfalls or security vulnerabilities encountered when working with ${topic}?`,
+                difficulty: "Medium",
+                type: "Best Practices",
+                hint: `Think about null checks, concurrency issues, edge-case bounds, and input sanitization.`,
+                answer: `Common pitfalls include resource leaks, race conditions in multithreaded environments, unhandled edge cases, and lack of proper input validation.`,
+                explanation: `Defensive programming, thorough unit testing, and adhering to SOLID design principles prevent these issues in production.`
+            },
+            {
+                question: `Design or implement a robust scenario in ${topic} suitable for a ${roleName} technical interview.`,
+                difficulty: "Hard",
+                type: "Coding / Design",
+                hint: `Demonstrate clean modular structure, exception handling, and edge case coverage.`,
+                answer: `A production-ready solution includes clear interface contracts, comprehensive unit test coverage, graceful error fallbacks, and modular separation of concerns.`,
+                explanation: `Interviewers look for clean code readability, proper variable naming conventions, and scalable design patterns.`
+            }
+        ];
 
-        console.error(
-            "AI practice question error:",
-            error
-        );
-
-
-        container.innerHTML = `
-
-            <div class="error-box">
-
-                <h3>
-                    ❌ Unable to generate AI questions
-                </h3>
-
-                <p>
-                    Please make sure the backend
-                    server is running.
-                </p>
-
-            </div>
-
-        `;
-
+        displayQuestions(fallbackQuestions);
     }
 
 }

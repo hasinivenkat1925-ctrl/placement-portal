@@ -186,8 +186,52 @@
                     container.appendChild(box);
                 });
             } catch (error) {
-                console.error("Company Solutions Error:", error);
-                container.innerHTML = "<h3>❌ Unable to load solutions</h3><p>Please try again later.</p>";
+                console.warn("Backend solutions unavailable, loading questions.json fallback:", error);
+                try {
+                    const staticRes = await fetch("questions.json");
+                    const staticData = await staticRes.json();
+                    const filtered = staticData.filter(q => 
+                        (q.company && q.company.toLowerCase() === company.toLowerCase()) ||
+                        (q.role && q.role.toLowerCase() === role.toLowerCase())
+                    );
+                    const list = (filtered.length > 0 ? filtered : staticData).slice(0, 5);
+                    
+                    container.innerHTML = "";
+                    const total = document.createElement("h3");
+                    total.style.color = "#1e3a8a";
+                    total.style.marginBottom = "15px";
+                    total.innerText = "📚 Company Questions & Solutions: " + list.length;
+                    container.appendChild(total);
+
+                    const info = document.createElement("p");
+                    info.style.color = "#64748b";
+                    info.style.marginBottom = "25px";
+                    info.innerHTML = "📚 Showing standard placement solutions for <strong>" + company + " - " + role + "</strong>.";
+                    container.appendChild(info);
+
+                    list.forEach((item, index) => {
+                        const box = document.createElement("div");
+                        box.className = "question-box";
+                        
+                        const question = document.createElement("h3");
+                        question.innerText = (index + 1) + ". " + item.question;
+                        box.appendChild(question);
+                        
+                        const answer = document.createElement("div");
+                        answer.className = "answer-text";
+                        answer.innerHTML = "✅ <strong>Answer:</strong> " + item.answer;
+                        box.appendChild(answer);
+                        
+                        const solution = document.createElement("div");
+                        solution.className = "solution-text";
+                        solution.innerHTML = "💡 <strong>Detailed Solution:</strong><br>" + (item.solution || item.explanation || "Detailed analysis and optimal approach for " + company + " technical interviews.");
+                        box.appendChild(solution);
+                        
+                        container.appendChild(box);
+                    });
+                } catch (fallbackErr) {
+                    container.innerHTML = "<h3>❌ Unable to load solutions</h3><p>Please check your connection and try again.</p>";
+                }
             }
         }
 

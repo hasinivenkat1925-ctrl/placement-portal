@@ -353,18 +353,59 @@ async function loadQuestions() {
     }
 
     catch (error) {
-
-        console.error(
-            "AI Quiz Error:",
-            error
-        );
-
-        document.getElementById(
-            "quizContainer"
-        ).innerHTML =
-            "<h3>❌ Unable to generate AI quiz.</h3>" +
-            "<p>Please make sure the backend server and Gemini API are running.</p>";
-
+        console.warn("Backend quiz unavailable, loading questions.json fallback:", error);
+        try {
+            const staticRes = await fetch("questions.json");
+            const staticData = await staticRes.json();
+            const filtered = staticData.filter(q => 
+                (q.company && q.company.toLowerCase() === company.toLowerCase()) ||
+                (q.role && q.role.toLowerCase() === role.toLowerCase())
+            );
+            const sourceList = filtered.length > 0 ? filtered : staticData;
+            questions = sourceList.slice(0, 5).map(q => ({
+                question: q.question,
+                options: [
+                    q.answer,
+                    `Incorrect alternative implementation pattern`,
+                    `Deprecated legacy approach`,
+                    `Randomized linear brute-force scan`
+                ].sort(() => Math.random() - 0.5),
+                answer: q.answer,
+                explanation: q.explanation || "Detailed placement question solution."
+            }));
+            
+            selectedAnswers = new Array(questions.length).fill(null);
+            displayQuestion();
+            startTimer();
+        } catch (fallbackErr) {
+            questions = [
+                {
+                    question: `What is the most effective approach to system scalability in ${company} technical interviews for ${role}?`,
+                    options: [
+                        `Modular microservice architecture with caching and indexing`,
+                        `Single monolithic thread with no exception handling`,
+                        `Direct synchronous disk writes on every user request`,
+                        `Disabling all database transactions`
+                    ],
+                    answer: `Modular microservice architecture with caching and indexing`,
+                    explanation: `System scalability requires modular decoupling, efficient caching, and database index optimization.`
+                },
+                {
+                    question: `Which data structure provides optimal O(1) average lookup complexity?`,
+                    options: [
+                        `Hash Table / HashMap`,
+                        `Singly Linked List`,
+                        `Unsorted Linear Array`,
+                        `Binary Search Tree in worst-case degenerate form`
+                    ],
+                    answer: `Hash Table / HashMap`,
+                    explanation: `Hash tables use hash functions to index buckets, delivering O(1) average case lookup time.`
+                }
+            ];
+            selectedAnswers = new Array(questions.length).fill(null);
+            displayQuestion();
+            startTimer();
+        }
     }
 
 }

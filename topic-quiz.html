@@ -732,40 +732,68 @@ if (
 
         }
         catch (fallbackError) {
+            console.warn("Backend quiz unavailable, generating fallback quiz for:", topic, fallbackError);
+            const compName = company || "TCS";
+            const roleName = role || "Software Developer";
+            questions = [
+                {
+                    question: `What is the primary architectural purpose of ${topic} in modern software engineering?`,
+                    options: [
+                        `To provide scalable, efficient, and maintainable software functionality`,
+                        `To replace basic hardware storage`,
+                        `To bypass operating system security protocols`,
+                        `To eliminate all network latency unconditionally`
+                    ],
+                    answer: `To provide scalable, efficient, and maintainable software functionality`,
+                    explanation: `${topic} is designed to create structured, modular, and optimized implementations for enterprise software solutions at companies like ${compName}.`
+                },
+                {
+                    question: `When designing systems using ${topic}, which principle is most critical for scalability?`,
+                    options: [
+                        `Low coupling and high cohesion`,
+                        `Hardcoded global variables`,
+                        `Tight circular dependencies`,
+                        `Ignoring exception handling`
+                    ],
+                    answer: `Low coupling and high cohesion`,
+                    explanation: `Low coupling and high cohesion ensure modular, testable, and maintainable codebases across large teams.`
+                },
+                {
+                    question: `Which data structure or execution pattern is commonly leveraged to optimize operations in ${topic}?`,
+                    options: [
+                        `Hash tables and indexing structures`,
+                        `Unbounded linear arrays without bounds checking`,
+                        `Infinite recursive calls without base cases`,
+                        `Randomized brute force iterations`
+                    ],
+                    answer: `Hash tables and indexing structures`,
+                    explanation: `Hash tables and index structures provide O(1) or O(log N) lookup capabilities, critical for high-throughput systems.`
+                },
+                {
+                    question: `How does memory management or resource cleanup operate in the context of ${topic}?`,
+                    options: [
+                        `Via automated or explicit allocation and structured garbage collection`,
+                        `Memory is permanently allocated and never freed`,
+                        `Operating system halts whenever memory is full`,
+                        `Hardware ignores memory limits`
+                    ],
+                    answer: `Via automated or explicit allocation and structured garbage collection`,
+                    explanation: `Proper resource cleanup and garbage collection lifecycle management prevent memory leaks and out-of-memory crashes.`
+                },
+                {
+                    question: `In a ${compName} technical interview for a ${roleName} role, what is the best practice for error handling in ${topic}?`,
+                    options: [
+                        `Graceful degradation, structured try-catch, and informative logging`,
+                        `Silently suppressing all runtime exceptions`,
+                        `Terminating the server process immediately on any error`,
+                        `Printing stack traces to the end user directly in production`
+                    ],
+                    answer: `Graceful degradation, structured try-catch, and informative logging`,
+                    explanation: `Production applications must catch exceptions gracefully, log them for diagnostics, and provide clean user-facing status without crashing the system.`
+                }
+            ];
 
-            console.error(
-                "Fallback Error:",
-                fallbackError
-            );
-
-
-            quiz.innerHTML = `
-
-                <div class="error-box">
-
-                    <h3>
-                        ❌ Unable to load quiz
-                    </h3>
-
-                    <p>
-                        Gemini could not generate
-                        the quiz and no existing
-                        questions were found.
-                    </p>
-
-                    <br>
-
-                    <button
-                        onclick="location.reload()">
-
-                        🔄 Try Again
-
-                    </button>
-
-                </div>
-
-            `;
-
+            prepareQuiz();
         }
 
     }
