@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Portal - Redirecting...</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .box {
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid #334155;
+            max-width: 480px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1 { color: #38bdf8; margin-bottom: 12px; }
+        p { color: #94a3b8; font-size: 15px; line-height: 1.6; }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        // Automatic SPA routing & GitHub Pages redirect
+        (function() {
+            var path = window.location.pathname;
+            // If repository path is /placementportal/something, redirect gracefully
+            if (!path.endsWith(".html") && !path.endsWith("/")) {
+                window.location.replace(path + ".html");
+            } else {
+                window.location.replace("index.html");
+            }
+        })();
+    </script>
+</head>
+<body>
+    <div class="box">
+        <h1>🎓 Placement Portal</h1>
+        <p>Loading application resources, please wait...</p>
+        <a href="index.html">Click here if not redirected automatically →</a>
+    </div>
+</body>
+</html>
