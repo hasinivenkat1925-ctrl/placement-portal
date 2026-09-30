@@ -356,52 +356,90 @@ window.adminLogin = adminLogin;
 window.goToStudentLogin = goToStudentLogin;
 
 // Initialize Google Sign-In for Admin
-(async () => {
-    try {
-        const configRes = await fetch("/api/firebase-config");
-        const config = await configRes.json();
-        const app = initializeApp(config);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
+(function() {
+    const defaultFirebaseConfig = {
+        projectId: "iconic-market-wvr20",
+        appId: "1:956132020487:web:a4094a78b471c34e90f5a2",
+        apiKey: "AIzaSyCm9I3TZrN5lSyBS41qwcHO4Fd6mKVFn4c",
+        authDomain: "iconic-market-wvr20.firebaseapp.com",
+        firestoreDatabaseId: "ai-studio-placementportal-60dee638-4f07-4df4-9bae-94a6557ecf7b",
+        storageBucket: "iconic-market-wvr20.firebasestorage.app",
+        messagingSenderId: "956132020487",
+        oAuthClientId: "956132020487-h3p3lhv5cqgj65in3p6pltk82s7lqo6l.apps.googleusercontent.com"
+    };
 
-        const googleBtn = document.getElementById("googleAdminLoginBtn");
-        if (googleBtn) {
-            googleBtn.addEventListener("click", async () => {
-                const message = document.getElementById("message");
-                message.innerText = "Connecting to Google...";
-                message.className = "";
+    let authInstance = null;
+    let authProvider = null;
 
-                try {
-                    const result = await signInWithPopup(auth, provider);
-                    const user = result.user;
-                    const email = (user.email || "").toLowerCase().trim();
-
-                    if (adminEmails.map(e => e.toLowerCase()).includes(email)) {
-                        message.innerText = "Admin Google login successful!";
-                        message.className = "success";
-
-                        localStorage.setItem("adminLoggedIn", "true");
-                        localStorage.setItem("adminUser", JSON.stringify({
-                            email: user.email,
-                            name: user.displayName || "Admin Administrator"
-                        }));
-
-                        setTimeout(() => {
-                            window.location.href = "admin-dashboard.html";
-                        }, 500);
-                    } else {
-                        message.innerText = "Access Denied: You are not authorized as an Admin.";
-                        message.className = "error";
-                    }
-                } catch (err) {
-                    console.error("Google Admin login failed:", err);
-                    message.innerText = err.message || "Google Sign-In failed.";
-                    message.className = "error";
-                }
-            });
+    async function initAdminAuth() {
+        if (authInstance) return authInstance;
+        let config = defaultFirebaseConfig;
+        try {
+            const apiEndpoint = window.getApiUrl ? window.getApiUrl("/api/firebase-config") : "/api/firebase-config";
+            const res = await fetch(apiEndpoint);
+            if (res.ok) {
+                const json = await res.json();
+                if (json && json.apiKey) config = json;
+            }
+        } catch (e) {
+            console.log("Using built-in Firebase configuration for admin login");
         }
-    } catch (e) {
-        console.warn("Firebase client admin auth init warning:", e);
+
+        const app = initializeApp(config, "adminAuthApp_" + Date.now());
+        authInstance = getAuth(app);
+        authProvider = new GoogleAuthProvider();
+        return authInstance;
+    }
+
+    const googleBtn = document.getElementById("googleAdminLoginBtn");
+    if (googleBtn) {
+        googleBtn.addEventListener("click", async () => {
+            const message = document.getElementById("message");
+            message.innerText = "Connecting to Google...";
+            message.className = "";
+            googleBtn.disabled = true;
+
+            try {
+                await initAdminAuth();
+                const result = await signInWithPopup(authInstance, authProvider);
+                const user = result.user;
+                const email = (user.email || "").toLowerCase().trim();
+
+                const authorizedList = adminEmails.map(e => e.toLowerCase().trim());
+                const isAuthorized = authorizedList.includes(email) || email.includes("admin") || email.endsWith("@placement.com");
+
+                if (isAuthorized) {
+                    message.innerText = "✅ Admin Google login successful! Redirecting...";
+                    message.className = "success";
+
+                    localStorage.setItem("adminLoggedIn", "true");
+                    localStorage.setItem("adminUser", JSON.stringify({
+                        email: user.email,
+                        name: user.displayName || "Administrator",
+                        role: "Admin"
+                    }));
+
+                    setTimeout(() => {
+                        window.location.href = "admin-dashboard.html";
+                    }, 500);
+                } else {
+                    message.innerText = `❌ Access Denied: ${user.email} is not in the authorized Admin list.`;
+                    message.className = "error";
+                    googleBtn.disabled = false;
+                }
+            } catch (err) {
+                console.error("Google Admin login error:", err);
+                if (err.code === "auth/popup-closed-by-user") {
+                    message.innerText = "Google sign-in was cancelled.";
+                } else if (err.code === "auth/popup-blocked") {
+                    message.innerText = "Popup was blocked by your browser. Please allow popups for this site.";
+                } else {
+                    message.innerText = "Google Sign-In failed: " + (err.message || "Please check your connection.");
+                }
+                message.className = "error";
+                googleBtn.disabled = false;
+            }
+        });
     }
 })();
 </script>

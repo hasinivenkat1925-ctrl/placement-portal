@@ -42,11 +42,13 @@
         // Automatic SPA routing & GitHub Pages redirect
         (function() {
             var path = window.location.pathname;
-            // If repository path is /placementportal/something, redirect gracefully
-            if (!path.endsWith(".html") && !path.endsWith("/")) {
-                window.location.replace(path + ".html");
+            var parts = path.split("/").filter(Boolean);
+            var lastPart = parts.length > 0 ? parts[parts.length - 1] : "";
+            
+            if (lastPart && !lastPart.includes(".")) {
+                window.location.replace(lastPart + ".html" + window.location.search + window.location.hash);
             } else {
-                window.location.replace("index.html");
+                window.location.replace("index.html" + window.location.search + window.location.hash);
             }
         })();
     </script>
