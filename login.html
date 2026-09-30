@@ -348,7 +348,7 @@
 
                             localStorage.setItem("loggedInUser", JSON.stringify(userData));
 
-                            await fetch("/register", {
+                            await fetch("/api/register", {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({

@@ -1,10 +1,5 @@
 {
-  "version": 2,
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "*.html,CSS/**,data/**,questions.json,style.css,nav-header.js"
-    }
-  },
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -16,10 +11,6 @@
     },
     {
       "source": "/register",
-      "destination": "/api/index.js"
-    },
-    {
-      "source": "/(.*)",
       "destination": "/api/index.js"
     }
   ]
