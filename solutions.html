@@ -1,140 +1,207 @@
-async function loadSolutions() {
+<!DOCTYPE html>
+<html>
 
-    const container =
-        document.getElementById("solutions");
-
-    try {
-
-        container.innerHTML =
-            "<h3>🤖 Loading questions & solutions...</h3>" +
-            "<p>Please wait...</p>";
-
-        const response =
-            await fetch(
-                "/api/generate-company-solutions?company=" +
-                encodeURIComponent(company) +
-                "&role=" +
-                encodeURIComponent(role)
-            );
-
-        if (!response.ok) {
-            throw new Error(
-                "Unable to load company solutions"
-            );
+<head>
+    <title>Placement Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: #1f2937;
         }
 
-        const data =
-            await response.json();
-
-        const solutions =
-            data.solutions || [];
-
-        if (solutions.length === 0) {
-            throw new Error(
-                "No solutions available"
-            );
+        .header {
+            background: #1e3a8a;
+            color: white;
+            padding: 22px;
+            text-align: center;
         }
 
-        container.innerHTML = "";
-
-        const isFallback =
-            data.source === "fallback";
-
-        const total =
-            document.createElement("h3");
-
-        total.innerText =
-            isFallback
-                ? "📚 Company Questions & Solutions: " + solutions.length
-                : "🤖 AI Questions & Solutions: " + solutions.length;
-
-        container.appendChild(total);
-
-        const info =
-            document.createElement("p");
-
-        if (isFallback) {
-
-            info.innerHTML =
-                "📚 Showing placement questions and solutions for <strong>" +
-                company +
-                " - " +
-                role +
-                "</strong>.";
-
-        } else {
-
-            info.innerHTML =
-                "🤖 AI-generated questions and solutions for <strong>" +
-                company +
-                " - " +
-                role +
-                "</strong>.";
-
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
         }
 
-        container.appendChild(info);
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
 
-        const line =
-            document.createElement("hr");
+        .question-box {
+            background: #f8fafc;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #2563eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
 
-        container.appendChild(line);
+        .question-box h3 {
+            color: #1e3a8a;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
 
-        solutions.forEach(
-            (item, index) => {
+        .answer-text {
+            background: #ecfdf5;
+            color: #065f46;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            border: 1px solid #a7f3d0;
+        }
 
-                const box =
-                    document.createElement("div");
+        .solution-text {
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid #bfdbfe;
+            line-height: 1.6;
+        }
 
-                box.className =
-                    "question-box";
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.2s;
+        }
 
-                const question =
-                    document.createElement("h3");
+        .btn:hover {
+            background: #1d4ed8;
+        }
 
-                question.innerText =
-                    (index + 1) +
-                    ". " +
-                    item.question;
+        .btn-secondary {
+            background: #64748b;
+        }
 
-                box.appendChild(question);
+        .btn-secondary:hover {
+            background: #475569;
+        }
+    </style>
+</head>
 
-                const answer =
-                    document.createElement("p");
+<body>
 
-                answer.innerHTML =
-                    "<strong>✅ Answer:</strong> " +
-                    item.answer;
+    <div class="header">
+        <h1>💡 Questions & Detailed Solutions</h1>
+    </div>
 
-                box.appendChild(answer);
+    <div class="container">
+        <h2 id="companyTitle" style="color: #1e3a8a; margin-top: 0;">🏢 Company: Loading...</h2>
+        <h3 id="roleTitle" style="color: #4b5563; font-weight: normal; margin-bottom: 20px;">💼 Role: Loading...</h3>
+        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 25px;">
 
-                const solution =
-                    document.createElement("p");
+        <div id="solutions">
+            <p>Loading questions & solutions...</p>
+        </div>
 
-                solution.innerHTML =
-                    "<strong>💡 Solution:</strong><br>" +
-                    item.solution;
+        <br>
+        <div style="margin-top: 20px;">
+            <button class="btn btn-secondary" onclick="goBack()">← Back</button>
+            <button class="btn" onclick="goDashboard()">🏠 Dashboard</button>
+        </div>
+    </div>
 
-                box.appendChild(solution);
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const company = params.get("company") || localStorage.getItem("company") || "TCS";
+        const role = params.get("role") || localStorage.getItem("role") || "Software Developer";
 
-                const separator =
-                    document.createElement("hr");
+        document.getElementById("companyTitle").innerText = "🏢 Company: " + company;
+        document.getElementById("roleTitle").innerText = "💼 Role: " + role;
 
-                box.appendChild(separator);
-
-                container.appendChild(box);
+        async function loadSolutions() {
+            const container = document.getElementById("solutions");
+            try {
+                container.innerHTML = "<h3>🤖 Generating AI questions & solutions...</h3><p>Please wait...</p>";
+                
+                const response = await fetch(
+                    "/api/generate-company-solutions?company=" + encodeURIComponent(company) + "&role=" + encodeURIComponent(role)
+                );
+                
+                if (!response.ok) {
+                    throw new Error("Unable to load company solutions");
+                }
+                
+                const data = await response.json();
+                const solutions = data.solutions || [];
+                
+                if (solutions.length === 0) {
+                    throw new Error("No solutions available");
+                }
+                
+                container.innerHTML = "";
+                const isFallback = data.source === "fallback";
+                
+                const total = document.createElement("h3");
+                total.style.color = "#1e3a8a";
+                total.style.marginBottom = "15px";
+                total.innerText = isFallback 
+                    ? "📚 Company Questions & Solutions: " + solutions.length 
+                    : "🤖 AI Questions & Solutions: " + solutions.length;
+                container.appendChild(total);
+                
+                const info = document.createElement("p");
+                info.style.color = "#64748b";
+                info.style.marginBottom = "25px";
+                if (isFallback) {
+                    info.innerHTML = "📚 Showing standard placement questions and solutions for <strong>" + company + " - " + role + "</strong>.";
+                } else {
+                    info.innerHTML = "🤖 AI-generated questions and solutions for <strong>" + company + " - " + role + "</strong>.";
+                }
+                container.appendChild(info);
+                
+                solutions.forEach((item, index) => {
+                    const box = document.createElement("div");
+                    box.className = "question-box";
+                    
+                    const question = document.createElement("h3");
+                    question.innerText = (index + 1) + ". " + item.question;
+                    box.appendChild(question);
+                    
+                    const answer = document.createElement("div");
+                    answer.className = "answer-text";
+                    answer.innerHTML = "✅ <strong>Answer:</strong> " + item.answer;
+                    box.appendChild(answer);
+                    
+                    const solution = document.createElement("div");
+                    solution.className = "solution-text";
+                    solution.innerHTML = "💡 <strong>Detailed Solution:</strong><br>" + item.solution;
+                    box.appendChild(solution);
+                    
+                    container.appendChild(box);
+                });
+            } catch (error) {
+                console.error("Company Solutions Error:", error);
+                container.innerHTML = "<h3>❌ Unable to load solutions</h3><p>Please try again later.</p>";
             }
-        );
+        }
 
-    } catch (error) {
+        function goBack() {
+            window.location.href = "preparation.html?company=" + encodeURIComponent(company) + "&role=" + encodeURIComponent(role);
+        }
 
-        console.error(
-            "Company Solutions Error:",
-            error
-        );
+        function goDashboard() {
+            window.location.href = "dashboard.html";
+        }
 
-        container.innerHTML =
-            "<h3>❌ Unable to load solutions</h3>" +
-            "<p>Please try again later.</p>";
-    }
-}
+        // Load solutions automatically on page display
+        loadSolutions();
+    </script>
+</body>
+
+</html>

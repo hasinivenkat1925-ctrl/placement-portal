@@ -14,6 +14,14 @@ const { generateCompanyQuiz } =
     require("./ai-company-quiz");
 const { generateCompanyPreparation } =
     require("./ai-company-preparation");
+const {
+    saveUserToFirestore,
+    findUserInFirestore,
+    getStudentsFromFirestore,
+    deleteStudentFromFirestore,
+    savePerformanceToFirestore,
+    getPerformanceFromFirestore
+} = require("./firebase-service");
     async function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -29,7 +37,10 @@ app.use(express.json());
 // ========================================
 
 // Admin credentials
-const adminEmail = "prasanthichinni2805@gmail.com";
+const adminEmails = [
+    "hasinivenkat1925@gmail.com",
+    "prasanthichinni2805@gmail.com"
+];
 const adminPassword = "admin123";
 
 app.post("/api/admin-login", (req, res) => {
@@ -44,7 +55,7 @@ app.post("/api/admin-login", (req, res) => {
     console.log("Admin Email:", email);
 
     if (
-        email === adminEmail.toLowerCase() &&
+        adminEmails.map(e => e.toLowerCase()).includes(email) &&
         password === adminPassword
     ) {
 
@@ -55,7 +66,7 @@ app.post("/api/admin-login", (req, res) => {
             message: "Admin login successful",
 
             admin: {
-                email: adminEmail,
+                email: email,
                 name: "Administrator"
             }
 
@@ -84,7 +95,7 @@ app.use(express.static(frontendPath));
 
 
 // ========================================
-// MAIN PAGES
+// MAIN PAGES & HTML ROUTING
 // ========================================
 
 app.get("/", (req, res) => {
@@ -93,36 +104,18 @@ app.get("/", (req, res) => {
     );
 });
 
-app.get("/dashboard.html", (req, res) => {
-    res.sendFile(
-        path.join(frontendPath, "dashboard.html")
-    );
+// Automatic routing for any .html page
+app.get("/:page", (req, res, next) => {
+    let page = req.params.page;
+    if (!page.includes(".")) {
+        page = page + ".html";
+    }
+    const pageFile = path.join(frontendPath, page);
+    if (fs.existsSync(pageFile)) {
+        return res.sendFile(pageFile);
+    }
+    next();
 });
-
-app.get("/preparation.html", (req, res) => {
-    res.sendFile(
-        path.join(frontendPath, "preparation.html")
-    );
-});
-
-app.get("/questions.html", (req, res) => {
-    res.sendFile(
-        path.join(frontendPath, "questions.html")
-    );
-});
-
-app.get("/solutions.html", (req, res) => {
-    res.sendFile(
-        path.join(frontendPath, "solutions.html")
-    );
-});
-
-app.get("/company-quiz.html", (req, res) => {
-    res.sendFile(
-        path.join(frontendPath, "company-quiz.html")
-    );
-});
-
 
 // ========================================
 // QUESTION FILES
@@ -130,7 +123,11 @@ app.get("/company-quiz.html", (req, res) => {
 
 const dataFolder = path.join(__dirname, "data");
 if (!fs.existsSync(dataFolder)) {
-    fs.mkdirSync(dataFolder, { recursive: true });
+    try {
+        fs.mkdirSync(dataFolder, { recursive: true });
+    } catch (e) {
+        // Ignored on read-only environments
+    }
 }
 
 const questionsFile = path.join(
@@ -174,6 +171,21 @@ const generatedTopicsFile =
 // ========================================
 // NORMALIZE
 // ========================================
+
+function readQuestionsDatabase() {
+    try {
+        if (fs.existsSync(questionsFile)) {
+            return JSON.parse(fs.readFileSync(questionsFile, "utf8"));
+        }
+        const rootPath = path.join(__dirname, "questions.json");
+        if (fs.existsSync(rootPath)) {
+            return JSON.parse(fs.readFileSync(rootPath, "utf8"));
+        }
+    } catch (e) {
+        console.warn("Failed reading questions database:", e.message);
+    }
+    return [];
+}
 
 function normalize(text) {
 
@@ -220,12 +232,14 @@ function getGeneratedTopics() {
 }
 
 function saveGeneratedTopics(data) {
-
-    fs.writeFileSync(
-        generatedTopicsFile,
-        JSON.stringify(data, null, 2)
-    );
-
+    try {
+        fs.writeFileSync(
+            generatedTopicsFile,
+            JSON.stringify(data, null, 2)
+        );
+    } catch (e) {
+        console.warn("Local topics cache write skipped:", e.message);
+    }
 }
 
 
@@ -248,7 +262,7 @@ function createTopicCacheKey(
 // QUESTIONS API
 // ========================================
 
-app.get("/api/questions", (req, res) => {
+app.get("/api/questions", async (req, res) => {
 
     const company =
         String(req.query.company || "").trim();
@@ -268,15 +282,7 @@ app.get("/api/questions", (req, res) => {
     }
 
     try {
-
-        const data =
-            fs.readFileSync(
-                questionsFile,
-                "utf8"
-            );
-
-        const questions =
-            JSON.parse(data);
+        const questions = readQuestionsDatabase();
 
         const selectedCompany =
             normalize(company);
@@ -286,29 +292,28 @@ app.get("/api/questions", (req, res) => {
 
         const matchingQuestions =
             questions.filter((q) => {
-
                 return (
-                    normalize(q.company) ===
-                        selectedCompany &&
-
-                    normalize(q.role) ===
-                        selectedRole
+                    normalize(q.company) === selectedCompany &&
+                    normalize(q.role) === selectedRole
                 );
-
             });
 
+        if (matchingQuestions.length > 0) {
+            return res.json({
+                company: company,
+                role: role,
+                count: matchingQuestions.length,
+                questions: matchingQuestions
+            });
+        }
+
+        // Fallback to real-time company questions generator
+        const generated = await generateCompanyQuestions(company, role);
         return res.json({
-
             company: company,
-
             role: role,
-
-            count:
-                matchingQuestions.length,
-
-            questions:
-                matchingQuestions
-
+            count: generated.questions ? generated.questions.length : 0,
+            questions: generated.questions || []
         });
 
     } catch (error) {
@@ -338,14 +343,7 @@ app.get("/api/all-questions", (req, res) => {
 
     try {
 
-        const data =
-            fs.readFileSync(
-                questionsFile,
-                "utf8"
-            );
-
-        const questions =
-            JSON.parse(data);
+        const questions = readQuestionsDatabase();
 
         return res.json(questions);
 
@@ -469,7 +467,7 @@ app.get("/api/topic-questions", (req, res) => {
 // REGISTER
 // ========================================
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
 
     const {
         name,
@@ -514,7 +512,9 @@ app.post("/register", (req, res) => {
                     normalize(email)
             );
 
-        if (existingUser) {
+        const existingFirestoreUser = await findUserInFirestore(email);
+
+        if (existingUser || existingFirestoreUser) {
 
             return res.status(409).json({
 
@@ -542,14 +542,21 @@ app.post("/register", (req, res) => {
 
         users.push(newUser);
 
-        fs.writeFileSync(
-            usersFile,
-            JSON.stringify(
-                users,
-                null,
-                2
-            )
-        );
+        try {
+            fs.writeFileSync(
+                usersFile,
+                JSON.stringify(
+                    users,
+                    null,
+                    2
+                )
+            );
+        } catch (fsErr) {
+            console.warn("Local users file write skipped:", fsErr.message);
+        }
+
+        // Sync to Firebase Firestore
+        await saveUserToFirestore(newUser);
 
         return res.json({
 
@@ -581,9 +588,17 @@ app.post("/register", (req, res) => {
 
 // GET ALL STUDENTS
 
-app.get("/api/admin/students", (req, res) => {
+app.get("/api/admin/students", async (req, res) => {
 
     try {
+
+        // Check Firestore first
+        const firestoreStudents = await getStudentsFromFirestore();
+        if (firestoreStudents && firestoreStudents.length > 0) {
+            return res.json({
+                students: firestoreStudents
+            });
+        }
 
         if (!fs.existsSync(usersFile)) {
 
@@ -647,9 +662,12 @@ app.get("/api/admin/students", (req, res) => {
 
 app.delete(
     "/api/admin/students/:id",
-    (req, res) => {
+    async (req, res) => {
 
         try {
+
+            const studentId = Number(req.params.id);
+            await deleteStudentFromFirestore(studentId);
 
             if (!fs.existsSync(usersFile)) {
 
@@ -673,11 +691,6 @@ app.delete(
                 data.trim()
                     ? JSON.parse(data)
                     : [];
-
-
-            const studentId =
-                Number(req.params.id);
-
 
             const studentExists =
                 users.some(
@@ -707,17 +720,18 @@ app.delete(
                 );
 
 
-            fs.writeFileSync(
-
-                usersFile,
-
-                JSON.stringify(
-                    users,
-                    null,
-                    2
-                )
-
-            );
+            try {
+                fs.writeFileSync(
+                    usersFile,
+                    JSON.stringify(
+                        users,
+                        null,
+                        2
+                    )
+                );
+            } catch (fsErr) {
+                console.warn("Local users file update skipped:", fsErr.message);
+            }
 
 
             return res.json({
@@ -751,7 +765,7 @@ app.delete(
 // STUDENT LOGIN
 // ========================================
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
 
     const email =
         String(req.body.email || "")
@@ -776,6 +790,20 @@ app.post("/login", (req, res) => {
     }
 
     try {
+
+        // Check Firestore first
+        const firestoreUser = await findUserInFirestore(email);
+        if (firestoreUser && String(firestoreUser.password || "").trim() === password) {
+            console.log("LOGIN SUCCESS (Firestore):", firestoreUser.email);
+            return res.json({
+                message: "Login successful!",
+                user: {
+                    id: firestoreUser.id,
+                    name: firestoreUser.name,
+                    email: firestoreUser.email
+                }
+            });
+        }
 
         if (!fs.existsSync(usersFile)) {
 
@@ -880,7 +908,7 @@ app.post("/login", (req, res) => {
 
 // SAVE PERFORMANCE RESULT
 
-app.post("/api/performance", (req, res) => {
+app.post("/api/performance", async (req, res) => {
 
     const {
         email,
@@ -967,17 +995,21 @@ app.post("/api/performance", (req, res) => {
         performance.push(result);
 
 
-        fs.writeFileSync(
+        try {
+            fs.writeFileSync(
+                performanceFile,
+                JSON.stringify(
+                    performance,
+                    null,
+                    2
+                )
+            );
+        } catch (fsErr) {
+            console.warn("Local performance file write skipped:", fsErr.message);
+        }
 
-            performanceFile,
-
-            JSON.stringify(
-                performance,
-                null,
-                2
-            )
-
-        );
+        // Sync to Firebase Firestore
+        await savePerformanceToFirestore(result);
 
 
         return res.json({
@@ -1013,9 +1045,15 @@ app.post("/api/performance", (req, res) => {
 // GET ALL PERFORMANCE
 // ========================================
 
-app.get("/api/performance", (req, res) => {
+app.get("/api/performance", async (req, res) => {
 
     try {
+
+        // Check Firestore first
+        const firestorePerf = await getPerformanceFromFirestore();
+        if (firestorePerf && firestorePerf.length > 0) {
+            return res.json(firestorePerf);
+        }
 
         if (!fs.existsSync(performanceFile)) {
 
@@ -1830,38 +1868,50 @@ app.get("/api/generate-company-quiz", async (req, res) => {
 
     }
 });
-const server =
-    app.listen(
-        PORT,
-        "0.0.0.0",
-        () => {
+app.get("/api/firebase-config", (req, res) => {
+    try {
+        const config = require("./firebase-applet-config.json");
+        return res.json(config);
+    } catch {
+        return res.status(404).json({ error: "Firebase config not found" });
+    }
+});
+
+module.exports = app;
+
+if (!process.env.VERCEL) {
+    const server =
+        app.listen(
+            PORT,
+            "0.0.0.0",
+            () => {
+
+                console.log(
+                    `Server running on http://0.0.0.0:${PORT}`
+                );
+
+                console.log(
+                    "Frontend folder:",
+                    frontendPath
+                );
+
+                console.log(
+                    "Questions database:",
+                    questionsFile
+                );
+
+            }
+        );
+
+    server.on(
+        "error",
+        (error) => {
 
             console.log(
-                `Server running on http://0.0.0.0:${PORT}`
-            );
-
-            console.log(
-                "Frontend folder:",
-                frontendPath
-            );
-
-            console.log(
-                "Questions database:",
-                questionsFile
+                "Server error:",
+                error
             );
 
         }
     );
-
-
-server.on(
-    "error",
-    (error) => {
-
-        console.log(
-            "Server error:",
-            error
-        );
-
-    }
-);
+}

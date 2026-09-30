@@ -189,6 +189,24 @@
 
         </form>
 
+        <div style="text-align: center; margin: 15px 0; color: #64748b; font-size: 14px; position: relative;">
+            <span style="background: white; padding: 0 10px; position: relative; z-index: 1;">or</span>
+            <hr style="position: absolute; top: 50%; left: 0; right: 0; border: none; border-top: 1px solid #e2e8f0; margin: 0; z-index: 0;">
+        </div>
+
+        <button
+            type="button"
+            id="googleAdminLoginBtn"
+            style="width: 100%; padding: 12px; border: 1px solid #dadce0; border-radius: 7px; background: #ffffff; color: #3c4043; font-size: 15px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: background 0.2s; margin-bottom: 15px;">
+            <svg width="18" height="18" viewBox="0 0 18 18">
+                <path d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.47h4.84c-.21 1.12-.84 2.07-1.79 2.7v2.24h2.9c1.69-1.55 2.69-3.85 2.69-6.57z" fill="#4285F4" />
+                <path d="M9 18c2.43 0 4.47-.8 5.96-2.23l-2.91-2.24c-.8.54-1.84.87-3.05.87-2.35 0-4.33-1.59-5.04-3.73H.95v2.3C2.43 15.89 5.5 18 9 18z" fill="#34A853" />
+                <path d="M3.96 10.67c-.18-.54-.28-1.12-.28-1.67s.1-1.13.28-1.67V5.03H.95C.35 6.22 0 7.57 0 9s.35 2.78.95 3.97l3.01-2.3z" fill="#FBBC05" />
+                <path d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.59C13.47.8 11.43 0 9 0 5.5 0 2.43 2.11.95 5.03l3.01 2.3c.71-2.14 2.69-3.73 5.04-3.73z" fill="#EA4335" />
+            </svg>
+            Sign in with Google
+        </button>
+
 
         <p id="message"></p>
 
@@ -203,7 +221,14 @@
     </div>
 
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+const adminEmails = [
+    "hasinivenkat1925@gmail.com",
+    "prasanthichinni2805@gmail.com"
+];
 
 async function adminLogin(event) {
 
@@ -319,6 +344,59 @@ function goToStudentLogin() {
 
 }
 
+// Expose to window for inline form triggers
+window.adminLogin = adminLogin;
+window.goToStudentLogin = goToStudentLogin;
+
+// Initialize Google Sign-In for Admin
+(async () => {
+    try {
+        const configRes = await fetch("/api/firebase-config");
+        const config = await configRes.json();
+        const app = initializeApp(config);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        const googleBtn = document.getElementById("googleAdminLoginBtn");
+        if (googleBtn) {
+            googleBtn.addEventListener("click", async () => {
+                const message = document.getElementById("message");
+                message.innerText = "Connecting to Google...";
+                message.className = "";
+
+                try {
+                    const result = await signInWithPopup(auth, provider);
+                    const user = result.user;
+                    const email = (user.email || "").toLowerCase().trim();
+
+                    if (adminEmails.map(e => e.toLowerCase()).includes(email)) {
+                        message.innerText = "Admin Google login successful!";
+                        message.className = "success";
+
+                        localStorage.setItem("adminLoggedIn", "true");
+                        localStorage.setItem("adminUser", JSON.stringify({
+                            email: user.email,
+                            name: user.displayName || "Admin Administrator"
+                        }));
+
+                        setTimeout(() => {
+                            window.location.href = "admin-dashboard.html";
+                        }, 500);
+                    } else {
+                        message.innerText = "Access Denied: You are not authorized as an Admin.";
+                        message.className = "error";
+                    }
+                } catch (err) {
+                    console.error("Google Admin login failed:", err);
+                    message.innerText = err.message || "Google Sign-In failed.";
+                    message.className = "error";
+                }
+            });
+        }
+    } catch (e) {
+        console.warn("Firebase client admin auth init warning:", e);
+    }
+})();
 </script>
 
 </body>

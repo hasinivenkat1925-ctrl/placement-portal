@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>HR Interview</title>
+    <link rel="stylesheet" href="CSS/style.css">
 
     <style>
         body {
@@ -128,6 +128,7 @@
 </head>
 
 <body>
+<script src="nav-header.js"></script>
 
 <div class="container">
 
@@ -368,13 +369,17 @@
 
 
     // Company-specific question
-
     if (companyQuestions[company]) {
-
         questions.push(
             companyQuestions[company]
         );
-
+    } else if (company) {
+        questions.push({
+            question:
+                `Why do you want to join ${company} as a ${role}?`,
+            answer:
+                `Highlight ${company}'s industry presence, core engineering/business values, and growth trajectory. Explain how your background in ${role} aligns with ${company}'s projects and vision.`
+        });
     }
 
 

@@ -3,104 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Interview Preparation</title>
+    <title>Interview Preparation - Placement Portal</title>
+    <link rel="stylesheet" href="CSS/style.css">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: #0f172a;
             margin: 0;
-            padding: 30px;
+            color: #f8fafc;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1050px;
             margin: auto;
+            padding: 30px 20px;
         }
 
         h1 {
             text-align: center;
-            color: #1e3a8a;
-            font-size: 36px;
+            color: #f8fafc;
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
 
         .subtitle {
             text-align: center;
-            color: #555;
-            font-size: 18px;
+            color: #94a3b8;
+            font-size: 15px;
             margin-bottom: 30px;
         }
 
         .selection-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
+            background: #111827;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid #1f293d;
+            margin-bottom: 35px;
         }
 
         label {
             display: block;
-            font-weight: bold;
+            font-weight: 700;
             margin-top: 15px;
             margin-bottom: 8px;
-            color: #333;
+            color: #3b82f6;
+            font-size: 15px;
         }
 
-        select {
+        input[type="text"] {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            font-size: 16px;
-            box-sizing: border-box;
+            padding: 12px 16px;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: #0f172a;
+            color: #f8fafc;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .quick-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .chip {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
         }
 
         .interview-cards {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
         }
 
         .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            background: #111827;
+            padding: 28px 22px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid #1f293d;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            background: #1e293b;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
         }
 
         .card h2 {
-            color: #1e3a8a;
+            color: #f8fafc;
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            font-weight: 800;
         }
 
         .card p {
-            color: #555;
+            color: #94a3b8;
             line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
 
-        button {
-            background: #2563eb;
+        button.action-btn {
+            background: #3b82f6;
             color: white;
             border: none;
             padding: 12px 22px;
-            border-radius: 7px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 15px;
-            margin-top: 10px;
+            font-weight: 700;
+            transition: all 0.2s;
+            width: 100%;
         }
 
-        button:hover {
-            background: #1d4ed8;
+        button.action-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+        }
+
+        button.hr-btn {
+            background: #10b981;
+        }
+
+        button.hr-btn:hover {
+            background: #059669;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+        }
+
+        button.video-btn {
+            background: #9333ea;
+        }
+
+        button.video-btn:hover {
+            background: #7e22ce;
+            box-shadow: 0 0 12px rgba(147, 51, 234, 0.4);
         }
 
         .back-button {
             display: block;
-            margin: 30px auto 0;
+            margin: 35px auto 0;
+            background: #1e293b;
+            color: #cbd5e1;
+            border: 1px solid #334155;
+            padding: 11px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            transition: all 0.2s;
         }
 
-        @media (max-width: 700px) {
+        .back-button:hover {
+            background: #334155;
+            color: #ffffff;
+        }
+
+        @media (max-width: 850px) {
             .interview-cards {
                 grid-template-columns: 1fr;
             }
@@ -109,142 +210,159 @@
 </head>
 
 <body>
+<script src="nav-header.js"></script>
 
 <div class="container">
 
     <h1>🎤 Interview Preparation</h1>
 
     <div class="subtitle">
-        Select a company and role to begin your interview preparation.
+        Select or type any real-time company and role to practice tailored HR, Technical interview rounds, and related learning videos.
     </div>
 
 
-    <!-- COMPANY & ROLE SELECTION -->
-
+    <!-- REAL-TIME COMPANY & ROLE SELECTION -->
     <div class="selection-card">
 
         <label for="company">
-            🏢 Select Company
+            🏢 Select or Type Company:
         </label>
+        <input 
+            type="text" 
+            id="company" 
+            list="companyList" 
+            placeholder="Type or select a company (e.g. Google, Microsoft, TCS, Amazon, Deloitte...)"
+        >
+        <datalist id="companyList">
+            <option value="Google">Google (Alphabet)</option>
+            <option value="Microsoft">Microsoft Corporation</option>
+            <option value="Amazon">Amazon.com Inc.</option>
+            <option value="Meta">Meta (Facebook)</option>
+            <option value="Apple">Apple Inc.</option>
+            <option value="Netflix">Netflix Inc.</option>
+            <option value="Tesla">Tesla Inc.</option>
+            <option value="NVIDIA">NVIDIA Corporation</option>
+            <option value="Adobe">Adobe Inc.</option>
+            <option value="Oracle">Oracle Corporation</option>
+            <option value="Salesforce">Salesforce Inc.</option>
+            <option value="Cisco">Cisco Systems Inc.</option>
+            <option value="TCS">Tata Consultancy Services (TCS)</option>
+            <option value="Infosys">Infosys Limited</option>
+            <option value="Wipro">Wipro Limited</option>
+            <option value="Accenture">Accenture PLC</option>
+            <option value="Cognizant">Cognizant Technology Solutions</option>
+            <option value="Capgemini">Capgemini SE</option>
+            <option value="Deloitte">Deloitte Touche Tohmatsu</option>
+            <option value="HCLTech">HCLTech</option>
+            <option value="Tech Mahindra">Tech Mahindra</option>
+            <option value="LTI Mindtree">LTIMindtree</option>
+            <option value="Goldman Sachs">Goldman Sachs Group</option>
+            <option value="J.P. Morgan">J.P. Morgan Chase & Co.</option>
+            <option value="NatWest">NatWest Group</option>
+            <option value="Morgan Stanley">Morgan Stanley</option>
+            <option value="Barclays">Barclays PLC</option>
+        </datalist>
 
-        <select id="company">
-
-            <option value="">
-                -- Select Company --
-            </option>
-
-            <option value="TCS">
-                TCS
-            </option>
-
-            <option value="Infosys">
-                Infosys
-            </option>
-
-            <option value="Wipro">
-                Wipro
-            </option>
-
-            <option value="Accenture">
-                Accenture
-            </option>
-
-            <option value="Cognizant">
-                Cognizant
-            </option>
-
-            <option value="NatWest">
-                NatWest
-            </option>
-
-        </select>
-
+        <!-- QUICK COMPANY CHIPS -->
+        <div class="quick-chips">
+            <span class="chip" onclick="selectCompany('Google')">Google</span>
+            <span class="chip" onclick="selectCompany('Microsoft')">Microsoft</span>
+            <span class="chip" onclick="selectCompany('Amazon')">Amazon</span>
+            <span class="chip" onclick="selectCompany('Meta')">Meta</span>
+            <span class="chip" onclick="selectCompany('TCS')">TCS</span>
+            <span class="chip" onclick="selectCompany('Infosys')">Infosys</span>
+            <span class="chip" onclick="selectCompany('Accenture')">Accenture</span>
+            <span class="chip" onclick="selectCompany('Goldman Sachs')">Goldman Sachs</span>
+            <span class="chip" onclick="selectCompany('NVIDIA')">NVIDIA</span>
+        </div>
 
         <label for="role">
-            💼 Select Role
+            💼 Select or Type Role:
         </label>
+        <input 
+            type="text" 
+            id="role" 
+            list="roleList" 
+            placeholder="Type or select a role (e.g. SDE, Frontend Developer, Data Scientist, DevOps...)"
+        >
+        <datalist id="roleList">
+            <option value="Software Development Engineer (SDE)">Software Development Engineer (SDE)</option>
+            <option value="Frontend Developer">Frontend Engineer / Developer</option>
+            <option value="Backend Developer">Backend Engineer / Developer</option>
+            <option value="Full Stack Developer">Full Stack Engineer / Developer</option>
+            <option value="Java Developer">Java Software Developer</option>
+            <option value="Python Developer">Python Software Developer</option>
+            <option value="Data Analyst">Data Analyst / Business Intelligence</option>
+            <option value="Data Scientist">Data Scientist / Quantitative Analyst</option>
+            <option value="Machine Learning Engineer">Machine Learning / AI Engineer</option>
+            <option value="DevOps Engineer">DevOps & Site Reliability Engineer (SRE)</option>
+            <option value="Cloud Solutions Architect">Cloud Solutions Architect</option>
+            <option value="Cyber Security Analyst">Cyber Security Analyst</option>
+            <option value="QA Automation Engineer">QA / Test Automation Engineer</option>
+            <option value="Product Manager">Product Manager / Associate PM</option>
+            <option value="UI/UX Designer">UI/UX Designer / Product Designer</option>
+            <option value="Database Administrator (DBA)">Database Administrator (DBA)</option>
+        </datalist>
 
-        <select id="role">
-
-            <option value="">
-                -- Select Role --
-            </option>
-
-            <option value="Software Developer">
-                Software Developer
-            </option>
-
-            <option value="Java Developer">
-                Java Developer
-            </option>
-
-            <option value="Python Developer">
-                Python Developer
-            </option>
-
-            <option value="Data Analyst">
-                Data Analyst
-            </option>
-
-            <option value="Tester">
-                Tester
-            </option>
-
-        </select>
+        <!-- QUICK ROLE CHIPS -->
+        <div class="quick-chips">
+            <span class="chip" onclick="selectRole('Software Development Engineer (SDE)')">SDE</span>
+            <span class="chip" onclick="selectRole('Frontend Developer')">Frontend</span>
+            <span class="chip" onclick="selectRole('Backend Developer')">Backend</span>
+            <span class="chip" onclick="selectRole('Full Stack Developer')">Full Stack</span>
+            <span class="chip" onclick="selectRole('Java Developer')">Java</span>
+            <span class="chip" onclick="selectRole('Python Developer')">Python</span>
+            <span class="chip" onclick="selectRole('Data Analyst')">Data Analyst</span>
+            <span class="chip" onclick="selectRole('DevOps Engineer')">DevOps</span>
+        </div>
 
     </div>
 
 
-    <!-- INTERVIEW OPTIONS -->
-
+    <!-- INTERVIEW ROUNDS CARDS -->
     <div class="interview-cards">
 
         <!-- HR INTERVIEW -->
-
         <div class="card">
-
-            <h2>👤 HR Interview</h2>
-
+            <div class="card-icon">👤</div>
+            <h2>HR Interview</h2>
             <p>
-                Practice common HR questions,
-                company-specific questions,
-                and role-based questions.
+                Practice behavioral, situational, background, and company-specific culture fit interview questions.
             </p>
-
-            <button onclick="startHR()">
+            <button class="action-btn hr-btn" onclick="startHR()">
                 👤 Start HR Interview
             </button>
-
         </div>
 
-
         <!-- TECHNICAL INTERVIEW -->
-
         <div class="card">
-
-            <h2>💻 Technical Interview</h2>
-
+            <div class="card-icon">💻</div>
+            <h2>Technical Interview</h2>
             <p>
-                Practice technical questions
-                based on your selected company
-                and role.
+                Practice real-world technical interview questions, architecture trade-offs, and core domain concepts.
             </p>
-
-            <button onclick="startTechnical()">
+            <button class="action-btn" onclick="startTechnical()">
                 💻 Start Technical Interview
             </button>
+        </div>
 
+        <!-- RELATED VIDEOS -->
+        <div class="card">
+            <div class="card-icon">🎥</div>
+            <h2>Related Videos</h2>
+            <p>
+                Watch company placement walkthroughs, mock HR interview demonstrations, and technical solution tutorials.
+            </p>
+            <button class="action-btn video-btn" onclick="openVideos()">
+                ▶ Related Videos
+            </button>
         </div>
 
     </div>
 
 
-    <!-- BACK -->
-
-    <button
-        class="back-button"
-        onclick="goDashboard()"
-    >
+    <!-- BACK TO DASHBOARD -->
+    <button class="back-button" onclick="goDashboard()">
         🏠 Back to Dashboard
     </button>
 
@@ -252,171 +370,84 @@
 
 
 <script>
-
-    // ==============================
     // LOGIN CHECK
-    // ==============================
-
-    const loggedInUser =
-        localStorage.getItem("loggedInUser");
-
+    const loggedInUser = localStorage.getItem("loggedInUser");
     if (!loggedInUser) {
-
-        window.location.href =
-            "login.html";
-
+        window.location.href = "login.html";
     }
 
-
-    // ==============================
-    // LOAD PREVIOUS SELECTION
-    // ==============================
-
-    const savedCompany =
-        localStorage.getItem(
-            "selectedCompany"
-        );
-
-    const savedRole =
-        localStorage.getItem(
-            "selectedRole"
-        );
-
+    // PRE-FILL SAVED SELECTIONS
+    const savedCompany = localStorage.getItem("selectedCompany");
+    const savedRole = localStorage.getItem("selectedRole");
 
     if (savedCompany) {
-
-        document.getElementById(
-            "company"
-        ).value = savedCompany;
-
+        document.getElementById("company").value = savedCompany;
     }
-
-
     if (savedRole) {
-
-        document.getElementById(
-            "role"
-        ).value = savedRole;
-
+        document.getElementById("role").value = savedRole;
     }
 
+    function selectCompany(comp) {
+        document.getElementById("company").value = comp;
+    }
 
-    // ==============================
-    // GET SELECTION
-    // ==============================
+    function selectRole(rl) {
+        document.getElementById("role").value = rl;
+    }
 
+    // GET & SAVE SELECTION
     function getSelection() {
-
-        const company =
-            document.getElementById(
-                "company"
-            ).value;
-
-        const role =
-            document.getElementById(
-                "role"
-            ).value;
-
+        const company = document.getElementById("company").value.trim();
+        const role = document.getElementById("role").value.trim();
 
         if (!company || !role) {
-
-            alert(
-                "Please select both company and role."
-            );
-
+            alert("Please select or enter both a company and a role.");
             return null;
-
         }
-
 
         // Save selection
+        localStorage.setItem("selectedCompany", company);
+        localStorage.setItem("selectedRole", role);
 
-        localStorage.setItem(
-            "selectedCompany",
-            company
-        );
-
-        localStorage.setItem(
-            "selectedRole",
-            role
-        );
-
-
-        return {
-            company,
-            role
-        };
-
+        return { company, role };
     }
 
-
-    // ==============================
     // START HR INTERVIEW
-    // ==============================
-
     function startHR() {
-
-        const selection =
-            getSelection();
-
-
-        if (!selection) {
-            return;
-        }
-
+        const selection = getSelection();
+        if (!selection) return;
 
         window.location.href =
             "hr-interview.html?company=" +
-            encodeURIComponent(
-                selection.company
-            ) +
+            encodeURIComponent(selection.company) +
             "&role=" +
-            encodeURIComponent(
-                selection.role
-            );
-
+            encodeURIComponent(selection.role);
     }
 
-
-    // ==============================
     // START TECHNICAL INTERVIEW
-    // ==============================
-
     function startTechnical() {
-
-        const selection =
-            getSelection();
-
-
-        if (!selection) {
-            return;
-        }
-
+        const selection = getSelection();
+        if (!selection) return;
 
         window.location.href =
             "technical-interview.html?company=" +
-            encodeURIComponent(
-                selection.company
-            ) +
+            encodeURIComponent(selection.company) +
             "&role=" +
-            encodeURIComponent(
-                selection.role
-            );
-
+            encodeURIComponent(selection.role);
     }
 
+    // OPEN RELATED VIDEOS
+    function openVideos() {
+        const selection = getSelection();
+        if (!selection) return;
 
-    // ==============================
+        window.location.href = "videos.html";
+    }
+
     // DASHBOARD
-    // ==============================
-
     function goDashboard() {
-
-        window.location.href =
-            "dashboard.html";
-
+        window.location.href = "dashboard.html";
     }
-
 </script>
 
 </body>

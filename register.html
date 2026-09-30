@@ -1,144 +1,263 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Placement Portal - Register</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - Placement Preparation Portal</title>
+    <link rel="stylesheet" href="CSS/style.css">
+
+    <style>
+        body {
+            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 60%, #030712 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 15px;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 480px;
+            background: #111827;
+            border: 1px solid #1f293d;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(59, 130, 246, 0.15);
+            padding: 40px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .auth-logo {
+            font-size: 38px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .auth-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #f8fafc;
+            margin-bottom: 6px;
+        }
+
+        .auth-subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .form-input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .form-input-wrapper label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+        }
+
+        .form-input-wrapper input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: #f8fafc;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-input-wrapper input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            background: #111827;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 36px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .toggle-password:hover {
+            color: #f8fafc;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 13px;
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #2563eb;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .auth-footer a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        #message {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            min-height: 20px;
+        }
+
+        .msg-success {
+            color: #34d399;
+        }
+
+        .msg-error {
+            color: #f87171;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>🎓 Placement Portal</h1>
+    <div class="auth-card">
+        <div class="auth-header">
+            <span class="auth-logo">🎓</span>
+            <h1 class="auth-title">Student Registration</h1>
+            <p class="auth-subtitle">Create your placement prep account to unlock PYQs & mock interviews</p>
+        </div>
 
-    <h2>📝 Student Registration</h2>
+        <form id="registerForm">
+            <div class="form-input-wrapper">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+            </div>
 
-    <form id="registerForm">
+            <div class="form-input-wrapper">
+                <label for="email">Student Email Address</label>
+                <input type="email" id="email" placeholder="student@university.edu" required>
+            </div>
 
-        <label>Name:</label>
-        <br>
-        <input
-            type="text"
-            id="name"
-            placeholder="Enter your name"
-            required
-        >
+            <div class="form-input-wrapper">
+                <label for="password">Create Password</label>
+                <input type="password" id="password" placeholder="At least 6 characters" required minlength="6">
+                <button type="button" class="toggle-password" onclick="togglePass('password')">👁 Show</button>
+            </div>
 
-        <br><br>
+            <div class="form-input-wrapper">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Re-enter your password" required minlength="6">
+                <button type="button" class="toggle-password" onclick="togglePass('confirmPassword')">👁 Show</button>
+            </div>
 
-        <label>Email:</label>
-        <br>
-        <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            required
-        >
+            <button type="submit" class="btn-submit">
+                🚀 Register Account
+            </button>
+        </form>
 
-        <br><br>
+        <div id="message"></div>
 
-        <label>Password:</label>
-        <br>
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            required
-        >
-
-        <br><br>
-
-        <button type="submit">
-            Register
-        </button>
-
-    </form>
-
-    <p id="message"></p>
-
-    <p>
-        Already have an account?
-        <a href="login.html">Login</a>
-    </p>
-
+        <div class="auth-footer">
+            Already have an account? <a href="login.html">Login here</a>
+        </div>
+    </div>
 
     <script>
+        function togglePass(id) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
 
-        document
-            .getElementById("registerForm")
-            .addEventListener("submit", async function(event) {
+        document.getElementById("registerForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
 
-                event.preventDefault();
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim().toLowerCase();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            const messageEl = document.getElementById("message");
 
-                const name =
-                    document.getElementById("name").value.trim();
+            messageEl.className = "";
+            messageEl.innerText = "";
 
-                const email =
-                    document.getElementById("email").value.trim();
+            if (password !== confirmPassword) {
+                messageEl.className = "msg-error";
+                messageEl.innerText = "❌ Passwords do not match!";
+                return;
+            }
 
-                const password =
-                    document.getElementById("password").value;
+            try {
+                const response = await fetch("/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, email, password })
+                });
 
-                const message =
-                    document.getElementById("message");
+                const data = await response.json();
 
-                try {
+                if (response.ok) {
+                    messageEl.className = "msg-success";
+                    messageEl.innerText = "✅ Account created successfully! Logging you in...";
 
-                    const response =
-                        await fetch(
-                            "/register",
-                            {
-                                method: "POST",
+                    // Store user session automatically
+                    const userObj = { name, email };
+                    localStorage.setItem("loggedInUser", JSON.stringify(userObj));
 
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body: JSON.stringify({
-                                    name: name,
-                                    email: email,
-                                    password: password
-                                })
-                            }
-                        );
-
-                    const data =
-                        await response.json();
-
-                    if (response.ok) {
-
-                        message.innerText =
-                            "✅ " + data.message;
-
-                        document
-                            .getElementById("registerForm")
-                            .reset();
-
-                        setTimeout(function() {
-
-                            window.location.href =
-                                "login.html";
-
-                        }, 1500);
-
-                    } else {
-
-                        message.innerText =
-                            "❌ " + data.error;
-
-                    }
-
-                } catch (error) {
-
-                    console.log(error);
-
-                    message.innerText =
-                        "❌ Unable to connect to server.";
-
+                    setTimeout(function () {
+                        window.location.href = "dashboard.html";
+                    }, 1200);
+                } else {
+                    messageEl.className = "msg-error";
+                    messageEl.innerText = "❌ " + (data.error || "Registration failed. Please try again.");
                 }
-
-            });
-
+            } catch (error) {
+                console.error("Registration error:", error);
+                messageEl.className = "msg-error";
+                messageEl.innerText = "❌ Unable to connect to server. Please try again.";
+            }
+        });
     </script>
 
 </body>
+
 </html>

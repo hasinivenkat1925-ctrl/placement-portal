@@ -9,6 +9,7 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>B.Tech CSE Topics - Placement Portal</title>
+    <link rel="stylesheet" href="CSS/style.css">
 
     <style>
 
@@ -387,6 +388,7 @@
 
 
 <body>
+<script src="nav-header.js"></script>
 
 
 <!-- ========================================= -->
@@ -418,49 +420,6 @@
         <p>
             Choose a subject and select a topic to begin your preparation.
         </p>
-
-    </div>
-
-
-    <!-- ========================================= -->
-    <!-- COMPANY / ROLE -->
-    <!-- ========================================= -->
-
-    <div class="selection-card">
-
-        <div class="selection-grid">
-
-
-            <div class="selection-box">
-
-                <span>
-                    🏢 Selected Company
-                </span>
-
-                <strong id="companyTitle">
-                    Not Selected
-                </strong>
-
-            </div>
-
-
-            <div class="selection-box">
-
-                <span>
-                    💼 Selected Role
-                </span>
-
-                <strong id="roleTitle">
-                    Not Selected
-                </strong>
-
-            </div>
-
-
-        </div>
-
-
-        <p id="selectionInfo"></p>
 
     </div>
 
@@ -581,30 +540,14 @@ if (role) {
 // DISPLAY COMPANY AND ROLE
 // =====================================================
 
-document.getElementById(
-    "companyTitle"
-).innerText =
-    company || "Not Selected";
+const companyTitleEl = document.getElementById("companyTitle");
+if (companyTitleEl) companyTitleEl.innerText = company || "Not Selected";
 
+const roleTitleEl = document.getElementById("roleTitle");
+if (roleTitleEl) roleTitleEl.innerText = role || "Not Selected";
 
-document.getElementById(
-    "roleTitle"
-).innerText =
-    role || "Not Selected";
-
-
-document.getElementById(
-    "selectionInfo"
-).innerText =
-
-    company && role
-
-        ? "Choose a subject and topic to prepare for " +
-          company +
-          " - " +
-          role
-
-        : "Please select a company and role first.";
+const selectionInfoEl = document.getElementById("selectionInfo");
+if (selectionInfoEl) selectionInfoEl.innerText = company && role ? "Choose a subject and topic to prepare for " + company + " - " + role : "Please select a company and role first.";
 
 
 // =====================================================
@@ -1786,31 +1729,18 @@ function escapeQuotes(text) {
 // =====================================================
 
 function openTopic(topic) {
+    const curCompany = company || localStorage.getItem("selectedCompany") || "General";
+    const curRole = role || localStorage.getItem("selectedRole") || "Software Developer";
 
-    if (!company || !role) {
-
-        alert(
-            "Please select a company and role first."
-        );
-
-        return;
-    }
-
-
-    localStorage.setItem(
-        "selectedTopic",
-        topic
-    );
-
+    localStorage.setItem("selectedTopic", topic);
 
     window.location.href =
         "topic-preparation.html?company=" +
-        encodeURIComponent(company) +
+        encodeURIComponent(curCompany) +
         "&role=" +
-        encodeURIComponent(role) +
+        encodeURIComponent(curRole) +
         "&topic=" +
         encodeURIComponent(topic);
-
 }
 
 
@@ -1939,6 +1869,38 @@ function filterTopics() {
     const container =
         document.getElementById("domainContainer");
 
+    const cleaned = search.toLowerCase().trim();
+    const educationalKeywords = [
+        "java", "python", "c++", "c programming", "oops", "object oriented", 
+        "os", "operating system", "dbms", "database", "sql", "cn", "computer networks", 
+        "networks", "data warehousing", "data mining", "dwdm", "data structures", "dsa", 
+        "algorithms", "compiler design", "software engineering", "web", "html", "css", 
+        "javascript", "nosql", "programming", "coding", "software", "developer", "computer",
+        "science", "engineering", "b.tech", "placement", "interview", "aptitude", "reasoning",
+        "verbal", "hr", "technical", "array", "string", "pointer", "loop", "function", "recursion"
+    ];
+    
+    const isRelated = educationalKeywords.some(keyword => 
+        cleaned.includes(keyword) || keyword.includes(cleaned)
+    );
+
+    if (cleaned.length < 2 || !isRelated) {
+        container.innerHTML = `
+            <div style="background: #fee2e2; border: 1px solid #fca5a5; padding: 25px; border-radius: 12px; text-align: center; color: #991b1b; max-width: 600px; margin: 30px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <span style="font-size: 50px;">🔍</span>
+                <h3 style="margin: 15px 0 10px; color: #991b1b;">Not Found</h3>
+                <p style="line-height: 1.6; font-size: 15px; margin-bottom: 0; color: #7f1d1d;">
+                    Please type the subject or topic that you want to learn (e.g., Java, OS, DBMS, SQL, OOPs, etc.).
+                </p>
+            </div>
+        `;
+        
+        if (noResults) {
+            noResults.style.display = "none";
+        }
+        return;
+    }
+
     container.innerHTML = `
 
         <div class="subject-card">
@@ -1993,7 +1955,18 @@ function goDashboard() {
 // INITIAL LOAD
 // =====================================================
 
-displayDomains(domains);
+const urlSearch = params.get("search");
+if (urlSearch) {
+    const searchBox = document.getElementById("searchBox");
+    if (searchBox) {
+        searchBox.value = urlSearch;
+        filterTopics();
+    } else {
+        displayDomains(domains);
+    }
+} else {
+    displayDomains(domains);
+}
 
 function openTopicResources(topic) {
 

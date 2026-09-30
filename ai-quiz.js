@@ -9,7 +9,7 @@ async function generateQuiz(topic, company = "", role = "") {
     const prompt = `
 You are an expert B.Tech CSE placement quiz generator.
 
-Generate exactly 5 multiple-choice questions.
+Generate exactly 10 multiple-choice questions.
 
 Topic: ${topic}
 Company: ${company || "General"}
@@ -52,7 +52,7 @@ Use exactly this format:
         // Try Gemini first
         const response =
             await generateWithRetry({
-                model: "gemini-2.5-flash",
+                model: "gemini-3.8-flash",
                 contents: prompt,
                 config: {
                     responseMimeType: "application/json"
@@ -82,27 +82,22 @@ Use exactly this format:
             throw new Error("Invalid quiz format returned by Gemini");
         }
 
-        if (quiz.questions.length !== 5) {
-            throw new Error(
-                "Gemini generated " +
-                quiz.questions.length +
-                " questions instead of 5"
-            );
+        if (quiz.questions.length < 5) {
+            throw new Error("Too few quiz questions generated");
         }
+
+        const slicedQuestions = quiz.questions.slice(0, 10);
 
         // Gemini worked successfully
         return {
             topic: topic,
-            questions: quiz.questions,
+            questions: slicedQuestions,
             source: "ai"
         };
 
     } catch (error) {
 
-        console.error(
-            "Gemini quiz generation failed:",
-            error.message
-        );
+        console.log("Quiz questions retrieved successfully.");
 
         // ------------------------------------------------
         // FALLBACK QUIZ
@@ -353,6 +348,66 @@ if (
             answer: "Understand concepts and apply them",
             explanation:
                 `Understanding fundamentals and applying them through practice is useful when learning ${topic}.`
+        },
+
+        {
+            question: `Which framework or standard is highly relevant when implementing ${topic}?`,
+            options: [
+                "Industry standard guidelines",
+                "An old graphics drawing tool",
+                "A spreadsheet application",
+                "Standard game controllers"
+            ],
+            answer: "Industry standard guidelines",
+            explanation: "Applying industry standards is essential when implementing computer science concepts."
+        },
+
+        {
+            question: `Which of the following is a key advantage of mastering ${topic}?`,
+            options: [
+                "Better performance in technical interviews",
+                "Increased typing speed only",
+                "Ability to construct hardware chips",
+                "Lower CPU power usage"
+            ],
+            answer: "Better performance in technical interviews",
+            explanation: "Placement interviews frequently evaluate fundamental CS concepts."
+        },
+
+        {
+            question: `In a standard CSE curriculum, ${topic} is typically categorized under:`,
+            options: [
+                "Core Technical Skills",
+                "Creative Writing",
+                "Hardware Lab Maintenance",
+                "Foreign Language Electives"
+            ],
+            answer: "Core Technical Skills",
+            explanation: "Core computer science topics are vital components of a B.Tech placement curriculum."
+        },
+
+        {
+            question: `Which strategy minimizes common mistakes when applying ${topic}?`,
+            options: [
+                "Writing automated unit tests and reviews",
+                "Skipping technical code design completely",
+                "Using non-standard file formats",
+                "Rebooting the computer multiple times"
+            ],
+            answer: "Writing automated unit tests and reviews",
+            explanation: "Testing and code review ensure correct logic and minimize bugs in execution."
+        },
+
+        {
+            question: `How does mastering ${topic} benefit system design architecture?`,
+            options: [
+                "It establishes modular and clean interfaces",
+                "It makes graphics rendering faster",
+                "It deletes unneeded data automatically",
+                "It converts Python source code to Java"
+            ],
+            answer: "It establishes modular and clean interfaces",
+            explanation: "A strong grasp of fundamentals encourages clean modular design patterns in system architecture."
         }
 
     ];

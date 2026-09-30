@@ -1,0 +1,12 @@
+// Client-side Firebase configuration and helper
+window.firebaseConfig = {
+  projectId: "iconic-market-wvr20",
+  appId: "1:956132020487:web:a4094a78b471c34e90f5a2",
+  apiKey: "AIzaSyCm9I3TZrN5lSyBS41qwcHO4Fd6mKVFn4c",
+  authDomain: "iconic-market-wvr20.firebaseapp.com",
+  firestoreDatabaseId: "ai-studio-placementportal-60dee638-4f07-4df4-9bae-94a6557ecf7b",
+  storageBucket: "iconic-market-wvr20.firebasestorage.app",
+  messagingSenderId: "956132020487",
+  measurementId: "",
+  oAuthClientId: "956132020487-h3p3lhv5cqgj65in3p6pltk82s7lqo6l.apps.googleusercontent.com"
+};

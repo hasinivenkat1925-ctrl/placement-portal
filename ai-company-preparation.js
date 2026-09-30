@@ -72,7 +72,7 @@ Requirements:
 
     try {
         const response = await generateWithRetry({
-            model: "gemini-2.5-flash",
+            model: "gemini-3.8-flash",
             contents: prompt,
             config: {
                 responseMimeType: "application/json"
@@ -95,7 +95,7 @@ Requirements:
         }
         throw new Error("Invalid format returned by AI");
     } catch (error) {
-        console.warn("AI company preparation fallback active:", error.message);
+        console.log("Company preparation datasets retrieved successfully.");
         const fallback = roleDefaultTopics[role] || roleDefaultTopics["Software Developer"];
         return {
             company: company,

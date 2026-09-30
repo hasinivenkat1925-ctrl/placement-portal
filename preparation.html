@@ -1,129 +1,956 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Company Preparation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Placement Preparation - Placement Portal</title>
     <link rel="stylesheet" href="CSS/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4f7fb;
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        .header {
+            background: white;
+            padding: 22px 30px;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #1e3a8a;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background: #cbd5e1;
+            color: #0f172a;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* BANNER CARD */
+        .info-card {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .info-header {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .info-badge {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 12px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-badge strong {
+            color: #1e3a8a;
+            font-size: 18px;
+        }
+
+        .info-desc {
+            margin-top: 15px;
+            color: #64748b;
+            font-size: 15px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 15px;
+        }
+
+        /* SECTION TITLES */
+        .section-title {
+            color: #1e3a8a;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* COMPANY RESOURCES GRID */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin-bottom: 40px;
+        }
+
+        .resource-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease-in-out;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
+            border-color: #93c5fd;
+        }
+
+        .resource-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .resource-card h3 {
+            margin: 0 0 8px 0;
+            color: #1e3a8a;
+            font-size: 17px;
+        }
+
+        .resource-card p {
+            color: #64748b;
+            font-size: 13px;
+            margin: 0 0 16px 0;
+        }
+
+        .action-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .action-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-quiz {
+            background: #059669;
+        }
+
+        .btn-quiz:hover {
+            background: #047857;
+        }
+
+        .btn-video {
+            background: #dc2626;
+        }
+
+        .btn-video:hover {
+            background: #b91c1c;
+        }
+
+        /* TOPICS EXPLORER SECTION */
+        .topics-explorer-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 28px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        .search-box-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .search-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0 24px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* ROLE CATEGORIES GRID */
+        .role-categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 20px;
+        }
+
+        .category-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .category-box:hover {
+            border-color: #93c5fd;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            cursor: pointer;
+        }
+
+        .category-icon {
+            font-size: 24px;
+            background: #white;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-header h4 {
+            margin: 0;
+            color: #1e3a8a;
+            font-size: 17px;
+            font-weight: 700;
+            flex: 1;
+        }
+
+        .subtopics-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .topic-chip {
+            background: white;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .topic-chip:hover {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        }
+
+        .topic-chip .chip-arrow {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        /* CUSTOM ADDED TOPIC CARD */
+        .custom-topic-result {
+            background: #eff6ff;
+            border: 2px dashed #3b82f6;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .custom-topic-result h4 {
+            margin: 0 0 8px 0;
+            color: #1e3a8a;
+            font-size: 18px;
+        }
+
+        .custom-topic-result p {
+            margin: 0 0 15px 0;
+            color: #475569;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
+    <script src="nav-header.js"></script>
 
-    <h1>🏢 Company Placement Preparation</h1>
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🏢 Company Placement Preparation</h1>
+        <button class="back-btn" onclick="goDashboard()">← Back to Dashboard</button>
+    </div>
 
-    <hr>
+    <!-- MAIN CONTAINER -->
+    <div class="container">
 
-    <h2 id="companyTitle">Company</h2>
+        <!-- COMPANY & ROLE BANNER -->
+        <div class="info-card">
+            <div class="info-header">
+                <div class="info-badge">
+                    <span style="font-size: 24px;">🏢</span>
+                    <div>
+                        <span style="font-size: 12px; color: #64748b; display: block;">Company</span>
+                        <strong id="companyTitle">Not Selected</strong>
+                    </div>
+                </div>
 
-    <h3 id="roleTitle">Role</h3>
+                <div class="info-badge">
+                    <span style="font-size: 24px;">💼</span>
+                    <div>
+                        <span style="font-size: 12px; color: #64748b; display: block;">Target Role</span>
+                        <strong id="roleTitle">Not Selected</strong>
+                    </div>
+                </div>
+            </div>
 
-    <p id="description">
-        Prepare for your selected company and role.
-    </p>
+            <div class="info-desc" id="description">
+                Prepare for your selected company and role with curated previous year questions, solutions, company quizzes, and role-specific topic roadmaps.
+            </div>
+        </div>
 
-    <hr>
+        <!-- SECTION 1: COMPANY PREPARATION RESOURCES -->
+        <div class="section-title">
+            <span>📚</span>
+            <span>Company Preparation Resources</span>
+        </div>
 
-    
-<h2>📚 Preparation Resources</h2>
+        <div class="resources-grid">
+            <div class="resource-card" onclick="openQuestions()">
+                <div>
+                    <div class="resource-icon">📝</div>
+                    <h3>Previous Year Questions</h3>
+                    <p>Real historical placement drive questions asked for this role.</p>
+                </div>
+                <button class="action-btn">View Questions</button>
+            </div>
 
-<br>
+            <div class="resource-card" onclick="openSolutions()">
+                <div>
+                    <div class="resource-icon">✅</div>
+                    <h3>Questions & Solutions</h3>
+                    <p>Standard questions paired with step-by-step detailed solutions.</p>
+                </div>
+                <button class="action-btn">View Solutions</button>
+            </div>
 
-<button onclick="openQuestions()">
-    📝 Previous Year Questions
-</button>
+            <div class="resource-card" onclick="openQuiz()">
+                <div>
+                    <div class="resource-icon">🧠</div>
+                    <h3>Company Placement Quiz</h3>
+                    <p>Interactive placement drive MCQ test to evaluate role readiness.</p>
+                </div>
+                <button class="action-btn btn-quiz">Start Quiz</button>
+            </div>
 
-<br><br>
+            <div class="resource-card" onclick="openVideos()">
+                <div>
+                    <div class="resource-icon">🎬</div>
+                    <h3>Related Videos</h3>
+                    <p>Watch placement preparation videos and tutorial explanations.</p>
+                </div>
+                <button class="action-btn btn-video">Watch Videos</button>
+            </div>
+        </div>
 
-<button onclick="openSolutions()">
-    ✅ Questions & Solutions
-</button>
+        <!-- SECTION 2: ROLE TOPICS EXPLORER & ROADMAP -->
+        <div class="section-title">
+            <span>🗺️</span>
+            <span>Role Topics & Preparation Roadmap</span>
+        </div>
 
-<br><br>
+        <div class="topics-explorer-card">
+            <p style="margin-top: 0; color: #64748b; font-size: 15px; margin-bottom: 20px;">
+                Select a topic below related to <strong id="roleHighlightText">your role</strong> to open its full study resources (Topic Notes, Quizzes, Practice Questions, and Solutions). If a topic is not listed, search or type it below to add it dynamically!
+            </p>
 
-<button onclick="openVideos()">
-    🎬 Related Animated Videos
-</button>
+            <!-- SEARCH / ADD TOPIC BAR -->
+            <div class="search-box-container">
+                <input type="text" id="roleTopicSearch" class="search-input" placeholder="🔍 Search or add a topic (e.g. Frontend, HTML, React, Node.js, SQL, System Design...)" onkeyup="handleTopicSearchKey(event)">
+                <button class="search-btn" onclick="searchOrAddTopic()">Search / Add Topic</button>
+            </div>
 
-<br><br>
+            <div id="customTopicContainer"></div>
 
-<button onclick="openQuiz()">
-    🧠 Company Quiz
-</button>
+            <!-- DYNAMIC ROLE CATEGORIES & SUBTOPICS -->
+            <div class="role-categories-grid" id="roleCategoriesContainer">
+                <!-- Categories populated by JS -->
+            </div>
+        </div>
 
-<hr>
-
-<h2>🤖 AI Recommended Preparation Topics</h2>
-
-<br>
-
-<div id="aiResources">
-    <p>⏳ Generating AI preparation resources...</p>
-</div>
-
-<hr>
-
-<button onclick="goDashboard()">
-    ← Back to Dashboard
-</button>
+    </div>
 
     <script>
-
         // ==========================================
-        // GET COMPANY AND ROLE
+        // 1. GET COMPANY AND ROLE
         // ==========================================
+        const params = new URLSearchParams(window.location.search);
 
-        const params =
-            new URLSearchParams(window.location.search);
+        const company = params.get("company") || localStorage.getItem("selectedCompany") || "Google";
+        const role = params.get("role") || localStorage.getItem("selectedRole") || "Software Developer";
 
-        const company =
-            params.get("company") ||
-            localStorage.getItem("selectedCompany") ||
-            "Not Selected";
-
-        const role =
-            params.get("role") ||
-            localStorage.getItem("selectedRole") ||
-            "Not Selected";
-
-
-
-        // ==========================================
         // DISPLAY COMPANY AND ROLE
-        // ==========================================
-
-        document.getElementById("companyTitle").innerText =
-            "🏢 " + company;
-
-        document.getElementById("roleTitle").innerText =
-            "💼 " + role;
-
+        document.getElementById("companyTitle").innerText = company;
+        document.getElementById("roleTitle").innerText = role;
+        document.getElementById("roleHighlightText").innerText = role;
         document.getElementById("description").innerText =
-            "Preparation resources for " +
-            company +
-            " - " +
-            role;
+            `Comprehensive placement preparation workspace for ${company} - ${role}. Explore real interview questions, quizzes, and role-specific topic roadmaps below.`;
 
-
-        // ==========================================
         // SAVE SELECTED COMPANY AND ROLE
-        // ==========================================
-
-        localStorage.setItem(
-            "selectedCompany",
-            company
-        );
-
-        localStorage.setItem(
-            "selectedRole",
-            role
-        );
-
+        localStorage.setItem("selectedCompany", company);
+        localStorage.setItem("selectedRole", role);
 
         // ==========================================
-        // PREVIOUS YEAR QUESTIONS
+        // 2. ROLE TO TOPICS MAP DATA
         // ==========================================
+        const roleTopicsMap = {
+            "Full Stack Developer": [
+                {
+                    category: "Frontend Development",
+                    icon: "🎨",
+                    topics: ["Frontend", "HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Web Performance"]
+                },
+                {
+                    category: "Backend Development",
+                    icon: "⚙️",
+                    topics: ["Backend", "Node.js", "Express.js", "REST APIs", "Authentication", "Microservices"]
+                },
+                {
+                    category: "Databases & Storage",
+                    icon: "🗄️",
+                    topics: ["Databases", "SQL", "DBMS", "MongoDB", "Redis", "Database Indexing"]
+                },
+                {
+                    category: "Web Security & DevOps",
+                    icon: "🔐",
+                    topics: ["Web Security", "CORS", "HTTPS", "Docker", "CI/CD", "Deployment"]
+                },
+                {
+                    category: "System Design",
+                    icon: "📐",
+                    topics: ["System Design", "Client Server Architecture", "Load Balancing", "WebSockets"]
+                }
+            ],
+            "Software Developer": [
+                {
+                    category: "Data Structures & Algorithms",
+                    icon: "🧩",
+                    topics: ["DSA", "Data Structures", "Algorithms", "Arrays", "Strings", "Trees", "Graphs", "Dynamic Programming"]
+                },
+                {
+                    category: "Object-Oriented Programming",
+                    icon: "🧱",
+                    topics: ["OOPs", "Encapsulation", "Polymorphism", "Abstraction", "Inheritance", "Design Patterns"]
+                },
+                {
+                    category: "Operating Systems",
+                    icon: "💻",
+                    topics: ["OS", "Operating System", "Processes", "Threads", "Memory Management", "Deadlocks"]
+                },
+                {
+                    category: "Database Management",
+                    icon: "🗄️",
+                    topics: ["DBMS", "SQL", "Database", "ACID Properties", "Transactions", "Indexing"]
+                },
+                {
+                    category: "Computer Networks",
+                    icon: "🌐",
+                    topics: ["CN", "Computer Networks", "OSI Model", "TCP", "UDP", "HTTP", "IP Addressing"]
+                }
+            ],
+            "Frontend Developer": [
+                {
+                    category: "HTML & Web Standards",
+                    icon: "📄",
+                    topics: ["HTML", "Semantic HTML", "HTML5", "Forms & Validation", "Accessibility"]
+                },
+                {
+                    category: "CSS & Responsive Styling",
+                    icon: "🎨",
+                    topics: ["CSS", "Flexbox", "Grid", "Box Model", "Responsive Design", "Tailwind CSS"]
+                },
+                {
+                    category: "JavaScript Core & ES6+",
+                    icon: "📜",
+                    topics: ["JavaScript", "Closures", "Promises", "Async & Await", "DOM", "Fetch API"]
+                },
+                {
+                    category: "Frontend Frameworks",
+                    icon: "⚛️",
+                    topics: ["React", "State Management", "Hooks", "Virtual DOM", "Component Lifecycle"]
+                },
+                {
+                    category: "Web Optimization & Security",
+                    icon: "⚡",
+                    topics: ["Web Performance", "CORS", "Lazy Loading", "Content Security Policy"]
+                }
+            ],
+            "Backend Developer": [
+                {
+                    category: "APIs & Web Services",
+                    icon: "🌐",
+                    topics: ["REST APIs", "GraphQL", "gRPC", "WebSockets", "HTTP Status Codes"]
+                },
+                {
+                    category: "Server Frameworks",
+                    icon: "⚡",
+                    topics: ["Node.js", "Express.js", "Backend Basics", "Spring Boot", "Django"]
+                },
+                {
+                    category: "Relational Databases",
+                    icon: "🗄️",
+                    topics: ["SQL", "PostgreSQL", "MySQL", "Database Indexing", "Transactions"]
+                },
+                {
+                    category: "NoSQL & Caching",
+                    icon: "🚀",
+                    topics: ["NoSQL", "MongoDB", "Redis", "Cache Invalidation"]
+                },
+                {
+                    category: "Security & Authentication",
+                    icon: "🔐",
+                    topics: ["Authentication", "OAuth", "JWT", "Password Hashing", "Rate Limiting"]
+                }
+            ],
+            "Java Developer": [
+                {
+                    category: "Java Core & Fundamentals",
+                    icon: "☕",
+                    topics: ["Java", "Java Basics", "Data Types", "JVM Internals", "Collections Framework"]
+                },
+                {
+                    category: "OOPs & Multithreading",
+                    icon: "🧱",
+                    topics: ["OOPs", "Multithreading", "Thread Synchronization", "Locks", "Executor Service"]
+                },
+                {
+                    category: "Modern Java & Features",
+                    icon: "⚡",
+                    topics: ["Java 8", "Streams API", "Lambdas", "Functional Interfaces", "Optional"]
+                },
+                {
+                    category: "Enterprise Frameworks",
+                    icon: "🍃",
+                    topics: ["Spring Boot", "Spring MVC", "Hibernate", "JPA", "REST Controllers"]
+                }
+            ],
+            "Python Developer": [
+                {
+                    category: "Python Core",
+                    icon: "🐍",
+                    topics: ["Python", "Python Basics", "Data Types", "Decorators", "Generators"]
+                },
+                {
+                    category: "Advanced Python & Concurrency",
+                    icon: "⚡",
+                    topics: ["Multiprocessing", "GIL", "Metaclasses", "Memory Management"]
+                },
+                {
+                    category: "Web Frameworks",
+                    icon: "🌐",
+                    topics: ["Django", "FastAPI", "Flask", "REST APIs"]
+                },
+                {
+                    category: "Database ORM",
+                    icon: "🗄️",
+                    topics: ["SQLAlchemy", "PostgreSQL", "MongoDB"]
+                }
+            ],
+            "Data Analyst": [
+                {
+                    category: "SQL & Relational Analytics",
+                    icon: "📊",
+                    topics: ["SQL", "Window Functions", "GROUP BY", "Aggregations", "Joins"]
+                },
+                {
+                    category: "Data Wrangling & Processing",
+                    icon: "📈",
+                    topics: ["Pandas", "NumPy", "Data Wrangling", "Data Cleaning"]
+                },
+                {
+                    category: "Statistics & Probability",
+                    icon: "📉",
+                    topics: ["Statistics", "Correlation", "Hypothesis Testing", "Probability"]
+                },
+                {
+                    category: "Data Visualization & BI",
+                    icon: "🖼️",
+                    topics: ["Tableau", "Power BI", "Matplotlib", "Data Visualization"]
+                }
+            ],
+            "Data Scientist": [
+                {
+                    category: "Machine Learning Fundamentals",
+                    icon: "🤖",
+                    topics: ["Machine Learning", "Supervised Learning", "Unsupervised Learning", "Overfitting"]
+                },
+                {
+                    category: "Statistical Inference",
+                    icon: "📊",
+                    topics: ["Statistics", "Central Limit Theorem", "ANOVA", "ROC-AUC"]
+                },
+                {
+                    category: "Python Data Science Stack",
+                    icon: "🐍",
+                    topics: ["Scikit-Learn", "Pandas", "NumPy", "Feature Engineering"]
+                },
+                {
+                    category: "Deep Learning Foundations",
+                    icon: "🧠",
+                    topics: ["Deep Learning", "Neural Networks", "Gradient Descent", "Activation Functions"]
+                }
+            ],
+            "Machine Learning Engineer": [
+                {
+                    category: "Deep Learning Architectures",
+                    icon: "🧠",
+                    topics: ["Deep Learning", "Neural Networks", "CNNs", "RNNs", "Transformers"]
+                },
+                {
+                    category: "Optimization & Training",
+                    icon: "⚙️",
+                    topics: ["Backpropagation", "Adam Optimizer", "Batch Normalization", "Vanishing Gradient"]
+                },
+                {
+                    category: "Model Deployment & MLOps",
+                    icon: "🚀",
+                    topics: ["Model Quantization", "ONNX", "MLOps", "Model Monitoring"]
+                }
+            ],
+            "DevOps Engineer": [
+                {
+                    category: "Containerization",
+                    icon: "🐳",
+                    topics: ["Docker", "Containers", "Container Registries"]
+                },
+                {
+                    category: "Orchestration & Kubernetes",
+                    icon: "☸️",
+                    topics: ["Kubernetes", "Pods", "Helm Charts", "Services"]
+                },
+                {
+                    category: "Infrastructure as Code & CI/CD",
+                    icon: "🛠️",
+                    topics: ["DevOps", "Terraform", "Ansible", "CI/CD", "GitOps", "Jenkins"]
+                },
+                {
+                    category: "Monitoring & Observability",
+                    icon: "📊",
+                    topics: ["Prometheus", "Grafana", "Monitoring", "Logging"]
+                }
+            ],
+            "Cloud Solutions Architect": [
+                {
+                    category: "Cloud Infrastructure",
+                    icon: "☁️",
+                    topics: ["Cloud Computing", "IaaS", "PaaS", "Multi-AZ", "VPC", "Load Balancing"]
+                },
+                {
+                    category: "Serverless & Storage",
+                    icon: "📦",
+                    topics: ["Serverless", "AWS Lambda", "Cloud Storage", "S3"]
+                },
+                {
+                    category: "Cloud Security & Optimization",
+                    icon: "🔐",
+                    topics: ["Cloud Security", "Disaster Recovery", "Cost Optimization"]
+                }
+            ],
+            "Cyber Security Analyst": [
+                {
+                    category: "Web Application Security",
+                    icon: "🛡️",
+                    topics: ["Cyber Security", "Web Security", "SQL Injection", "XSS", "CSRF", "CORS"]
+                },
+                {
+                    category: "Cryptography & Authentication",
+                    icon: "🔑",
+                    topics: ["Cryptography", "Encryption", "Authentication", "JWT", "Zero Trust"]
+                },
+                {
+                    category: "Network & System Audit",
+                    icon: "🌐",
+                    topics: ["Network Security", "Firewalls", "Vulnerability Scanning", "Penetration Testing"]
+                }
+            ],
+            "QA Automation Engineer": [
+                {
+                    category: "UI Automation Tools",
+                    icon: "🧪",
+                    topics: ["Selenium", "Playwright", "Cypress", "Page Object Model"]
+                },
+                {
+                    category: "Test Frameworks & Methodologies",
+                    icon: "🎯",
+                    topics: ["JUnit", "TestNG", "Jest", "Cucumber", "Regression Testing", "Smoke Testing"]
+                }
+            ],
+            "Product Manager": [
+                {
+                    category: "Product Strategy & Planning",
+                    icon: "🗺️",
+                    topics: ["Product Strategy", "Roadmap", "MVP", "Product Backlog"]
+                },
+                {
+                    category: "Metrics & Growth Frameworks",
+                    icon: "📊",
+                    topics: ["North Star Metric", "Retention Rate", "Churn Rate", "RICE Framework", "MoSCoW"]
+                }
+            ],
+            "UI/UX Designer": [
+                {
+                    category: "Visual Layout & Design Systems",
+                    icon: "🎨",
+                    topics: ["UI Design", "UX Design", "Typography", "Color Theory", "Design Systems"]
+                },
+                {
+                    category: "Prototyping & Accessibility",
+                    icon: "📱",
+                    topics: ["Wireframing", "Mockup", "Prototyping", "Accessibility", "WCAG"]
+                }
+            ],
+            "Database Administrator (DBA)": [
+                {
+                    category: "Relational Management & SQL",
+                    icon: "🗄️",
+                    topics: ["DBMS", "SQL", "Normalization", "Primary Key", "Foreign Key"]
+                },
+                {
+                    category: "Performance & Architecture",
+                    icon: "⚡",
+                    topics: ["Indexing", "Query Optimization", "Replication", "Deadlocks", "WAL"]
+                }
+            ]
+        };
 
+        // DEFAULT FALLBACK CATEGORIES FOR CUSTOM ROLES
+        const defaultRoleCategories = [
+            {
+                category: "Core Computer Science",
+                icon: "💻",
+                topics: ["Programming", "Data Structures", "Algorithms", "OOPs", "Software Engineering"]
+            },
+            {
+                category: "System Fundamentals",
+                icon: "⚙️",
+                topics: ["Operating System", "DBMS", "Computer Networks", "SQL", "System Design"]
+            },
+            {
+                category: "Web & Modern Technologies",
+                icon: "🌐",
+                topics: ["Web Technologies", "HTML", "CSS", "JavaScript", "Cloud Computing"]
+            }
+        ];
+
+        // ==========================================
+        // 3. RENDER ROLE TOPICS
+        // ==========================================
+        function getNormalizedRoleKey(selectedRole) {
+            const r = String(selectedRole || "").toLowerCase();
+            if (r.includes("sde") || r.includes("software development") || r.includes("software developer")) return "Software Developer";
+            if (r.includes("full stack") || r.includes("fullstack")) return "Full Stack Developer";
+            if (r.includes("frontend")) return "Frontend Developer";
+            if (r.includes("backend")) return "Backend Developer";
+            if (r.includes("java")) return "Java Developer";
+            if (r.includes("python")) return "Python Developer";
+            if (r.includes("data analyst") || r.includes("bi")) return "Data Analyst";
+            if (r.includes("scientist") || r.includes("data science")) return "Data Scientist";
+            if (r.includes("machine learning") || r.includes("ml")) return "Machine Learning Engineer";
+            if (r.includes("devops") || r.includes("sre")) return "DevOps Engineer";
+            if (r.includes("cloud") || r.includes("architect")) return "Cloud Solutions Architect";
+            if (r.includes("security") || r.includes("cyber")) return "Cyber Security Analyst";
+            if (r.includes("qa") || r.includes("test")) return "QA Automation Engineer";
+            if (r.includes("product manager") || r.includes("pm")) return "Product Manager";
+            if (r.includes("ui") || r.includes("ux") || r.includes("designer")) return "UI/UX Designer";
+            if (r.includes("database") || r.includes("dba")) return "Database Administrator (DBA)";
+            return "Software Developer";
+        }
+
+        function renderRoleCategories(filterQuery = "") {
+            const container = document.getElementById("roleCategoriesContainer");
+            const normalizedRole = getNormalizedRoleKey(role);
+            const categories = roleTopicsMap[normalizedRole] || defaultRoleCategories;
+
+            container.innerHTML = "";
+
+            const query = filterQuery.toLowerCase().trim();
+
+            let matchedCount = 0;
+
+            categories.forEach(catObj => {
+                const filteredTopics = catObj.topics.filter(t => query === "" || t.toLowerCase().includes(query) || catObj.category.toLowerCase().includes(query));
+
+                if (filteredTopics.length > 0) {
+                    matchedCount++;
+                    const box = document.createElement("div");
+                    box.className = "category-box";
+
+                    let topicChipsHTML = filteredTopics.map(t => `
+                        <button class="topic-chip" onclick="navigateToTopicResource('${t.replace(/'/g, "\\'")}')">
+                            <span>${t}</span>
+                            <span class="chip-arrow">➔</span>
+                        </button>
+                    `).join("");
+
+                    box.innerHTML = `
+                        <div class="category-header">
+                            <span class="category-icon">${catObj.icon}</span>
+                            <h4>${catObj.category}</h4>
+                        </div>
+                        <div class="subtopics-list">
+                            ${topicChipsHTML}
+                        </div>
+                    `;
+
+                    container.appendChild(box);
+                }
+            });
+
+            if (matchedCount === 0 && query !== "") {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 20px; color: #64748b;">
+                        No pre-mapped topics found matching "${filterQuery}". Click "Search / Add Topic" above to generate dynamic topic resources!
+                    </div>
+                `;
+            }
+        }
+
+        // ==========================================
+        // 4. SEARCH OR ADD CUSTOM TOPIC
+        // ==========================================
+        function handleTopicSearchKey(event) {
+            const query = document.getElementById("roleTopicSearch").value;
+            renderRoleCategories(query);
+
+            if (event.key === "Enter") {
+                searchOrAddTopic();
+            }
+        }
+
+        function searchOrAddTopic() {
+            const searchInput = document.getElementById("roleTopicSearch");
+            const rawTopic = searchInput.value.trim();
+
+            if (!rawTopic) {
+                alert("Please enter a topic name (e.g., HTML, React, Node.js, System Design).");
+                return;
+            }
+
+            const customContainer = document.getElementById("customTopicContainer");
+            customContainer.innerHTML = `
+                <div class="custom-topic-result">
+                    <h4>🚀 Topic Found / Created: "${rawTopic}"</h4>
+                    <p>Generated placement preparation workspace for ${rawTopic} (${role} @ ${company}).</p>
+                    <button class="action-btn" style="max-width: 280px; margin: 0 auto;" onclick="navigateToTopicResource('${rawTopic.replace(/'/g, "\\'")}')">
+                        📚 Open ${rawTopic} Resources
+                    </button>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // 5. NAVIGATE TO TOPIC PREPARATION
+        // ==========================================
+        function navigateToTopicResource(topicName) {
+            // Register / Save in LocalStorage
+            localStorage.setItem("selectedCompany", company);
+            localStorage.setItem("selectedRole", role);
+            localStorage.setItem("selectedTopic", topicName);
+
+            // Register in Custom Topics Array if not present
+            try {
+                let customTopics = JSON.parse(localStorage.getItem("customRoleTopics") || "[]");
+                if (!customTopics.includes(topicName)) {
+                    customTopics.push(topicName);
+                    localStorage.setItem("customRoleTopics", JSON.stringify(customTopics));
+                }
+            } catch (e) {
+                console.log("LocalStorage update error:", e);
+            }
+
+            // Redirect to topic preparation page
+            window.location.href =
+                "topic-preparation.html?company=" +
+                encodeURIComponent(company) +
+                "&role=" +
+                encodeURIComponent(role) +
+                "&topic=" +
+                encodeURIComponent(topicName);
+        }
+
+        // ==========================================
+        // 6. ROUTING BUTTONS FOR COMPANY RESOURCES
+        // ==========================================
         function openQuestions() {
-
             window.location.href =
                 "questions.html?company=" +
                 encodeURIComponent(company) +
@@ -131,13 +958,7 @@
                 encodeURIComponent(role);
         }
 
-
-        // ==========================================
-        // QUESTIONS AND SOLUTIONS
-        // ==========================================
-
         function openSolutions() {
-
             window.location.href =
                 "solutions.html?company=" +
                 encodeURIComponent(company) +
@@ -145,35 +966,7 @@
                 encodeURIComponent(role);
         }
 
-
-        // ==========================================
-        // RELATED VIDEOS
-        // ==========================================
-
-        function openVideos() {
-
-            const search =
-                encodeURIComponent(
-                    company +
-                    " " +
-                    role +
-                    " placement preparation"
-                );
-
-            window.open(
-                "https://www.youtube.com/results?search_query=" +
-                search,
-                "_blank"
-            );
-        }
-
-
-        // ==========================================
-        // COMPANY QUIZ
-        // ==========================================
-
         function openQuiz() {
-
             window.location.href =
                 "company-quiz.html?company=" +
                 encodeURIComponent(company) +
@@ -181,128 +974,18 @@
                 encodeURIComponent(role);
         }
 
-
-        // ==========================================
-        // DASHBOARD
-        // ==========================================
+        function openVideos() {
+            const search = encodeURIComponent(`${company} ${role} placement preparation`);
+            window.open(`https://www.youtube.com/results?search_query=${search}`, "_blank");
+        }
 
         function goDashboard() {
-
-            window.location.href =
-                "dashboard.html";
-        }
-        // ==========================================
-// AI COMPANY PREPARATION RESOURCES
-// ==========================================
-
-async function loadAIResources() {
-
-    const resourceContainer =
-        document.getElementById("aiResources");
-
-    resourceContainer.innerHTML =
-        "<p>⏳ Generating AI resources...</p>";
-
-    try {
-
-        const response =
-            await fetch(
-                "/api/generate-company-preparation?company=" +
-                encodeURIComponent(company) +
-                "&role=" +
-                encodeURIComponent(role)
-            );
-
-        const data =
-            await response.json();
-
-        if (!response.ok) {
-            throw new Error(
-                data.error ||
-                "Unable to generate resources"
-            );
+            window.location.href = "dashboard.html";
         }
 
-        if (
-            !data.resources ||
-            !Array.isArray(data.resources)
-        ) {
-            throw new Error(
-                "Invalid AI resource data"
-            );
-        }
-
-        let html = "";
-
-        data.resources.forEach(function(resource) {
-
-            html +=
-                '<div class="ai-resource">' +
-
-                "<h3>📚 " +
-                resource.topic +
-                "</h3>" +
-
-                "<p>" +
-                resource.description +
-                "</p>" +
-
-                '<button onclick="openAIResource(\'' +
-                resource.topic.replace(/'/g, "\\'") +
-                "')\">" +
-
-                "🚀 Start Preparation" +
-
-                "</button>" +
-
-                "</div>";
-
-        });
-
-        resourceContainer.innerHTML = html;
-
-    } catch (error) {
-
-        console.log(
-            "AI RESOURCE ERROR:",
-            error
-        );
-
-        resourceContainer.innerHTML =
-            "<p>❌ Unable to generate AI resources.</p>" +
-            "<p>" +
-            error.message +
-            "</p>";
-
-    }
-}
-// ==========================================
-// OPEN AI GENERATED TOPIC
-// ==========================================
-
-function openAIResource(topic) {
-
-    localStorage.setItem(
-        "selectedTopic",
-        topic
-    );
-
-    window.location.href =
-        "topic-preparation.html?company=" +
-        encodeURIComponent(company) +
-        "&role=" +
-        encodeURIComponent(role) +
-        "&topic=" +
-        encodeURIComponent(topic);
-}
-// ==========================================
-// LOAD AI RESOURCES
-// ==========================================
-
-loadAIResources();
-
+        // INITIAL LOAD
+        renderRoleCategories();
     </script>
-
 </body>
 
 </html>

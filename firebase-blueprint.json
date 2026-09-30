@@ -1,0 +1,109 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered student account profile",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique user identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the student"
+        },
+        "email": {
+          "type": "string",
+          "description": "Student email address"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the user was created"
+        }
+      },
+      "required": ["id", "name", "email"]
+    },
+    "Performance": {
+      "title": "Performance",
+      "description": "Student test and quiz performance record",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique record identifier"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email of the student who completed the assessment"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of assessment (quiz, practice, technical-interview, etc.)"
+        },
+        "company": {
+          "type": "string",
+          "description": "Target company name"
+        },
+        "role": {
+          "type": "string",
+          "description": "Target job role"
+        },
+        "topic": {
+          "type": "string",
+          "description": "Assessment topic"
+        },
+        "score": {
+          "type": "number",
+          "description": "Score achieved"
+        },
+        "percentage": {
+          "type": "number",
+          "description": "Percentage score"
+        },
+        "correct": {
+          "type": "number",
+          "description": "Number of correct answers"
+        },
+        "wrong": {
+          "type": "number",
+          "description": "Number of wrong answers"
+        },
+        "unanswered": {
+          "type": "number",
+          "description": "Number of unanswered questions"
+        },
+        "date": {
+          "type": "string",
+          "description": "ISO timestamp of completion"
+        }
+      },
+      "required": ["email", "type", "score"]
+    },
+    "TestConnection": {
+      "title": "TestConnection",
+      "description": "Diagnostics document for checking database connectivity",
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Connection status string"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles indexed by user ID"
+    },
+    "/performance/{performanceId}": {
+      "schema": "Performance",
+      "description": "Performance records for all completed assessments"
+    },
+    "/test/{testId}": {
+      "schema": "TestConnection",
+      "description": "Diagnostic health check documents"
+    }
+  }
+}
