@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login - Placement Preparation Portal</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <script src="api-config.js"></script>
 
     <style>
         body {
@@ -273,14 +274,16 @@
             loginButton.innerText = "Authenticating...";
 
             try {
-                let response = await fetch("/api/login", {
+                const loginEndpoint = window.getApiUrl ? window.getApiUrl("/api/login") : "/api/login";
+                let response = await fetch(loginEndpoint, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, password })
                 });
 
                 if (!response.ok && response.status === 404) {
-                    response = await fetch("/login", {
+                    const altEndpoint = window.getApiUrl ? window.getApiUrl("/login") : "/login";
+                    response = await fetch(altEndpoint, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email, password })

@@ -1,5 +1,17 @@
 // Shared Global Navbar & Top-Right Profile Header Component
 (function () {
+    const LIVE_BACKEND_URL = "https://ais-pre-fpmyatwn3fjuwgoewqwrrh-71101538388.asia-southeast1.run.app";
+    window.LIVE_BACKEND_URL = LIVE_BACKEND_URL;
+    window.getApiUrl = function(endpoint) {
+        if (!endpoint) return "";
+        if (endpoint.startsWith("http://") || endpoint.startsWith("https://")) return endpoint;
+        const clean = endpoint.startsWith("/") ? endpoint : "/" + endpoint;
+        if (window.location.hostname.includes("github.io") || window.location.protocol === "file:") {
+            return LIVE_BACKEND_URL + clean;
+        }
+        return clean;
+    };
+
     function initNavbar() {
         if (document.getElementById("portalNavbar")) return;
 

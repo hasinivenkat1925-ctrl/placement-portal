@@ -9,6 +9,7 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>Admin Login</title>
+    <script src="api-config.js"></script>
 
     <style>
 
@@ -253,10 +254,10 @@ async function adminLogin(event) {
 
 
     try {
-
+        const adminEndpoint = window.getApiUrl ? window.getApiUrl("/api/admin-login") : "/api/admin-login";
         const response =
             await fetch(
-                "/api/admin-login",
+                adminEndpoint,
                 {
                     method: "POST",
 

@@ -28,8 +28,22 @@ const {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
+}));
 app.use(express.json());
+
+// Health Check API
+app.get("/api/health", (req, res) => {
+    res.json({
+        status: "ok",
+        service: "Placement Portal API",
+        timestamp: new Date().toISOString()
+    });
+});
+app.get("/api/ping", (req, res) => res.send("pong"));
 
 
 // ========================================

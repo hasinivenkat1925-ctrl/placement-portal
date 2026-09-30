@@ -2,16 +2,35 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.js"
+      "source": "/api/:path*",
+      "destination": "https://ais-pre-fpmyatwn3fjuwgoewqwrrh-71101538388.asia-southeast1.run.app/api/:path*"
     },
     {
       "source": "/login",
-      "destination": "/api/index.js"
+      "destination": "https://ais-pre-fpmyatwn3fjuwgoewqwrrh-71101538388.asia-southeast1.run.app/login"
     },
     {
       "source": "/register",
-      "destination": "/api/index.js"
+      "destination": "https://ais-pre-fpmyatwn3fjuwgoewqwrrh-71101538388.asia-southeast1.run.app/register"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization, X-Requested-With"
+        }
+      ]
     }
   ]
 }

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Registration - Placement Preparation Portal</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <script src="api-config.js"></script>
 
     <style>
         body {
@@ -227,14 +228,16 @@
             }
 
             try {
-                let response = await fetch("/api/register", {
+                const regEndpoint = window.getApiUrl ? window.getApiUrl("/api/register") : "/api/register";
+                let response = await fetch(regEndpoint, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ name, email, password })
                 });
 
                 if (!response.ok && response.status === 404) {
-                    response = await fetch("/register", {
+                    const altEndpoint = window.getApiUrl ? window.getApiUrl("/register") : "/register";
+                    response = await fetch(altEndpoint, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ name, email, password })
