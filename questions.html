@@ -208,21 +208,51 @@ async function loadQuestions() {
     }
 
     catch (error) {
+        console.warn("Backend unavailable, loading local questions.json fallback:", error);
+        try {
+            const staticRes = await fetch("questions.json");
+            const staticQuestions = await staticRes.json();
+            const filtered = staticQuestions.filter(q => 
+                (q.company && q.company.toLowerCase() === company.toLowerCase()) ||
+                (q.role && q.role.toLowerCase() === role.toLowerCase())
+            );
+            const list = filtered.length > 0 ? filtered : staticQuestions.slice(0, 10);
+            
+            container.innerHTML = "";
+            const total = document.createElement("h3");
+            total.innerText = "📚 Questions: " + list.length;
+            container.appendChild(total);
 
-        console.error(
-            "AI Questions Error:",
-            error
-        );
+            const info = document.createElement("p");
+            info.innerHTML = "Practice placement questions for <strong>" + company + " - " + role + "</strong>";
+            container.appendChild(info);
+            container.appendChild(document.createElement("hr"));
 
-        container.innerHTML = `
-            <h3>❌ Unable to generate AI questions</h3>
+            list.forEach((item, index) => {
+                const box = document.createElement("div");
+                box.className = "question-box";
 
-            <p>
-                Please make sure the backend
-                server and Gemini API are running.
-            </p>
-        `;
+                const heading = document.createElement("h3");
+                heading.innerText = (index + 1) + ". " + item.question;
+                box.appendChild(heading);
 
+                const answer = document.createElement("p");
+                answer.innerHTML = "<strong>✅ Answer:</strong> " + item.answer;
+                box.appendChild(answer);
+
+                const explanation = document.createElement("p");
+                explanation.innerHTML = "<strong>💡 Explanation:</strong> " + item.explanation;
+                box.appendChild(explanation);
+
+                box.appendChild(document.createElement("hr"));
+                container.appendChild(box);
+            });
+        } catch (e) {
+            container.innerHTML = `
+                <h3>❌ Unable to load questions</h3>
+                <p>Please make sure you have internet access.</p>
+            `;
+        }
     }
 }
 

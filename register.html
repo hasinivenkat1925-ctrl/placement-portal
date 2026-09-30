@@ -259,9 +259,31 @@
                     messageEl.innerText = "❌ " + (data.error || "Registration failed. Please try again.");
                 }
             } catch (error) {
-                console.error("Registration error:", error);
-                messageEl.className = "msg-error";
-                messageEl.innerText = "❌ Unable to connect to server. Please try again.";
+                console.warn("Backend unavailable, using client registration fallback:", error);
+                let users = [];
+                try {
+                    users = JSON.parse(localStorage.getItem("placement_users") || "[]");
+                } catch(e) { users = []; }
+
+                const existing = users.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+                if (existing) {
+                    messageEl.className = "msg-error";
+                    messageEl.innerText = "❌ An account with this email already exists. Please log in.";
+                    return;
+                }
+
+                users.push({ name, email, password });
+                localStorage.setItem("placement_users", JSON.stringify(users));
+
+                const userObj = { name, email };
+                localStorage.setItem("loggedInUser", JSON.stringify(userObj));
+
+                messageEl.className = "msg-success";
+                messageEl.innerText = "✅ Account created successfully! Logging you in...";
+
+                setTimeout(function () {
+                    window.location.href = "dashboard.html";
+                }, 1000);
             }
         });
     </script>

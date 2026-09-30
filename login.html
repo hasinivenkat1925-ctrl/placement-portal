@@ -309,11 +309,44 @@
                     loginButton.innerText = "🔐 Login to Portal";
                 }
             } catch (error) {
-                console.error("Login error:", error);
-                messageEl.className = "msg-error";
-                messageEl.innerText = "❌ Connection error. Please try again.";
-                loginButton.disabled = false;
-                loginButton.innerText = "🔐 Login to Portal";
+                console.warn("Server unavailable, using client auth fallback for static host:", error);
+                let users = [];
+                try {
+                    users = JSON.parse(localStorage.getItem("placement_users") || "[]");
+                } catch(e) { users = []; }
+
+                const foundUser = users.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+                if (foundUser) {
+                    if (foundUser.password && foundUser.password !== password) {
+                        messageEl.className = "msg-error";
+                        messageEl.innerText = "❌ Incorrect password. Please try again.";
+                        loginButton.disabled = false;
+                        loginButton.innerText = "🔐 Login to Portal";
+                        return;
+                    }
+                } else {
+                    // Auto-register demo user on static deployment
+                    const newUser = {
+                        name: email.split("@")[0].replace(/[^a-zA-Z0-9]/g, ' '),
+                        email: email,
+                        password: password
+                    };
+                    users.push(newUser);
+                    localStorage.setItem("placement_users", JSON.stringify(users));
+                }
+
+                messageEl.className = "msg-success";
+                messageEl.innerText = "✅ Login successful! Redirecting...";
+
+                const userData = {
+                    email: email,
+                    name: (foundUser && foundUser.name) || email.split("@")[0]
+                };
+                localStorage.setItem("loggedInUser", JSON.stringify(userData));
+
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 800);
             }
         }
     </script>
