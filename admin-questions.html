@@ -9,6 +9,7 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>Question Management</title>
+    <script src="api-config.js"></script>
 
     <style>
 
@@ -375,52 +376,38 @@ async function loadQuestions() {
 
 
     try {
-
-        let url =
-            "/api/all-questions";
-
-
+        let url = "/api/all-questions";
         if (company && role) {
-
-            url =
-                "/api/questions?company=" +
-                encodeURIComponent(company) +
-                "&role=" +
-                encodeURIComponent(role);
-
+            url = "/api/questions?company=" + encodeURIComponent(company) + "&role=" + encodeURIComponent(role);
         }
 
+        const endpoint = window.getApiUrl ? window.getApiUrl(url) : url;
+        let questions = [];
 
-        const response =
-            await fetch(url);
-
-
-        const data =
-            await response.json();
-
-
-        let questions;
-
-
-        if (company && role) {
-
-            questions =
-                data.questions || [];
-
-        } else {
-
-            questions =
-                data || [];
-
+        try {
+            const response = await fetch(endpoint);
+            if (response.ok) {
+                const data = await response.json();
+                questions = (company && role) ? (data.questions || []) : (Array.isArray(data) ? data : []);
+            }
+        } catch (fetchErr) {
+            console.warn("Direct questions fetch failed, trying local questions.json:", fetchErr);
+            try {
+                const localRes = await fetch("questions.json");
+                if (localRes.ok) {
+                    const localData = await localRes.json();
+                    questions = localData;
+                    if (company && role) {
+                        questions = questions.filter(q => 
+                            String(q.company || "").toLowerCase() === company.toLowerCase() &&
+                            String(q.role || "").toLowerCase() === role.toLowerCase()
+                        );
+                    }
+                }
+            } catch (localErr) {}
         }
 
-
-        document.getElementById(
-            "questionCount"
-        ).innerText =
-            questions.length;
-
-
+        document.getElementById("questionCount").innerText = questions.length;
         container.innerHTML = "";
 
 

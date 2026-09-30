@@ -4,6 +4,7 @@
 <head>
     <title>Company Placement Quiz</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <script src="api-config.js"></script>
 
     <style>
 
@@ -1070,9 +1071,10 @@ async function submitQuiz() {
 
     try {
 
+        const perfEndpoint = window.getApiUrl ? window.getApiUrl("/api/performance") : "/api/performance";
         const response =
             await fetch(
-                "/api/performance",
+                perfEndpoint,
                 {
                     method: "POST",
 

@@ -6,6 +6,7 @@
     <title>Topic Quiz</title>
 
     <link rel="stylesheet" href="style.css">
+    <script src="api-config.js"></script>
 
     <style>
 
@@ -1512,11 +1513,11 @@ async function finishQuiz() {
 
     try {
 
+        const perfEndpoint = window.getApiUrl ? window.getApiUrl("/api/performance") : "/api/performance";
         const response =
             await fetch(
-                "/api/performance",
+                perfEndpoint,
                 {
-
                     method: "POST",
 
                     headers: {
