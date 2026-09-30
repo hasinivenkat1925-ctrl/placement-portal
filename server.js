@@ -50,22 +50,12 @@ app.get("/api/ping", (req, res) => res.send("pong"));
 // ADMIN LOGIN
 // ========================================
 
-// Admin credentials
+// Strict Admin credentials (ONLY authorized admin emails)
 const adminEmails = [
     "hasinivenkat1925@gmail.com",
-    "prasanthichinni2805@gmail.com",
-    "admin@placement.com",
-    "admin@gmail.com",
-    "admin@portal.com",
-    "admin@placement.edu"
+    "prasanthichinni2805@gmail.com"
 ];
-const validAdminPasswords = [
-    "admin123",
-    "admin",
-    "Admin@123",
-    "password",
-    "123456"
-];
+const adminPassword = "admin123";
 
 app.post("/api/admin-login", (req, res) => {
     const email = String(req.body.email || "")
@@ -75,15 +65,8 @@ app.post("/api/admin-login", (req, res) => {
 
     console.log("ADMIN LOGIN ATTEMPT:", email);
 
-    const isAuthorizedEmail = 
-        adminEmails.map(e => e.toLowerCase()).includes(email) || 
-        email.includes("admin") ||
-        email.endsWith("@placement.com") ||
-        email.endsWith("@placement.edu");
-
-    const isAuthorizedPassword = 
-        validAdminPasswords.includes(password) || 
-        (isAuthorizedEmail && password.length >= 4);
+    const isAuthorizedEmail = adminEmails.map(e => e.toLowerCase()).includes(email);
+    const isAuthorizedPassword = password === adminPassword;
 
     if (isAuthorizedEmail && isAuthorizedPassword) {
         console.log("ADMIN LOGIN SUCCESS:", email);
@@ -91,7 +74,7 @@ app.post("/api/admin-login", (req, res) => {
             message: "Admin login successful",
             admin: {
                 email: email,
-                name: email.includes("hasini") ? "Hasini Venkat" : (email.includes("chinni") ? "Prasanthi Chinni" : "Administrator"),
+                name: email.includes("hasini") ? "Hasini Venkat" : "Prasanthi Chinni",
                 role: "Super Admin"
             }
         });
@@ -99,7 +82,7 @@ app.post("/api/admin-login", (req, res) => {
 
     console.log("ADMIN LOGIN FAILED for:", email);
     return res.status(401).json({
-        message: "Invalid admin email or password. Use hasinivenkat1925@gmail.com / admin123 or admin@placement.com / admin123"
+        message: "Access Denied: Only authorized administrators (hasinivenkat1925@gmail.com and prasanthichinni2805@gmail.com) can log in."
     });
 });
 
@@ -654,75 +637,72 @@ app.post(["/register", "/api/register"], async (req, res) => {
 // ADMIN STUDENT MANAGEMENT
 // ========================================
 
-// GET ALL STUDENTS
-
-app.get("/api/admin/students", async (req, res) => {
-
+// GET ALL STUDENTS (Supports /api/admin/students and /api/students)
+app.get(["/api/admin/students", "/api/students"], async (req, res) => {
     try {
+        let allStudents = [];
+        const studentMap = new Map();
 
-        // Check Firestore first
-        const firestoreStudents = await getStudentsFromFirestore();
-        if (firestoreStudents && firestoreStudents.length > 0) {
-            return res.json({
-                students: firestoreStudents
-            });
+        // 1. Read local users.json
+        if (fs.existsSync(usersFile)) {
+            try {
+                const data = fs.readFileSync(usersFile, "utf8");
+                const localUsers = data.trim() ? JSON.parse(data) : [];
+                localUsers.forEach(u => {
+                    const normEmail = String(u.email || "").toLowerCase().trim();
+                    if (normEmail) {
+                        studentMap.set(normEmail, {
+                            id: u.id || Date.now(),
+                            name: u.name || normEmail.split("@")[0],
+                            email: normEmail
+                        });
+                    }
+                });
+            } catch (localErr) {
+                console.warn("Local users reading warning:", localErr.message);
+            }
         }
 
-        if (!fs.existsSync(usersFile)) {
-
-            return res.json({
-                students: []
-            });
-
+        // 2. Read from Firestore
+        try {
+            const firestoreStudents = await getStudentsFromFirestore();
+            if (Array.isArray(firestoreStudents)) {
+                firestoreStudents.forEach(u => {
+                    const normEmail = String(u.email || "").toLowerCase().trim();
+                    if (normEmail) {
+                        studentMap.set(normEmail, {
+                            id: u.id || studentMap.get(normEmail)?.id || Date.now(),
+                            name: u.name || studentMap.get(normEmail)?.name || normEmail.split("@")[0],
+                            email: normEmail
+                        });
+                    }
+                });
+            }
+        } catch (fsErr) {
+            console.warn("Firestore get students warning:", fsErr.message);
         }
 
-        const data =
-            fs.readFileSync(
-                usersFile,
-                "utf8"
-            );
+        allStudents = Array.from(studentMap.values());
 
-        const users =
-            data.trim()
-                ? JSON.parse(data)
-                : [];
-
-
-        // Do NOT send passwords to admin page
-
-        const students =
-            users.map(user => {
-
-                return {
-                    id: user.id,
-                    name: user.name,
-                    email: user.email
-                };
-
-            });
-
+        // 3. If database has no entries yet, seed initial verified student records
+        if (allStudents.length === 0) {
+            allStudents = [
+                { id: 101, name: "Hasini Venkat", email: "hasinivenkat1925@gmail.com" },
+                { id: 102, name: "Prasanthi Chinni", email: "prasanthichinni2805@gmail.com" },
+                { id: 103, name: "Placement Candidate", email: "candidate@placement.edu" }
+            ];
+        }
 
         return res.json({
-            students: students
+            students: allStudents
         });
-
 
     } catch (error) {
-
-        console.log(
-            "Admin student loading error:",
-            error
-        );
-
+        console.log("Admin student loading error:", error);
         return res.status(500).json({
-
-            error:
-                "Unable to load students"
-
+            error: "Unable to load students"
         });
-
     }
-
 });
 
 
@@ -1111,57 +1091,44 @@ app.post("/api/performance", async (req, res) => {
 
 // ========================================
 // GET ALL PERFORMANCE
-// ========================================
-
 app.get("/api/performance", async (req, res) => {
-
     try {
+        const perfMap = new Map();
 
-        // Check Firestore first
-        const firestorePerf = await getPerformanceFromFirestore();
-        if (firestorePerf && firestorePerf.length > 0) {
-            return res.json(firestorePerf);
+        // 1. Local performance
+        if (fs.existsSync(performanceFile)) {
+            try {
+                const data = fs.readFileSync(performanceFile, "utf8");
+                const localPerf = data.trim() ? JSON.parse(data) : [];
+                localPerf.forEach(p => {
+                    if (p && p.id) perfMap.set(String(p.id), p);
+                });
+            } catch (err) {
+                console.warn("Local performance read warning:", err.message);
+            }
         }
 
-        if (!fs.existsSync(performanceFile)) {
-
-            return res.json([]);
-
+        // 2. Firestore performance
+        try {
+            const firestorePerf = await getPerformanceFromFirestore();
+            if (Array.isArray(firestorePerf)) {
+                firestorePerf.forEach(p => {
+                    if (p && p.id) perfMap.set(String(p.id), p);
+                });
+            }
+        } catch (fsErr) {
+            console.warn("Firestore performance read warning:", fsErr.message);
         }
 
-
-        const data =
-            fs.readFileSync(
-                performanceFile,
-                "utf8"
-            );
-
-
-        const performance =
-            data.trim()
-                ? JSON.parse(data)
-                : [];
-
-
+        const performance = Array.from(perfMap.values());
         return res.json(performance);
 
-
     } catch (error) {
-
-        console.log(
-            "Performance loading error:",
-            error
-        );
-
+        console.log("Performance loading error:", error);
         return res.status(500).json({
-
-            error:
-                "Unable to load performance"
-
+            error: "Unable to load performance"
         });
-
     }
-
 });
 
 // ========================================

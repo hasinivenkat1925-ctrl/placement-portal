@@ -193,7 +193,7 @@
         <div style="margin-top: 12px; background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 8px; padding: 10px; font-size: 13px; color: #0369a1; text-align: left;">
             <div style="font-weight: 700; margin-bottom: 4px;">🔑 Authorized Admin Accounts:</div>
             <div>• <code>hasinivenkat1925@gmail.com</code> | Pass: <code>admin123</code></div>
-            <div>• <code>admin@placement.com</code> | Pass: <code>admin123</code></div>
+            <div>• <code>prasanthichinni2805@gmail.com</code> | Pass: <code>admin123</code></div>
         </div>
 
         <div style="text-align: center; margin: 15px 0; color: #64748b; font-size: 14px; position: relative;">
@@ -234,11 +234,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstati
 
 const adminEmails = [
     "hasinivenkat1925@gmail.com",
-    "prasanthichinni2805@gmail.com",
-    "admin@placement.com",
-    "admin@gmail.com",
-    "admin@portal.com",
-    "admin@placement.edu"
+    "prasanthichinni2805@gmail.com"
 ];
 
 async function adminLogin(event) {
@@ -332,15 +328,8 @@ async function adminLogin(event) {
 
     } catch (error) {
         console.warn("Admin server unavailable, using static fallback:", error);
-        const isAuthorizedEmail = 
-            adminEmails.map(e => e.toLowerCase()).includes(email.toLowerCase()) || 
-            email.toLowerCase().includes("admin") ||
-            email.toLowerCase().endsWith("@placement.com");
-            
-        const isAuthorizedPassword = 
-            password === "admin123" || 
-            password === "admin" || 
-            password.length >= 4;
+        const isAuthorizedEmail = adminEmails.map(e => e.toLowerCase()).includes(email.toLowerCase());
+        const isAuthorizedPassword = password === "admin123";
 
         if (isAuthorizedEmail && isAuthorizedPassword) {
             message.innerText = "Admin login successful!";
@@ -348,14 +337,14 @@ async function adminLogin(event) {
             localStorage.setItem("adminLoggedIn", "true");
             localStorage.setItem("adminUser", JSON.stringify({
                 email: email,
-                name: email.includes("hasini") ? "Hasini Venkat" : (email.includes("chinni") ? "Prasanthi Chinni" : "Administrator"),
+                name: email.includes("hasini") ? "Hasini Venkat" : "Prasanthi Chinni",
                 role: "Super Admin"
             }));
             setTimeout(function() {
                 window.location.href = "admin-dashboard.html";
             }, 500);
         } else {
-            message.innerText = "Invalid admin credentials. (Use hasinivenkat1925@gmail.com / admin123)";
+            message.innerText = "Access Denied: Only hasinivenkat1925@gmail.com and prasanthichinni2805@gmail.com are authorized administrators.";
             message.className = "error";
         }
     }
@@ -425,7 +414,7 @@ window.goToStudentLogin = goToStudentLogin;
                 const email = (user.email || "").toLowerCase().trim();
 
                 const authorizedList = adminEmails.map(e => e.toLowerCase().trim());
-                const isAuthorized = authorizedList.includes(email) || email.includes("admin") || email.endsWith("@placement.com");
+                const isAuthorized = authorizedList.includes(email);
 
                 if (isAuthorized) {
                     message.innerText = "✅ Admin Google login successful! Redirecting...";

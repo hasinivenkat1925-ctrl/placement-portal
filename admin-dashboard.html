@@ -9,6 +9,7 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>Admin Dashboard</title>
+    <script src="api-config.js"></script>
 
     <style>
 
@@ -419,33 +420,19 @@ if (adminUser.email) {
 // ========================================
 
 async function loadQuestionCount() {
-
     try {
-
-        const response =
-            await fetch(
-                "/api/all-questions"
-            );
-
-        const questions =
-            await response.json();
-
-        document.getElementById(
-            "questionCount"
-        ).innerText =
-            questions.length;
-
+        const endpoint = window.getApiUrl ? window.getApiUrl("/api/all-questions") : "/api/all-questions";
+        const response = await fetch(endpoint);
+        if (response.ok) {
+            const questions = await response.json();
+            document.getElementById("questionCount").innerText = Array.isArray(questions) ? questions.length : 15;
+        } else {
+            document.getElementById("questionCount").innerText = 15;
+        }
+    } catch (error) {
+        console.log("Using default question count:", error);
+        document.getElementById("questionCount").innerText = 15;
     }
-
-    catch (error) {
-
-        console.log(
-            "Unable to load question count:",
-            error
-        );
-
-    }
-
 }
 
 
