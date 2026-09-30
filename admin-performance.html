@@ -450,6 +450,7 @@ async function loadReports() {
 
         // Fallback default performance records if empty
         if (!performance || performance.length === 0) {
+            console.log("No performance data found, using fallbacks.");
             performance = [
                 {
                     id: "1790780560727",
@@ -518,7 +519,7 @@ async function loadReports() {
             ];
         }
 
-
+        console.log("Performance data loaded:", performance);
         // ======================================
         // SUMMARY COUNTS
         // ======================================
