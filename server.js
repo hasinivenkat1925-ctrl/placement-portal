@@ -89,7 +89,22 @@ app.post("/api/admin-login", (req, res) => {
 // FRONTEND
 // ========================================
 
-const frontendPath = __dirname;
+function resolveFrontendPath() {
+    const candidatePaths = [
+        __dirname,
+        process.cwd(),
+        path.join(__dirname, ".."),
+        path.join(process.cwd(), "..")
+    ];
+    for (const c of candidatePaths) {
+        if (fs.existsSync(path.join(c, "index.html")) && fs.existsSync(path.join(c, "login.html"))) {
+            return c;
+        }
+    }
+    return __dirname;
+}
+
+const frontendPath = resolveFrontendPath();
 
 app.use(express.static(frontendPath));
 
@@ -98,58 +113,31 @@ app.use(express.static(frontendPath));
 // MAIN PAGES & HTML ROUTING
 // ========================================
 
+const allHtmlPages = [
+    "index", "landing-login", "login", "register", "dashboard",
+    "preparation", "interview", "progress", "resources", "topics",
+    "videos", "company", "company-quiz", "questions", "quiz",
+    "solutions", "technical-interview", "hr-interview",
+    "admin-login", "admin-dashboard", "admin-student", "admin-questions",
+    "admin-company-role", "admin-performance", "topic-notes",
+    "topic-preparation", "topic-questions", "topic-quiz", "topic-solutions"
+];
+
 app.get("/", (req, res) => {
-    res.sendFile(
-        path.join(frontendPath, "index.html")
-    );
+    res.sendFile(path.join(frontendPath, "index.html"));
 });
 
-// Explicit HTML routes for Vercel Serverless
-app.get(["/landing-login", "/landing-login.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "landing-login.html"));
+allHtmlPages.forEach(page => {
+    app.get([`/${page}`, `/${page}.html`], (req, res) => {
+        const filePath = path.join(frontendPath, `${page}.html`);
+        if (fs.existsSync(filePath)) {
+            return res.sendFile(filePath);
+        }
+        res.sendFile(path.join(frontendPath, "index.html"));
+    });
 });
 
-app.get(["/login.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "login.html"));
-});
-
-app.get(["/register.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "register.html"));
-});
-
-app.get(["/dashboard", "/dashboard.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "dashboard.html"));
-});
-
-app.get(["/interview", "/interview.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "interview.html"));
-});
-
-app.get(["/preparation", "/preparation.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "preparation.html"));
-});
-
-app.get(["/progress", "/progress.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "progress.html"));
-});
-
-app.get(["/resources", "/resources.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "resources.html"));
-});
-
-app.get(["/topics", "/topics.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "topics.html"));
-});
-
-app.get(["/videos", "/videos.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "videos.html"));
-});
-
-app.get(["/admin-login", "/admin-login.html"], (req, res) => {
-    res.sendFile(path.join(frontendPath, "admin-login.html"));
-});
-
-// Automatic routing for any .html page
+// Automatic routing fallback for any other .html page
 app.get("/:page", (req, res, next) => {
     let page = req.params.page;
     if (page.startsWith("api")) {
@@ -515,7 +503,7 @@ app.get("/api/topic-questions", (req, res) => {
 // REGISTER
 // ========================================
 
-app.post("/register", async (req, res) => {
+app.post(["/register", "/api/register"], async (req, res) => {
 
     const {
         name,
@@ -813,7 +801,7 @@ app.delete(
 // STUDENT LOGIN
 // ========================================
 
-app.post("/login", async (req, res) => {
+app.post(["/login", "/api/login"], async (req, res) => {
 
     const email =
         String(req.body.email || "")

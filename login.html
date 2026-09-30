@@ -273,11 +273,19 @@
             loginButton.innerText = "Authenticating...";
 
             try {
-                const response = await fetch("/login", {
+                let response = await fetch("/api/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, password })
                 });
+
+                if (!response.ok && response.status === 404) {
+                    response = await fetch("/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, password })
+                    });
+                }
 
                 const data = await response.json();
 
