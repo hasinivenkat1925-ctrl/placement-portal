@@ -413,29 +413,6 @@ async function loadReports() {
             console.warn("Students fetch fallback:", e);
         }
 
-        // Local students fallback
-        try {
-            const localUsers = JSON.parse(localStorage.getItem("placement_users") || "[]");
-            localUsers.forEach(u => {
-                if (u && u.email && !students.some(s => s.email && s.email.toLowerCase() === u.email.toLowerCase())) {
-                    students.push({
-                        id: u.id || Date.now(),
-                        name: u.name || u.email.split("@")[0],
-                        email: u.email
-                    });
-                }
-            });
-        } catch (e) {}
-
-        if (students.length === 0) {
-            students = [
-                { id: 101, name: "kavya", email: "kavyasithalam4@gmail.com" },
-                { id: 102, name: "Hasini Venkat", email: "hasinivenkat1925@gmail.com" },
-                { id: 103, name: "Prasanthi Chinni", email: "prasanthichinni2805@gmail.com" },
-                { id: 104, name: "Placement Student", email: "student@placement.edu" }
-            ];
-        }
-
         // 2. Fetch Performance
         try {
             const perfEndpoint = window.getApiUrl ? window.getApiUrl("/api/performance") : "/api/performance";
@@ -447,6 +424,18 @@ async function loadReports() {
         } catch (e) {
             console.warn("Performance fetch fallback:", e);
         }
+
+        // 3. Add students from performance records who are not in the students list
+        performance.forEach(p => {
+            const email = String(p.email || "").toLowerCase().trim();
+            if (email && !students.some(s => s.email && s.email.toLowerCase() === email)) {
+                students.push({
+                    id: Date.now() + Math.random(),
+                    name: p.student || email.split("@")[0],
+                    email: email
+                });
+            }
+        });
 
         // Fallback default performance records if empty
         if (!performance || performance.length === 0) {
