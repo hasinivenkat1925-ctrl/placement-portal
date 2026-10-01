@@ -961,7 +961,6 @@ app.post(["/login", "/api/login"], async (req, res) => {
 // SAVE PERFORMANCE RESULT
 
 app.post("/api/performance", async (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
     
     const {
         email,

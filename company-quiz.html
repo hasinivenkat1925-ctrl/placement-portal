@@ -876,32 +876,6 @@ async function submitQuiz() {
     // SHOW RESULT
     // ======================================
 
-    // Save performance
-    try {
-        const perfData = {
-            email: currentUser.email,
-            student: currentUser.name,
-            type: "Company Quiz",
-            company: company,
-            role: role,
-            topic: "-",
-            score: score,
-            percentage: percentage,
-            correct: score,
-            wrong: wrongAnswers,
-            unanswered: unanswered
-        };
-        const endpoint = window.getApiUrl ? window.getApiUrl("/api/performance") : "/api/performance";
-        await fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(perfData)
-        });
-        console.log("Performance saved");
-    } catch (e) {
-        console.error("Failed to save performance:", e);
-    }
-
     document.getElementById(
         "questionNumber"
     ).innerText =
