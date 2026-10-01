@@ -173,11 +173,16 @@ const params =
 
 
 const company =
-    params.get("company") || "";
-
+    params.get("company") ||
+    localStorage.getItem("selectedCompany") ||
+    localStorage.getItem("company") ||
+    "TCS";
 
 const role =
-    params.get("role") || "";
+    params.get("role") ||
+    localStorage.getItem("selectedRole") ||
+    localStorage.getItem("role") ||
+    "Software Developer";
 
 
 
@@ -335,20 +340,13 @@ async function loadQuestions() {
             ).fill(null);
 
         if (questions.length > 0) {
-
             displayQuestion();
-
             startTimer();
-
-        }
-
-        else {
-
-            document.getElementById(
-                "quizContainer"
-            ).innerHTML =
-                "<h3>❌ No AI questions generated.</h3>";
-
+        } else {
+            questions = getRoleQuizFallback(company, role);
+            selectedAnswers = new Array(questions.length).fill(null);
+            displayQuestion();
+            startTimer();
         }
 
     }
