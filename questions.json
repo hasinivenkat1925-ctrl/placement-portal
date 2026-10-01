@@ -1,6 +1,116 @@
 [
   {
     "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the Global Interpreter Lock (GIL) in Python?",
+    "options": ["A mutex that allows only one thread to execute Python bytecode at a time", "A compiler that converts Python to C++", "A memory profiler for Django", "A package manager for pip"],
+    "answer": "A mutex that allows only one thread to execute Python bytecode at a time",
+    "explanation": "The GIL is a mutual exclusion lock used by CPython to prevent multiple native threads from executing Python bytecodes concurrently."
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which built-in Python data sequence type is immutable?",
+    "options": ["Tuple", "List", "Dictionary", "Set"],
+    "answer": "Tuple",
+    "explanation": "Tuples are immutable in Python; their elements cannot be changed after creation."
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which keyword is used to create a generator function in Python?",
+    "options": ["yield", "return", "lambda", "global"],
+    "answer": "yield",
+    "explanation": "The yield keyword pauses function execution and returns a generator iterator yielding values on demand."
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is a Python decorator?",
+    "options": ["A function that takes another function as an argument and extends its behavior", "A CSS styling rule for Flask apps", "A database query optimizer", "A garbage collector module"],
+    "answer": "A function that takes another function as an argument and extends its behavior",
+    "explanation": "Decorators allow wrapping functions to extend functionality without modifying the original source code."
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which built-in function returns the number of items in a Python list?",
+    "options": ["len()", "count()", "size()", "length()"],
+    "answer": "len()",
+    "explanation": "The len() function returns the total count of items in any sequence or collection."
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "How are runtime exceptions handled in Python?",
+    "options": ["try-except blocks", "try-catch blocks", "throw-catch blocks", "try-finally only"],
+    "answer": "try-except blocks",
+    "explanation": "Python uses try and except statements to catch and handle runtime errors."
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "Which function converts a JSON string into a Python dictionary?",
+    "options": ["json.loads()", "json.dumps()", "json.load()", "json.dump()"],
+    "answer": "json.loads()",
+    "explanation": "json.loads() converts a JSON-formatted string into native Python dictionaries or lists."
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the difference between shallow copy and deep copy in Python?",
+    "options": ["Shallow copy copies references of nested objects; deep copy recursively duplicates nested objects", "Shallow copy converts to tuple; deep copy converts to dict", "Shallow copy works only on integers; deep copy works on strings", "Deep copy is deprecated in Python 3"],
+    "answer": "Shallow copy copies references of nested objects; deep copy recursively duplicates nested objects",
+    "explanation": "Shallow copy constructs a new container with references to nested items, whereas deep copy constructs a new container and recursively duplicates child objects."
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What does list comprehension syntax `[x for x in data if x % 2 == 0]` do?",
+    "options": ["Filters even numbers into a new list", "Multiplies data elements by 2", "Deletes odd numbers in-place", "Returns a dictionary generator"],
+    "answer": "Filters even numbers into a new list",
+    "explanation": "List comprehensions offer a concise syntax to filter and transform iterables into a new list."
+  },
+  {
+    "company": "TCS",
+    "role": "Python Developer",
+    "category": "Python",
+    "year": 2025,
+    "type": "Practice",
+    "question": "What is the primary function of Virtual Environments (venv) in Python?",
+    "options": ["Create isolated directories for project-specific dependency package versions", "Virtualize Linux OS kernels", "Accelerate CPU GPU rendering", "Encrypt Python source code"],
+    "answer": "Create isolated directories for project-specific dependency package versions",
+    "explanation": "Virtual environments isolate package dependencies per project, preventing package version conflicts."
+  },
+  {
+    "company": "TCS",
     "role": "Java Developer",
     "category": "Java",
     "year": 2025,

@@ -338,7 +338,7 @@ async function loadQuestions() {
             const staticRes = await fetch("questions.json");
             const staticQuestions = await staticRes.json();
             const filtered = staticQuestions.filter(q => 
-                (q.company && q.company.toLowerCase() === company.toLowerCase()) ||
+                (q.company && q.company.toLowerCase() === company.toLowerCase()) &&
                 (q.role && q.role.toLowerCase() === role.toLowerCase())
             );
             const list = filtered.length > 0 ? filtered : getRoleQuestionsFallback(company, role);

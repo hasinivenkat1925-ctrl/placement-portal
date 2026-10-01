@@ -416,7 +416,7 @@ function getRoleQuizFallback(companyName, roleName) {
             const staticRes = await fetch("questions.json");
             const staticData = await staticRes.json();
             const filtered = staticData.filter(q => 
-                (q.company && q.company.toLowerCase() === company.toLowerCase()) ||
+                (q.company && q.company.toLowerCase() === company.toLowerCase()) &&
                 (q.role && q.role.toLowerCase() === role.toLowerCase())
             );
             if (filtered.length > 0) {
