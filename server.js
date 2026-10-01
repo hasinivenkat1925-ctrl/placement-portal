@@ -637,11 +637,14 @@ app.post(["/register", "/api/register"], async (req, res) => {
 // ADMIN STUDENT MANAGEMENT
 // ========================================
 
-// GET ALL STUDENTS (Supports /api/admin/students and /api/students)
-app.get(["/api/admin/students", "/api/students"], async (req, res) => {
+// GET ALL STUDENTS
+app.get("/api/admin/students", async (req, res) => {
+    console.log("Fetching students (admin/students)");
     try {
         let allStudents = [];
         const studentMap = new Map();
+        // ... (rest of the student loading logic)
+        // (I will keep the existing logic and just split the route)
 
         // 1. Read local users.json
         if (fs.existsSync(usersFile)) {
@@ -1057,7 +1060,8 @@ app.post("/api/performance", async (req, res) => {
         }
 
         // Sync to Firebase Firestore
-        await savePerformanceToFirestore(result);
+        const firestoreResult = await savePerformanceToFirestore(result);
+        console.log("Firestore sync result for student " + email + ":", firestoreResult);
 
 
         return res.json({
