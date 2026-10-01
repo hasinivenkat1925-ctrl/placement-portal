@@ -118,11 +118,68 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        const company = params.get("company") || localStorage.getItem("company") || "TCS";
-        const role = params.get("role") || localStorage.getItem("role") || "Software Developer";
+        const company = params.get("company") || localStorage.getItem("selectedCompany") || "Company";
+        const role = params.get("role") || localStorage.getItem("selectedRole") || "Software Developer";
 
         document.getElementById("companyTitle").innerText = "🏢 Company: " + company;
         document.getElementById("roleTitle").innerText = "💼 Role: " + role;
+
+        function getRoleSolutionsFallback(companyName, roleName) {
+            const r = String(roleName || "").toLowerCase();
+            if (r.includes("frontend")) {
+                return [
+                    { question: "How would you optimize web rendering performance in a large single-page app?", answer: "Lazy loading, code splitting, memoization (useMemo/useCallback), and Virtual DOM reconciliation.", solution: "Break down bundles using dynamic imports (React.lazy). Use Virtual DOM reconciliation to minimize reflows and repaints, and implement windowing (react-window) for long lists." },
+                    { question: "Explain event delegation and why it is beneficial.", answer: "Attaching a single listener to a parent element to manage child event triggers via bubbling.", solution: "Instead of binding listeners to 100 list items, attach 1 listener to `<ul>`. As events bubble up, check `event.target`. This reduces memory overhead dramatically." },
+                    { question: "What is CORS and how do you handle it in frontend applications?", answer: "Cross-Origin Resource Sharing is a browser security mechanism that restricts cross-domain requests.", solution: "Configure the backend server to respond with `Access-Control-Allow-Origin: *` or specific origin domains, and handle preflight OPTIONS requests." },
+                    { question: "Explain the difference between SSR, CSR, and SSG.", answer: "SSR renders HTML on server per request; CSR builds DOM in browser; SSG generates static HTML at build time.", solution: "CSR gives fast transitions but slower initial loads; SSR provides better SEO and fast initial rendering; SSG offers maximum CDN speed for static pages." },
+                    { question: "How do you manage complex global state in React?", answer: "Local state where possible, Context API for lightweight sharing, and Zustand/Redux for complex decoupled state.", solution: "Keep state close to where it's used. Split Contexts to avoid unnecessary re-renders, and use Redux/Zustand when multiple independent components need synchronized updates." }
+                ];
+            }
+            if (r.includes("data analyst") || r.includes("analyst") || r.includes("bi")) {
+                return [
+                    { question: "How do you write a SQL query using Window Functions to find top 3 salaries per department?", answer: "Use DENSE_RANK() or ROW_NUMBER() partitioned by department and ordered by salary.", solution: "Query: `WITH Ranked AS (SELECT *, DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) as rk FROM employees) SELECT * FROM Ranked WHERE rk <= 3;`" },
+                    { question: "How do you handle missing values during data cleaning in Pandas?", answer: "Analyze missingness mechanisms, then use fillna() for imputation or dropna() for sparse records.", solution: "For numeric columns, impute with median (robust against outliers). For categorical data, impute with mode or 'Unknown'. Use KNNImputer for correlated multi-variable missingness." },
+                    { question: "Explain the difference between inner join, left join, and outer join.", answer: "Inner join matches both; Left join keeps all left rows; Outer join keeps all rows from both tables.", solution: "INNER JOIN returns rows where key exists in both tables. LEFT JOIN retains all records from the primary left table regardless of matches, filling missing right-side fields with NULL." },
+                    { question: "How do you detect and handle extreme outliers in a skewed dataset?", answer: "Interquartile Range (IQR = Q3 - Q1), Z-score thresholds, or visual boxplots.", solution: "Calculate IQR. Outliers lie below `Q1 - 1.5*IQR` or above `Q3 + 1.5*IQR`. You can cap/winsorize extreme values or apply log transformations." },
+                    { question: "What key metrics do you track for customer churn analysis?", answer: "Churn Rate, Monthly Recurring Revenue (MRR) Churn, Customer Lifetime Value (LTV), and Net Promoter Score (NPS).", solution: "Churn Rate = (Users Lost / Total Users at Start) * 100. Compare LTV against CAC (Target LTV:CAC > 3:1) to evaluate retention health." }
+                ];
+            }
+            if (r.includes("python")) {
+                return [
+                    { question: "How does the Python Global Interpreter Lock (GIL) affect multi-threading?", answer: "It prevents multiple native threads from executing Python bytecodes simultaneously in CPython.", solution: "Due to the GIL, multi-threading in Python does not achieve multi-core parallelism for CPU-bound tasks. Use the `multiprocessing` module instead to spawn separate processes with independent GILs." },
+                    { question: "Explain how Python decorators work under the hood.", answer: "Decorators are higher-order functions that take a function, wrap it, and return the modified wrapper.", solution: "Syntax `@my_decorator` is equivalent to `func = my_decorator(func)`. Decorators allow clean cross-cutting concerns like logging, timing, authentication, and caching." },
+                    { question: "What is the difference between list comprehensions and generator expressions?", answer: "List comprehensions compute all values in memory immediately; generator expressions compute lazily on demand.", solution: "List comprehension `[x for x in data]` creates the entire list in RAM instantly. Generator `(x for x in data)` returns an iterator yielding 1 item at a time, conserving RAM." },
+                    { question: "How does Python handle memory management and garbage collection?", answer: "Using reference counting as primary mechanism and a cyclic garbage collector for circular references.", solution: "Every object tracks its reference count. When count drops to 0, memory is freed immediately. The cyclic GC detects isolated cycles (Object A references B, B references A)." },
+                    { question: "What is the difference between shallow copy and deep copy?", answer: "Shallow copy copies references of child objects; deep copy recursively duplicates nested objects completely.", solution: "`copy.copy()` creates a new container but inserts references to original nested items. `copy.deepcopy()` constructs a new container and recursively copies all child objects." }
+                ];
+            }
+            if (r.includes("backend")) {
+                return [
+                    { question: "How do you design a scalable database connection pool?", answer: "Maintain a fixed pool of persistent database sockets to avoid TCP handshake overhead.", solution: "Configure min/max pool sizes (e.g., HikariCP). When a query executes, borrow a connection, run the query, and return it to the pool. Use timeout limits to prevent connection leaks." },
+                    { question: "Explain ACID properties in relational database transactions.", answer: "Atomicity (all or nothing), Consistency (valid state), Isolation (independent transactions), Durability (persisted writes).", solution: "Atomicity uses undo logs; Durability uses Write-Ahead Logging (WAL); Isolation uses locking or Multi-Version Concurrency Control (MVCC) to avoid dirty reads." },
+                    { question: "What is the N+1 query problem and how do you fix it?", answer: "Fetching 1 parent record plus N separate queries for child records. Fixed using eager loading or JOINs.", solution: "In ORMs (like Hibernate or Prisma), default lazy loading triggers N extra queries. Fix by using `JOIN FETCH` or eager query configuration to retrieve everything in 1 single query." },
+                    { question: "How do you secure REST APIs against common attacks?", answer: "HTTPS encryption, JWT/OAuth tokens, rate limiting, and parameter sanitization.", solution: "Enforce HTTPS to prevent eavesdropping. Validate JWT signature on every request. Use rate limiting middleware (Token Bucket) to stop DDoS attacks, and parameterize SQL queries." },
+                    { question: "What is cache invalidation and what are common caching strategies?", answer: "Purging stale cache items. Strategies include Cache-Aside, Write-Through, and Write-Behind.", solution: "In Cache-Aside, the app checks cache first; if missing, reads DB and updates cache. In Write-Through, writes update cache and DB simultaneously." }
+                ];
+            }
+            if (r.includes("devops") || r.includes("sre")) {
+                return [
+                    { question: "How do you set up a zero-downtime Blue-Green deployment?", answer: "Maintain two identical production environments (Blue active, Green new) and switch router traffic.", solution: "Deploy new code to Green environment while Blue serves live users. Run health checks on Green. Once verified, update Load Balancer/DNS target to Green instantly. If errors occur, revert back to Blue." },
+                    { question: "Explain the architectural difference between VMs and Docker containers.", answer: "VMs virtualize physical hardware and run full guest OS; Containers virtualize OS kernel.", solution: "VMs require hypervisors (Type 1/2) and carry significant RAM/CPU overhead. Containers share the host OS kernel and isolate user space, making them lightweight and fast to boot." },
+                    { question: "How do you manage infrastructure declaratively with Terraform?", answer: "Define infrastructure resources in HCL files; Terraform plans and applies state differences.", solution: "Terraform tracks live cloud state in `terraform.tfstate`. Running `terraform plan` compares desired `.tf` files against live state and executes minimal API calls." },
+                    { question: "What is the role of Kubernetes Pods, Deployments, and Services?", answer: "Pods are smallest execution units; Deployments manage replica sets; Services expose networking routing.", solution: "Pods wrap 1+ containers. Deployments ensure N pod replicas stay healthy via self-healing. Services provide stable cluster IP endpoints and load balancing across pods." },
+                    { question: "How do you secure secret variables in CI/CD automated pipelines?", answer: "Inject secrets dynamically from encrypted vaults (AWS Secrets Manager, HashiCorp Vault) at runtime.", solution: "Never commit keys to Git. Store secrets in Vault, grant pipeline IAM service roles, and load secrets as masked environment variables during job execution." }
+                ];
+            }
+            // Default SDE / Software Developer
+            return [
+                { question: "How would you design a distributed rate limiter for high-traffic APIs?", answer: "Token Bucket algorithm backed by Redis atomic counter and TTL.", solution: "Use Redis atomic `INCR` or Lua scripts to track request counts per IP within a time window. If count exceeds limit, return 429 Too Many Requests with Retry-After header." },
+                { question: "Explain the CAP Theorem and how to choose between CP and AP systems.", answer: "A distributed system can guarantee at most 2: Consistency, Availability, Partition Tolerance.", solution: "Network partitions (P) are inevitable. Choose CP (Consistency + Partition Tolerance, e.g. HBase/MongoDB) when exact data accuracy is required (banking). Choose AP (Availability + Partition Tolerance, e.g. Cassandra) when uptime is priority." },
+                { question: "How do you detect a cycle in a directed graph efficiently?", answer: "DFS with recursion stack state tracking or Kahn's algorithm (indegree BFS).", solution: "Using DFS, mark nodes as Unvisited (0), Visiting (1), or Visited (2). If traversal encounters a node marked Visiting (1), a back-edge and cycle exist. Time complexity O(V+E)." },
+                { question: "What is the difference between process and thread context switching?", answer: "Process context switching switches memory maps (CR3 register); thread switching swaps only registers and stack.", solution: "Process switching requires invalidating CPU cache (TLB flush) and loading new page tables. Thread switching shares the parent process address space, making it much faster." },
+                { question: "How does a B-Tree index accelerate database range queries?", answer: "Maintains a balanced sorted multi-way search tree with sibling leaf pointers.", solution: "B-Tree leaf nodes are linked sequentially. Finding range `WHERE age BETWEEN 20 AND 30` traverses O(log N) to the first leaf node and reads sibling leaf pointers sequentially." }
+            ];
+        }
 
         async function loadSolutions() {
             const container = document.getElementById("solutions");
@@ -180,13 +237,13 @@
                     
                     const solution = document.createElement("div");
                     solution.className = "solution-text";
-                    solution.innerHTML = "💡 <strong>Detailed Solution:</strong><br>" + item.solution;
+                    solution.innerHTML = "💡 <strong>Detailed Solution:</strong><br>" + (item.solution || item.explanation || "Detailed step-by-step approach for " + company + " " + role + " technical interviews.");
                     box.appendChild(solution);
                     
                     container.appendChild(box);
                 });
             } catch (error) {
-                console.warn("Backend solutions unavailable, loading questions.json fallback:", error);
+                console.warn("Backend solutions unavailable, loading role-specific fallback:", error);
                 try {
                     const staticRes = await fetch("questions.json");
                     const staticData = await staticRes.json();
@@ -194,7 +251,9 @@
                         (q.company && q.company.toLowerCase() === company.toLowerCase()) ||
                         (q.role && q.role.toLowerCase() === role.toLowerCase())
                     );
-                    const list = (filtered.length > 0 ? filtered : staticData).slice(0, 5);
+                    const list = filtered.length > 0 
+                        ? filtered.slice(0, 5) 
+                        : getRoleSolutionsFallback(company, role);
                     
                     container.innerHTML = "";
                     const total = document.createElement("h3");
@@ -206,7 +265,7 @@
                     const info = document.createElement("p");
                     info.style.color = "#64748b";
                     info.style.marginBottom = "25px";
-                    info.innerHTML = "📚 Showing standard placement solutions for <strong>" + company + " - " + role + "</strong>.";
+                    info.innerHTML = "📚 Showing role-tailored placement solutions for <strong>" + company + " - " + role + "</strong>.";
                     container.appendChild(info);
 
                     list.forEach((item, index) => {
@@ -224,7 +283,7 @@
                         
                         const solution = document.createElement("div");
                         solution.className = "solution-text";
-                        solution.innerHTML = "💡 <strong>Detailed Solution:</strong><br>" + (item.solution || item.explanation || "Detailed analysis and optimal approach for " + company + " technical interviews.");
+                        solution.innerHTML = "💡 <strong>Detailed Solution:</strong><br>" + (item.solution || item.explanation || "Detailed analysis and optimal approach for " + company + " " + role + " technical interviews.");
                         box.appendChild(solution);
                         
                         container.appendChild(box);

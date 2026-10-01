@@ -1620,12 +1620,8 @@ app.get("/api/generate-company-preparation", async (req, res) => {
 // ========================================
 
 app.get("/api/generate-company-questions", async (req, res) => {
-
-    const company =
-        String(req.query.company || "").trim();
-
-    const role =
-        String(req.query.role || "").trim();
+    const company = String(req.query.company || "").trim();
+    const role = String(req.query.role || "").trim();
 
     if (!company || !role) {
         return res.status(400).json({
@@ -1634,57 +1630,38 @@ app.get("/api/generate-company-questions", async (req, res) => {
     }
 
     try {
-
         console.log("================================");
         console.log("AI COMPANY QUESTIONS");
         console.log("Company:", company);
         console.log("Role:", role);
 
-        const questions =
-            await generateCompanyQuestions(
-                company,
-                role
-            );
+        const questions = await generateCompanyQuestions(company, role);
 
-        console.log(
-            "AI company questions generated successfully"
-        );
-
-        console.log(
-            "Questions:",
-            questions.questions.length
-        );
-
+        console.log("AI company questions generated successfully");
+        console.log("Questions:", questions ? questions.questions.length : 0);
         console.log("================================");
 
         return res.json(questions);
 
     } catch (error) {
-
-        console.log(
-            "AI COMPANY QUESTIONS ERROR:",
-            error
-        );
-
-        return res.status(500).json({
-            error: "Unable to generate company questions",
-            details: error.message
-        });
-
+        console.log("AI COMPANY QUESTIONS ERROR:", error.message);
+        try {
+            const { generateCompanyQuestions: fallbackGen } = require("./ai-company-questions");
+            const fallbackQues = await fallbackGen(company, role);
+            return res.json(fallbackQues);
+        } catch (e2) {
+            return res.status(500).json({ error: "Unable to generate company questions" });
+        }
     }
-
 });
+
 // ========================================
 // AI COMPANY PLACEMENT SOLUTIONS
 // ========================================
 
 app.get("/api/generate-company-solutions", async (req, res) => {
-
-    const company =
-        String(req.query.company || "").trim();
-
-    const role =
-        String(req.query.role || "").trim();
+    const company = String(req.query.company || "").trim();
+    const role = String(req.query.role || "").trim();
 
     if (!company || !role) {
         return res.status(400).json({
@@ -1693,102 +1670,35 @@ app.get("/api/generate-company-solutions", async (req, res) => {
     }
 
     try {
-
         console.log("================================");
         console.log("AI COMPANY SOLUTIONS");
         console.log("Company:", company);
         console.log("Role:", role);
 
-        const solutions =
-            await generateCompanySolutions(
-                company,
-                role
-            );
+        const solutions = await generateCompanySolutions(company, role);
 
-        console.log(
-            "AI company solutions generated successfully"
-        );
-
-        console.log(
-            "Solutions:",
-            solutions.solutions.length
-        );
-
+        console.log("AI company solutions generated successfully");
+        console.log("Solutions:", solutions ? solutions.solutions.length : 0);
         console.log("================================");
 
         return res.json(solutions);
 
     } catch (error) {
-
-    console.log(
-        "AI COMPANY SOLUTIONS ERROR:",
-        error.message
-    );
-
-    console.log(
-        "Gemini unavailable. Using fallback solutions."
-    );
-
-    const fallbackSolutions = [
-        {
-            question: "What skills are important for a " + role + " role?",
-            answer: "Programming, problem solving, communication and technical knowledge.",
-            solution:
-                "For a " + role +
-                " role, prepare programming fundamentals, " +
-                "data structures, databases, problem solving " +
-                "and communication skills."
-        },
-
-        {
-            question: "Why is problem solving important for a " + role + " role?",
-            answer: "It helps solve technical problems efficiently.",
-            solution:
-                "Problem solving helps candidates handle coding " +
-                "questions, logical problems and real-world " +
-                "technical situations."
-        },
-
-        {
-            question: "Why are databases important for a " + role + " role?",
-            answer: "Databases store, manage and retrieve data.",
-            solution:
-                "A " + role +
-                " professional should understand SQL, tables, " +
-                "keys, joins and basic database operations."
-        },
-
-        {
-            question: "What is the importance of data structures?",
-            answer: "Data structures organize data efficiently.",
-            solution:
-                "Arrays, linked lists, stacks, queues, trees and " +
-                "hash tables help programs store and process data " +
-                "efficiently."
-        },
-
-        {
-            question: "How should a candidate prepare for a " +
-                company + " " + role + " interview?",
-            answer:
-                "Prepare technical concepts, coding, aptitude and communication.",
-            solution:
-                "Practice coding problems, revise core subjects, " +
-                "study SQL and databases, practice aptitude and " +
-                "prepare technical and HR interview questions."
+        console.log("AI COMPANY SOLUTIONS ERROR:", error.message);
+        try {
+            const { generateCompanySolutions: fallbackGen } = require("./ai-company-solutions");
+            const fallbackSols = await fallbackGen(company, role);
+            return res.json(fallbackSols);
+        } catch (e2) {
+            return res.status(500).json({ error: "Unable to generate company solutions" });
         }
-    ];
-
-    return res.json({
-        company: company,
-        role: role,
-        solutions: fallbackSolutions,
-        source: "fallback"
-    });
-
-}
-
+    }
 });
+
+// ========================================
+// AI COMPANY PLACEMENT QUIZ
+// ========================================
+
 app.get("/api/generate-company-quiz", async (req, res) => {
     const company = String(req.query.company || "").trim();
     const role = String(req.query.role || "").trim();
@@ -1808,107 +1718,23 @@ app.get("/api/generate-company-quiz", async (req, res) => {
         const quiz = await generateCompanyQuiz(company, role);
 
         console.log("AI company quiz generated successfully");
-        console.log("Questions:", quiz.questions.length);
+        console.log("Questions:", quiz ? quiz.questions.length : 0);
         console.log("================================");
 
         return res.json(quiz);
 
     } catch (error) {
-
-        console.log(
-            "AI COMPANY SOLUTIONS ERROR:",
-            error.message
-        );
-
-        console.log(
-            "Gemini unavailable. Using fallback solutions."
-        );
-
-        const fallbackSolutions = [
-            {
-                question:
-                    "What are the important skills required for a " +
-                    role + " role?",
-
-                answer:
-                    "Programming, problem solving, communication, " +
-                    "technical knowledge and database skills.",
-
-                solution:
-                    "For a " + role +
-                    " role, prepare programming fundamentals, " +
-                    "data structures, databases, problem solving, " +
-                    "and communication skills."
-            },
-
-            {
-                question:
-                    "What is the importance of problem solving in a " +
-                    role + " role?",
-
-                answer:
-                    "It helps in solving technical problems efficiently.",
-
-                solution:
-                    "Problem solving is important because placement " +
-                    "tests and interviews commonly check logical " +
-                    "thinking, algorithms and the ability to solve " +
-                    "real-world programming problems."
-            },
-
-            {
-                question:
-                    "Why are databases important for a " +
-                    role + " role?",
-
-                answer:
-                    "Databases are used to store, manage and retrieve data.",
-
-                solution:
-                    "A " + role +
-                    " professional should understand basic database " +
-                    "concepts, SQL queries, tables, keys, joins and " +
-                    "data retrieval."
-            },
-
-            {
-                question:
-                    "What is the role of data structures in programming?",
-
-                answer:
-                    "Data structures organize data efficiently.",
-
-                solution:
-                    "Arrays, linked lists, stacks, queues, trees and " +
-                    "hash tables help programs store and process data " +
-                    "efficiently. They are also common placement interview topics."
-            },
-
-            {
-                question:
-                    "How should a candidate prepare for a " +
-                    company + " " + role + " interview?",
-
-                answer:
-                    "Prepare technical concepts, coding, aptitude and communication.",
-
-                solution:
-                    "The candidate should practice coding problems, " +
-                    "review core technical subjects, study SQL and " +
-                    "databases, practice aptitude questions and prepare " +
-                    "for technical and HR interview questions."
-            }
-        ];
-
-        return res.json({
-            company: company,
-            role: role,
-            solutions: fallbackSolutions,
-            source: "fallback"
-        });
-
+        console.log("AI COMPANY QUIZ ERROR:", error.message);
+        try {
+            const { generateCompanyQuiz: fallbackGen } = require("./ai-company-quiz");
+            const fallbackQuiz = await fallbackGen(company, role);
+            return res.json(fallbackQuiz);
+        } catch (e2) {
+            return res.status(500).json({ error: "Unable to generate company quiz" });
+        }
     }
 });
+
 app.get("/api/firebase-config", (req, res) => {
     try {
         const config = require("./firebase-applet-config.json");

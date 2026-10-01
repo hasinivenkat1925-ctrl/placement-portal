@@ -125,6 +125,93 @@ document.getElementById(
    LOAD AI COMPANY QUESTIONS
 ========================================== */
 
+function getRoleQuestionsFallback(companyName, roleName) {
+    const r = String(roleName || "").toLowerCase();
+    if (r.includes("frontend")) {
+        return [
+            { question: "What is the Virtual DOM and how does React use it?", answer: "A lightweight copy of the real DOM used to calculate minimal diffs during state updates.", explanation: "Tests frontend framework rendering performance." },
+            { question: "Explain event delegation in JavaScript.", answer: "Attaching a single event listener to a parent element to handle events on its child nodes.", explanation: "Tests DOM event propagation and performance." },
+            { question: "What is CORS and how do you resolve it?", answer: "A browser security mechanism restricting cross-origin requests; resolved by configuring Access-Control-Allow-Origin headers.", explanation: "Tests web security and browser APIs." },
+            { question: "Difference between CSS Flexbox and Grid?", answer: "Flexbox is 1-dimensional (rows OR columns); Grid is 2-dimensional (rows AND columns).", explanation: "Tests layout engine mastery." },
+            { question: "What is a closure in JavaScript?", answer: "A function that retains access to its lexical outer scope even after the outer function has executed.", explanation: "Tests core JavaScript execution contexts." },
+            { question: "What is the purpose of useEffect in React?", answer: "Handles side effects like data fetching, DOM mutations, and subscriptions.", explanation: "Tests React lifecycle hook patterns." },
+            { question: "Explain CSS pseudo-classes vs pseudo-elements.", answer: "Pseudo-classes represent element states (:hover); pseudo-elements style specific parts (::before).", explanation: "Tests advanced CSS styling." },
+            { question: "Difference between localStorage and sessionStorage?", answer: "localStorage persists permanently until cleared; sessionStorage cleared when tab closes.", explanation: "Tests browser storage options." },
+            { question: "What is debouncing in JavaScript?", answer: "Delaying function execution until a specified time has elapsed since the last trigger.", explanation: "Tests frontend performance optimizations." },
+            { question: "How to optimize web page loading speed?", answer: "Lazy load assets, compress images, use CDN caching, and minify bundle sizes.", explanation: "Tests web performance engineering." }
+        ];
+    }
+    if (r.includes("data analyst") || r.includes("analyst") || r.includes("bi")) {
+        return [
+            { question: "What is a Window Function in SQL?", answer: "Performs calculations across related rows without collapsing them like GROUP BY.", explanation: "Tests analytical SQL capabilities." },
+            { question: "Difference between INNER JOIN and LEFT JOIN?", answer: "INNER JOIN returns matching rows in both tables; LEFT JOIN returns all rows from left table plus matching right.", explanation: "Tests relational querying basics." },
+            { question: "How do you handle missing values in Pandas?", answer: "Using dropna() to remove rows or fillna() to impute with mean/median/mode.", explanation: "Tests data cleaning workflows." },
+            { question: "What is a Pivot Table in Excel or Pandas?", answer: "A tool to aggregate, sort, count, and summarize raw tabular data.", explanation: "Tests data summarization." },
+            { question: "Explain correlation vs causation.", answer: "Correlation measures statistical relationship between variables; causation proves one variable directly causes change in another.", explanation: "Tests analytical reasoning." },
+            { question: "What is an outlier and how do you detect it?", answer: "An extreme value far from others, detected using boxplots, z-scores, or IQR bounds.", explanation: "Tests statistical anomaly detection." },
+            { question: "Difference between WHERE and HAVING in SQL?", answer: "WHERE filters rows before grouping; HAVING filters aggregate results after GROUP BY.", explanation: "Tests aggregate query filtering." },
+            { question: "What is a dashboard KPI?", answer: "A Key Performance Indicator tracking core business performance metrics visually.", explanation: "Tests business intelligence reporting." },
+            { question: "What is data normalization in databases?", answer: "Structuring tables to remove redundancy and ensure data integrity (1NF, 2NF, 3NF).", explanation: "Tests database design fundamentals." },
+            { question: "How do you optimize a slow running SQL query?", answer: "Create indexes, avoid SELECT *, filter early with WHERE, and analyze execution plans.", explanation: "Tests query performance tuning." }
+        ];
+    }
+    if (r.includes("python")) {
+        return [
+            { question: "What is the Global Interpreter Lock (GIL) in Python?", answer: "A mutex that allows only one thread to execute Python bytecode at a time.", explanation: "Tests Python concurrency mechanics." },
+            { question: "Difference between List and Tuple in Python?", answer: "Lists are mutable; Tuples are immutable and hashable.", explanation: "Tests core Python collection types." },
+            { question: "What is a Python decorator?", answer: "A function that takes another function as an argument and extends its behavior.", explanation: "Tests functional programming concepts." },
+            { question: "Explain Python generators and the 'yield' keyword.", answer: "Generators return an iterator lazily yielding values one at a time to conserve memory.", explanation: "Tests memory efficient iteration." },
+            { question: "Difference between shallow copy and deep copy?", answer: "Shallow copy copies references of nested objects; deep copy recursively duplicates nested objects.", explanation: "Tests object cloning dynamics." },
+            { question: "How is memory managed in Python?", answer: "Using private heaps, reference counting, and a cyclic garbage collector.", explanation: "Tests Python memory internals." },
+            { question: "What are list comprehensions?", answer: "A concise, C-optimized syntax to create lists in a single line.", explanation: "Tests Pythonic syntax patterns." },
+            { question: "What is the difference between *args and **kwargs?", answer: "*args passes variable non-keyword arguments; **kwargs passes keyword arguments as a dictionary.", explanation: "Tests function argument flexibility." },
+            { question: "How do you handle exceptions in Python?", answer: "Using try, except, else, and finally blocks.", explanation: "Tests robust error handling." },
+            { question: "What is Virtual Environment (venv) in Python?", answer: "An isolated runtime directory containing specific package dependency versions.", explanation: "Tests project environment management." }
+        ];
+    }
+    if (r.includes("backend")) {
+        return [
+            { question: "What is database connection pooling?", answer: "Reusing active DB connections from a pool to reduce connection creation overhead.", explanation: "Tests backend scalability." },
+            { question: "Difference between SQL and NoSQL databases?", answer: "SQL is relational, structured, and ACID compliant; NoSQL is non-relational, schema-flexible, and horizontally scalable.", explanation: "Tests data storage selection." },
+            { question: "Explain REST API idempotency.", answer: "An operation is idempotent if executing it multiple times produces the exact same outcome (e.g. GET, PUT, DELETE).", explanation: "Tests RESTful architecture principles." },
+            { question: "What is a message queue (e.g. Kafka, RabbitMQ)?", answer: "An asynchronous buffer that decouples producers and consumers in microservices.", explanation: "Tests distributed systems design." },
+            { question: "What is database indexing and why is it used?", answer: "A B-tree structure that speeds up query retrieval at the cost of slower writes.", explanation: "Tests database performance optimization." },
+            { question: "How do you secure REST APIs?", answer: "Use HTTPS, JWT/OAuth authentication, rate limiting, and input sanitization.", explanation: "Tests backend security controls." },
+            { question: "What is ACID in database transactions?", answer: "Atomicity, Consistency, Isolation, and Durability.", explanation: "Tests database transaction guarantees." },
+            { question: "What is the N+1 query problem?", answer: "Executing 1 query for parent records plus N queries for associated child records.", explanation: "Tests ORM query efficiency." },
+            { question: "Difference between horizontal and vertical scaling?", answer: "Horizontal adds more server nodes; vertical adds RAM/CPU to an existing node.", explanation: "Tests infrastructure scaling." },
+            { question: "What is cache invalidation?", answer: "Declaring cached entries stale so fresh data is loaded from the database.", explanation: "Tests caching strategies." }
+        ];
+    }
+    if (r.includes("devops") || r.includes("sre")) {
+        return [
+            { question: "What is Infrastructure as Code (IaC)?", answer: "Managing cloud infrastructure using code configurations (e.g. Terraform, Ansible).", explanation: "Tests infrastructure automation." },
+            { question: "Difference between Virtual Machines and Docker Containers?", answer: "VMs virtualize hardware and guest OS; Containers share host OS kernel and virtualize user space.", explanation: "Tests virtualization vs containerization." },
+            { question: "What is CI/CD?", answer: "Continuous Integration automates builds/tests; Continuous Deployment automates production releases.", explanation: "Tests deployment automation pipelines." },
+            { question: "Explain Blue-Green deployment strategy.", answer: "Maintaining two identical environments; switching router traffic to the new Green version instantly.", explanation: "Tests zero-downtime release strategies." },
+            { question: "What is Kubernetes and why is it used?", answer: "An open-source container orchestration platform that automates scaling, routing, and container failovers.", explanation: "Tests container cluster management." },
+            { question: "What is Prometheus used for?", answer: "Monitoring system metrics and storing time-series telemetry data.", explanation: "Tests production observability." },
+            { question: "How do you handle secrets in DevOps pipelines?", answer: "Using Vaults (AWS Secrets Manager, HashiCorp Vault) passed dynamically at runtime.", explanation: "Tests pipeline security." },
+            { question: "What is a reverse proxy?", answer: "A server placed in front of backend instances handling SSL termination, load balancing, and routing.", explanation: "Tests network gateway architectures." },
+            { question: "What is Canary deployment?", answer: "Rolling out changes to a small subset of users first to verify stability before full release.", explanation: "Tests release risk management." },
+            { question: "What is GitOps?", answer: "Using Git repositories as the single source of truth for declarative infrastructure and app state.", explanation: "Tests modern deployment paradigms." }
+        ];
+    }
+    // Default Software Developer / SDE
+    return [
+        { question: "How would you design a rate limiter for an API?", answer: "Using Token Bucket, Leaky Bucket, or Fixed Window Counter algorithm with Redis.", explanation: "Tests system design and API optimization." },
+        { question: "Difference between Dynamic Programming and Memoization?", answer: "DP is a general optimization technique; memoization is the top-down recursive caching approach.", explanation: "Tests algorithm design and optimization." },
+        { question: "Explain the CAP theorem in distributed systems.", answer: "A distributed system can guarantee at most two: Consistency, Availability, or Partition Tolerance.", explanation: "Tests distributed database trade-offs." },
+        { question: "What is the difference between a process and a thread?", answer: "A process has isolated memory space; a thread is a lightweight execution unit sharing process memory.", explanation: "Tests OS concurrency basics." },
+        { question: "How does a B-tree index differ from a Hash index?", answer: "B-tree supports range queries in O(log N); Hash index supports O(1) exact equality lookups.", explanation: "Tests database indexing." },
+        { question: "Difference between TCP and UDP?", answer: "TCP is connection-oriented and reliable; UDP is connectionless and fast.", explanation: "Tests networking layers." },
+        { question: "How do you detect a cycle in a directed graph?", answer: "Using DFS recursion stack or Kahn's algorithm (indegree BFS).", explanation: "Tests graph traversal algorithms." },
+        { question: "Explain optimistic vs pessimistic locking.", answer: "Optimistic verifies changes on write using versioning; pessimistic locks records immediately on read.", explanation: "Tests database concurrency control." },
+        { question: "What is a memory leak and how do you prevent it?", answer: "Unused memory that is not freed; prevented using smart pointers, GC, and profiling.", explanation: "Tests memory management." },
+        { question: "Difference between Mutex and Semaphore?", answer: "Mutex is a binary lock for single thread access; Semaphore is a counter signal for multi-thread access.", explanation: "Tests low-level synchronization." }
+    ];
+}
+
 async function loadQuestions() {
 
     const container =
@@ -254,7 +341,7 @@ async function loadQuestions() {
                 (q.company && q.company.toLowerCase() === company.toLowerCase()) ||
                 (q.role && q.role.toLowerCase() === role.toLowerCase())
             );
-            const list = filtered.length > 0 ? filtered : staticQuestions.slice(0, 10);
+            const list = filtered.length > 0 ? filtered : getRoleQuestionsFallback(company, role);
             
             container.innerHTML = "";
             const total = document.createElement("h3");

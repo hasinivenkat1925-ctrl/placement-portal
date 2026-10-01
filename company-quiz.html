@@ -353,8 +353,65 @@ async function loadQuestions() {
 
     }
 
+function getRoleQuizFallback(companyName, roleName) {
+    const r = String(roleName || "").toLowerCase();
+    if (r.includes("frontend")) {
+        return [
+            { question: "Which CSS display property initializes a flexbox container layout?", options: ["flex", "block-flex", "grid", "inline-grid"], answer: "flex", explanation: "`display: flex;` initializes the flexbox layout context on an element." },
+            { question: "In modern JavaScript, what is the variable scope of 'const'?", options: ["Block scope", "Function scope", "Global scope", "Lexical scope only"], answer: "Block scope", explanation: "Variables declared with `let` and `const` are scoped to the block `{}`." },
+            { question: "Which React hook is used to trigger asynchronous side effects?", options: ["useEffect", "useState", "useMemo", "useContext"], answer: "useEffect", explanation: "The `useEffect` hook manages asynchronous side effects like data fetching and subscriptions." },
+            { question: "Which HTTP header is configured to allow cross-origin requests?", options: ["Access-Control-Allow-Origin", "Content-Security-Policy", "Authorization", "X-Frame-Options"], answer: "Access-Control-Allow-Origin", explanation: "This header specifies which origins are permitted to access the server's resource." },
+            { question: "Which DOM method retrieves a single element by its ID?", options: ["getElementById", "querySelector", "getElementsByClassName", "querySelectorAll"], answer: "getElementById", explanation: "`document.getElementById()` retrieves a single element matching the unique ID." }
+        ];
+    }
+    if (r.includes("data analyst") || r.includes("analyst") || r.includes("bi")) {
+        return [
+            { question: "Which Excel tool summarizes and aggregates large tabular datasets?", options: ["Pivot Table", "VLOOKUP", "Conditional Formatting", "Data Validation"], answer: "Pivot Table", explanation: "Pivot Tables allow rapid grouping, summation, and cross-tabulation of dataset records." },
+            { question: "Which SQL clause is used to filter records after aggregation?", options: ["HAVING", "WHERE", "ORDER BY", "GROUP BY"], answer: "HAVING", explanation: "The HAVING clause filters aggregate records produced by GROUP BY." },
+            { question: "What does a correlation coefficient of -1 indicate?", options: ["Perfect negative relationship", "No relationship", "Perfect positive relationship", "High data variance"], answer: "Perfect negative relationship", explanation: "An 'r' of -1 represents a perfect negative linear correlation." },
+            { question: "Which SQL aggregate function calculates the mean of a numeric column?", options: ["AVG()", "MEAN()", "SUM() / COUNT()", "MEDIAN()"], answer: "AVG()", explanation: "The AVG() function returns the arithmetic mean of numeric values." },
+            { question: "Which chart is best suited for showing continuous data distribution frequencies?", options: ["Histogram", "Bar Chart", "Line Chart", "Scatter Plot"], answer: "Histogram", explanation: "Histograms group continuous data into bin ranges to show frequency distributions." }
+        ];
+    }
+    if (r.includes("python")) {
+        return [
+            { question: "Which built-in Python data sequence type is immutable?", options: ["Tuple", "List", "Dictionary", "Set"], answer: "Tuple", explanation: "Tuples are immutable; their elements cannot be modified after creation." },
+            { question: "Which keyword is used to pause function execution and return a generator?", options: ["yield", "return", "lambda", "global"], answer: "yield", explanation: "The `yield` keyword converts a function into a generator iterator." },
+            { question: "Which built-in function returns the total number of items in a Python collection?", options: ["len()", "count()", "size()", "length()"], answer: "len()", explanation: "`len()` returns the count of items in any sequence or mapping." },
+            { question: "Which block handles runtime exceptions in Python?", options: ["try-except", "try-catch", "throw-catch", "try-finally"], answer: "try-except", explanation: "Python uses `try` and `except` blocks to handle script exceptions gracefully." },
+            { question: "Which function deserializes a JSON string into a Python dictionary?", options: ["json.loads()", "json.dumps()", "json.load()", "json.dump()"], answer: "json.loads()", explanation: "`json.loads()` converts a JSON string into Python dictionaries or lists." }
+        ];
+    }
+    if (r.includes("backend")) {
+        return [
+            { question: "Which HTTP status code signifies successful creation of a new resource?", options: ["201 Created", "200 OK", "301 Moved Permanently", "400 Bad Request"], answer: "201 Created", explanation: "201 Created indicates the request succeeded and resulted in a new resource." },
+            { question: "What is the primary purpose of database indexes?", options: ["Speed up query retrieval", "Encrypt stored data", "Enforce foreign keys", "Compress table size"], answer: "Speed up query retrieval", explanation: "Indexes build search data structures (B-trees) to execute queries faster." },
+            { question: "Which architectural style uses Protocol Buffers over HTTP/2?", options: ["gRPC", "REST", "GraphQL", "SOAP"], answer: "gRPC", explanation: "gRPC uses binary Protocol Buffers and HTTP/2 multiplexed streams." },
+            { question: "Which HTTP method is idempotent and replaces an entire target resource payload?", options: ["PUT", "POST", "PATCH", "DELETE"], answer: "PUT", explanation: "PUT requests are idempotent; repeating the exact call yields the same result." },
+            { question: "What is a major symptom of database connection pool exhaustion?", options: ["API request timeout", "Database corruption", "SSL handshake error", "Data replication drift"], answer: "API request timeout", explanation: "When pool connections are exhausted, incoming requests block until timing out." }
+        ];
+    }
+    if (r.includes("devops") || r.includes("sre")) {
+        return [
+            { question: "What is the primary benefit of Infrastructure as Code (IaC)?", options: ["Repeatable automated infrastructure deployments", "Faster CPU performance", "Encrypted database tables", "Free cloud hosting"], answer: "Repeatable automated infrastructure deployments", explanation: "IaC manages infrastructure using configuration files, eliminating manual errors." },
+            { question: "What is the primary difference between VMs and Docker Containers?", options: ["Containers share host OS kernel; VMs run full guest OS", "VMs are faster than containers", "Containers require hypervisors", "VMs run only on Linux"], answer: "Containers share host OS kernel; VMs run full guest OS", explanation: "Containers virtualize user space, sharing the underlying OS kernel for speed." },
+            { question: "Which open-source platform orchestrates containerized applications at scale?", options: ["Kubernetes", "Docker Engine", "Jenkins", "Ansible"], answer: "Kubernetes", explanation: "Kubernetes automates deployment, scaling, and management of container clusters." },
+            { question: "Which tool collects and stores time-series metric data for monitoring?", options: ["Prometheus", "Grafana", "GitLab", "Terraform"], answer: "Prometheus", explanation: "Prometheus scrapes and stores real-time telemetry metrics." },
+            { question: "Which deployment strategy switches active user traffic between identical environments?", options: ["Blue-Green deployment", "Rolling update", "Canary release", "Shadow deployment"], answer: "Blue-Green deployment", explanation: "Blue-Green deployment switches router target from active Blue to new Green." }
+        ];
+    }
+    // Default SDE / Software Developer
+    return [
+        { question: "Which data structure operates on a Last In First Out (LIFO) basis?", options: ["Stack", "Queue", "Array", "Linked List"], answer: "Stack", explanation: "A stack is a linear data structure that stores items in a Last-In, First-Out (LIFO) manner." },
+        { question: "What is the average time complexity of searching in a Hash Table?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], answer: "O(1)", explanation: "With a good hash function, the average time complexity for Hash Table lookups is constant O(1)." },
+        { question: "Which sorting algorithm guarantees a worst-case time complexity of O(n log n)?", options: ["Merge Sort", "Bubble Sort", "Quick Sort", "Insertion Sort"], answer: "Merge Sort", explanation: "Merge Sort consistently splits the array in half and merges, guaranteeing O(n log n) even in the worst case." },
+        { question: "Which process state represents waiting for a CPU scheduler execution turn?", options: ["Ready", "Running", "Blocked", "Terminated"], answer: "Ready", explanation: "A process in the 'Ready' state is completely loaded in main memory and waiting for the CPU scheduler." },
+        { question: "In the OSI model, which layer manages IP addressing and packet routing?", options: ["Network Layer", "Transport Layer", "Data Link Layer", "Physical Layer"], answer: "Network Layer", explanation: "The Network Layer handles IP addressing, routing tables, and routing packets between nodes." }
+    ];
+}
+
     catch (error) {
-        console.warn("Backend quiz unavailable, loading questions.json fallback:", error);
+        console.warn("Backend quiz unavailable, loading role-tailored fallback:", error);
         try {
             const staticRes = await fetch("questions.json");
             const staticData = await staticRes.json();
@@ -362,53 +419,32 @@ async function loadQuestions() {
                 (q.company && q.company.toLowerCase() === company.toLowerCase()) ||
                 (q.role && q.role.toLowerCase() === role.toLowerCase())
             );
-            const sourceList = filtered.length > 0 ? filtered : staticData;
-            questions = sourceList.slice(0, 5).map(q => ({
-                question: q.question,
-                options: [
-                    q.answer,
-                    `Incorrect alternative implementation pattern`,
-                    `Deprecated legacy approach`,
-                    `Randomized linear brute-force scan`
-                ].sort(() => Math.random() - 0.5),
-                answer: q.answer,
-                explanation: q.explanation || "Detailed placement question solution."
-            }));
+            if (filtered.length > 0) {
+                questions = filtered.slice(0, 5).map(q => ({
+                    question: q.question,
+                    options: [
+                        q.answer,
+                        `Incorrect alternative implementation pattern`,
+                        `Deprecated legacy approach`,
+                        `Randomized linear brute-force scan`
+                    ].sort(() => Math.random() - 0.5),
+                    answer: q.answer,
+                    explanation: q.explanation || "Detailed placement question solution."
+                }));
+            } else {
+                questions = getRoleQuizFallback(company, role);
+            }
             
             selectedAnswers = new Array(questions.length).fill(null);
             displayQuestion();
             startTimer();
         } catch (fallbackErr) {
-            questions = [
-                {
-                    question: `What is the most effective approach to system scalability in ${company} technical interviews for ${role}?`,
-                    options: [
-                        `Modular microservice architecture with caching and indexing`,
-                        `Single monolithic thread with no exception handling`,
-                        `Direct synchronous disk writes on every user request`,
-                        `Disabling all database transactions`
-                    ],
-                    answer: `Modular microservice architecture with caching and indexing`,
-                    explanation: `System scalability requires modular decoupling, efficient caching, and database index optimization.`
-                },
-                {
-                    question: `Which data structure provides optimal O(1) average lookup complexity?`,
-                    options: [
-                        `Hash Table / HashMap`,
-                        `Singly Linked List`,
-                        `Unsorted Linear Array`,
-                        `Binary Search Tree in worst-case degenerate form`
-                    ],
-                    answer: `Hash Table / HashMap`,
-                    explanation: `Hash tables use hash functions to index buckets, delivering O(1) average case lookup time.`
-                }
-            ];
+            questions = getRoleQuizFallback(company, role);
             selectedAnswers = new Array(questions.length).fill(null);
             displayQuestion();
             startTimer();
         }
     }
-
 }
 
 
