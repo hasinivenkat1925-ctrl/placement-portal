@@ -102,4 +102,28 @@
             <option value="Software Developer">Software Developer</option>
             <option value="Java Developer">Java Developer</option>
             <option value="Data Analyst">Data Analyst</option>
-        </
+        </select>
+
+        <br>
+
+        <button onclick="startPreparation('Wipro', 'wiproRole')">
+            Start Preparation
+        </button>
+    </div>
+
+</div>
+
+<script>
+    function startPreparation(companyName, roleSelectId) {
+        const roleSelect = document.getElementById(roleSelectId);
+        const roleName = roleSelect ? roleSelect.value : "Software Developer";
+
+        localStorage.setItem("selectedCompany", companyName);
+        localStorage.setItem("selectedRole", roleName);
+
+        window.location.href = "preparation.html?company=" + encodeURIComponent(companyName) + "&role=" + encodeURIComponent(roleName);
+    }
+</script>
+
+</body>
+</html>
