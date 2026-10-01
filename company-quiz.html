@@ -289,67 +289,8 @@ document.getElementById(
 
 
 // ==========================================
-// LOAD QUESTIONS
+// ROLE QUIZ FALLBACK
 // ==========================================
-
-async function loadQuestions() {
-
-    try {
-
-        if (!company || !role) {
-
-            document.getElementById(
-                "quizContainer"
-            ).innerHTML =
-                "<h3>⚠️ Company or role missing.</h3>";
-
-            return;
-        }
-
-        document.getElementById(
-            "quizContainer"
-        ).innerHTML =
-            "<h3>🤖 Generating AI Quiz...</h3>" +
-            "<p>Please wait while Gemini prepares your questions.</p>";
-
-        const response =
-            await fetch(
-                "/api/generate-company-quiz?company=" +
-                encodeURIComponent(company) +
-                "&role=" +
-                encodeURIComponent(role)
-            );
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Unable to generate AI quiz"
-            );
-
-        }
-
-        const data =
-            await response.json();
-
-        questions =
-            data.questions || [];
-
-        selectedAnswers =
-            new Array(
-                questions.length
-            ).fill(null);
-
-        if (questions.length > 0) {
-            displayQuestion();
-            startTimer();
-        } else {
-            questions = getRoleQuizFallback(company, role);
-            selectedAnswers = new Array(questions.length).fill(null);
-            displayQuestion();
-            startTimer();
-        }
-
-    }
 
 function getRoleQuizFallback(companyName, roleName) {
     const r = String(roleName || "").toLowerCase();
@@ -408,41 +349,81 @@ function getRoleQuizFallback(companyName, roleName) {
     ];
 }
 
-    catch (error) {
-        console.warn("Backend quiz unavailable, loading role-tailored fallback:", error);
-        try {
-            const staticRes = await fetch("questions.json");
+
+// ==========================================
+// LOAD QUESTIONS
+// ==========================================
+
+async function loadQuestions() {
+    if (!company || !role) {
+        document.getElementById("quizContainer").innerHTML = "<h3>⚠️ Company or role missing.</h3>";
+        return;
+    }
+
+    document.getElementById("quizContainer").innerHTML =
+        "<h3>🤖 Preparing Company Placement Quiz...</h3>" +
+        "<p>Please wait while your quiz is generated.</p>";
+
+    // 1. Try backend API first
+    try {
+        const response = await fetch(
+            "/api/generate-company-quiz?company=" +
+            encodeURIComponent(company) +
+            "&role=" +
+            encodeURIComponent(role)
+        );
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data && Array.isArray(data.questions) && data.questions.length > 0) {
+                questions = data.questions;
+                selectedAnswers = new Array(questions.length).fill(null);
+                displayQuestion();
+                startTimer();
+                return;
+            }
+        }
+    } catch (e) {
+        console.warn("Backend API call failed, falling back to static questions:", e);
+    }
+
+    // 2. Try local questions.json
+    try {
+        const staticRes = await fetch("questions.json");
+        if (staticRes.ok) {
             const staticData = await staticRes.json();
-            const filtered = staticData.filter(q => 
+            const filtered = staticData.filter(q =>
                 (q.company && q.company.toLowerCase() === company.toLowerCase()) &&
                 (q.role && q.role.toLowerCase() === role.toLowerCase())
             );
+
             if (filtered.length > 0) {
-                questions = filtered.slice(0, 5).map(q => ({
+                questions = filtered.slice(0, 10).map(q => ({
                     question: q.question,
-                    options: [
+                    options: q.options || [
                         q.answer,
-                        `Incorrect alternative implementation pattern`,
-                        `Deprecated legacy approach`,
-                        `Randomized linear brute-force scan`
+                        "Incorrect alternative pattern",
+                        "Deprecated legacy approach",
+                        "Brute-force scan"
                     ].sort(() => Math.random() - 0.5),
                     answer: q.answer,
-                    explanation: q.explanation || "Detailed placement question solution."
+                    explanation: q.explanation || ("Placement preparation solution for " + company + " - " + role)
                 }));
-            } else {
-                questions = getRoleQuizFallback(company, role);
+                selectedAnswers = new Array(questions.length).fill(null);
+                displayQuestion();
+                startTimer();
+                return;
             }
-            
-            selectedAnswers = new Array(questions.length).fill(null);
-            displayQuestion();
-            startTimer();
-        } catch (fallbackErr) {
-            questions = getRoleQuizFallback(company, role);
-            selectedAnswers = new Array(questions.length).fill(null);
-            displayQuestion();
-            startTimer();
         }
+    } catch (e2) {
+        console.warn("questions.json fetch failed:", e2);
     }
+
+    // 3. Guaranteed role-based fallback
+    questions = getRoleQuizFallback(company, role);
+    selectedAnswers = new Array(questions.length).fill(null);
+    displayQuestion();
+    startTimer();
 }
 
 
