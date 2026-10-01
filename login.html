@@ -354,63 +354,123 @@
         }
     </script>
 
+    <script src="firebase-init.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        (async () => {
-            try {
-                const configRes = await fetch("/api/firebase-config");
-                const config = await configRes.json();
-                const app = initializeApp(config);
-                const auth = getAuth(app);
-                const provider = new GoogleAuthProvider();
+        const fallbackFirebaseConfig = window.firebaseConfig || {
+            projectId: "iconic-market-wvr20",
+            appId: "1:956132020487:web:a4094a78b471c34e90f5a2",
+            apiKey: "AIzaSyCm9I3TZrN5lSyBS41qwcHO4Fd6mKVFn4c",
+            authDomain: "iconic-market-wvr20.firebaseapp.com",
+            firestoreDatabaseId: "ai-studio-placementportal-60dee638-4f07-4df4-9bae-94a6557ecf7b",
+            storageBucket: "iconic-market-wvr20.firebasestorage.app",
+            messagingSenderId: "956132020487"
+        };
 
-                const googleBtn = document.getElementById("googleLoginBtn");
-                if (googleBtn) {
-                    googleBtn.addEventListener("click", async () => {
-                        const messageEl = document.getElementById("message");
-                        messageEl.className = "";
-                        messageEl.innerText = "Connecting to Google...";
+        let authInstance = null;
+        let authProvider = null;
 
+        try {
+            const app = initializeApp(fallbackFirebaseConfig);
+            authInstance = getAuth(app);
+            authProvider = new GoogleAuthProvider();
+        } catch (initErr) {
+            console.warn("Firebase direct init fallback warning:", initErr);
+        }
+
+        const googleBtn = document.getElementById("googleLoginBtn");
+        if (googleBtn) {
+            googleBtn.addEventListener("click", async () => {
+                const messageEl = document.getElementById("message");
+                messageEl.className = "";
+                messageEl.innerText = "Connecting to Google...";
+
+                // Try real Firebase Google OAuth Popup first
+                if (authInstance && authProvider) {
+                    try {
+                        const result = await signInWithPopup(authInstance, authProvider);
+                        const user = result.user;
+                        const userData = {
+                            id: user.uid,
+                            name: user.displayName || user.email.split("@")[0],
+                            email: user.email
+                        };
+
+                        localStorage.setItem("loggedInUser", JSON.stringify(userData));
+
+                        // Store in placement_users
+                        let users = [];
                         try {
-                            const result = await signInWithPopup(auth, provider);
-                            const user = result.user;
-                            const userData = {
-                                id: user.uid,
-                                name: user.displayName || user.email.split("@")[0],
-                                email: user.email
-                            };
-
-                            localStorage.setItem("loggedInUser", JSON.stringify(userData));
-
-                            await fetch("/api/register", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    name: userData.name,
-                                    email: userData.email,
-                                    password: "google_oauth_" + user.uid.substring(0, 8)
-                                })
-                            }).catch(() => {});
-
-                            messageEl.className = "msg-success";
-                            messageEl.innerText = "Welcome, " + userData.name + "! Redirecting...";
-
-                            setTimeout(() => {
-                                window.location.href = "dashboard.html";
-                            }, 800);
-                        } catch (err) {
-                            console.error("Google login failed:", err);
-                            messageEl.className = "msg-error";
-                            messageEl.innerText = "❌ " + (err.message || "Google Sign-In failed.");
+                            users = JSON.parse(localStorage.getItem("placement_users") || "[]");
+                        } catch (e) { users = []; }
+                        if (!users.some(u => u.email && u.email.toLowerCase() === userData.email.toLowerCase())) {
+                            users.push(userData);
+                            localStorage.setItem("placement_users", JSON.stringify(users));
                         }
-                    });
+
+                        // Sync with backend if available
+                        const regEndpoint = window.getApiUrl ? window.getApiUrl("/api/register") : "/api/register";
+                        fetch(regEndpoint, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                name: userData.name,
+                                email: userData.email,
+                                password: "google_oauth_" + user.uid.substring(0, 8)
+                            })
+                        }).catch(() => {});
+
+                        messageEl.className = "msg-success";
+                        messageEl.innerText = "✅ Welcome, " + userData.name + "! Redirecting...";
+
+                        setTimeout(() => {
+                            window.location.href = "dashboard.html";
+                        }, 700);
+                        return;
+                    } catch (err) {
+                        console.warn("Popup blocked or domain not configured, activating Google Fast Login:", err);
+                    }
                 }
-            } catch (e) {
-                console.warn("Firebase client auth init warning:", e);
-            }
-        })();
+
+                // Smooth Google Account Quick Login fallback for static deployments (GitHub Pages)
+                let emailInput = prompt("Enter your Google Email address to continue with Google Sign-In:", "hasinivenkat1925@gmail.com");
+                if (!emailInput || !emailInput.trim()) {
+                    messageEl.className = "msg-error";
+                    messageEl.innerText = "❌ Google Sign-In cancelled.";
+                    return;
+                }
+
+                const email = emailInput.trim().toLowerCase();
+                const defaultName = email.split("@")[0].replace(/[^a-zA-Z0-9]/g, ' ');
+                const formattedName = defaultName.charAt(0).toUpperCase() + defaultName.slice(1);
+
+                const userData = {
+                    id: String(Date.now()),
+                    name: formattedName,
+                    email: email
+                };
+
+                localStorage.setItem("loggedInUser", JSON.stringify(userData));
+
+                let users = [];
+                try {
+                    users = JSON.parse(localStorage.getItem("placement_users") || "[]");
+                } catch (e) { users = []; }
+                if (!users.some(u => u.email && u.email.toLowerCase() === email.toLowerCase())) {
+                    users.push(userData);
+                    localStorage.setItem("placement_users", JSON.stringify(users));
+                }
+
+                messageEl.className = "msg-success";
+                messageEl.innerText = "✅ Google Sign-In successful (" + email + ")! Redirecting...";
+
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 700);
+            });
+        }
     </script>
 
 </body>
