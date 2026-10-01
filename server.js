@@ -640,6 +640,7 @@ app.post(["/register", "/api/register"], async (req, res) => {
 // GET ALL STUDENTS
 app.get("/api/admin/students", async (req, res) => {
     console.log("Fetching students (admin/students)");
+    res.header("Access-Control-Allow-Origin", "*");
     try {
         let allStudents = [];
         const studentMap = new Map();
@@ -1096,6 +1097,7 @@ app.post("/api/performance", async (req, res) => {
 // ========================================
 // GET ALL PERFORMANCE
 app.get("/api/performance", async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     try {
         const perfMap = new Map();
 
