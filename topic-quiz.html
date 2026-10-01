@@ -1563,77 +1563,52 @@ async function finishQuiz() {
 
 
     // =====================================
-    // SAVE PERFORMANCE TO BACKEND
+    // SAVE PERFORMANCE TO LOCAL STORAGE & BACKEND
     // =====================================
+
+    const perfRecord = {
+        id: String(Date.now()),
+        email: studentEmail,
+        student: studentEmail.split("@")[0],
+        type: "Topic Quiz",
+        company: company,
+        role: role,
+        topic: topic,
+        score: score,
+        percentage: percentage,
+        correct: score,
+        wrong: wrongAnswers,
+        unanswered: unanswered,
+        date: new Date().toISOString(),
+        displayDate: new Date().toLocaleString()
+    };
+
+    try {
+        let localPerf = JSON.parse(localStorage.getItem("placement_performance") || "[]");
+        localPerf.unshift(perfRecord);
+        localStorage.setItem("placement_performance", JSON.stringify(localPerf));
+    } catch (e) {
+        console.warn("LocalStorage performance error:", e);
+    }
 
     try {
 
         const perfEndpoint = window.getApiUrl ? window.getApiUrl("/api/performance") : "/api/performance";
-        const response =
-            await fetch(
-                perfEndpoint,
-                {
-                    method: "POST",
+        fetch(perfEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(perfRecord)
+        }).then(res => res.json()).then(data => {
+            console.log("Topic quiz performance synced:", data);
+        }).catch(err => {
+            console.log("Backend sync skipped, stored locally:", err);
+        });
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+    } catch (error) {
 
-                    body: JSON.stringify({
-
-                        email:
-                            studentEmail,
-
-                        type:
-                            "Topic Quiz",
-
-                        company:
-                            company,
-
-                        role:
-                            role,
-
-                        topic:
-                            topic,
-
-                        score:
-                            score,
-
-                        percentage:
-                            percentage,
-
-                        correct:
-                            score,
-
-                        wrong:
-                            wrongAnswers,
-
-                        unanswered:
-                            unanswered
-
-                    })
-
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "Topic Quiz performance saved:",
-            data
-        );
-
-    }
-    catch (error) {
-
-        console.log(
-            "Topic Quiz performance save error:",
-            error
-        );
+        console.log("Unable to save performance to backend:", error);
 
     }
 

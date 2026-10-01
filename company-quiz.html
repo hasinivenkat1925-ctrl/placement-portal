@@ -1167,88 +1167,52 @@ async function submitQuiz() {
 
 
     // ======================================
-    // SAVE RESULT TO BACKEND
+    // SAVE RESULT TO CENTRAL LOCAL STORAGE & BACKEND
     // ======================================
+
+    const perfRecord = {
+        id: String(Date.now()),
+        email: currentUser.email,
+        student: currentUser.name || currentUser.email.split("@")[0],
+        type: "Company Quiz",
+        company: company,
+        role: role,
+        topic: "-",
+        score: score,
+        percentage: percentage,
+        correct: score,
+        wrong: wrongAnswers,
+        unanswered: unanswered,
+        date: new Date().toISOString(),
+        displayDate: new Date().toLocaleString()
+    };
+
+    try {
+        let localPerf = JSON.parse(localStorage.getItem("placement_performance") || "[]");
+        localPerf.unshift(perfRecord);
+        localStorage.setItem("placement_performance", JSON.stringify(localPerf));
+    } catch (e) {
+        console.warn("LocalStorage performance error:", e);
+    }
 
     try {
 
         const perfEndpoint = window.getApiUrl ? window.getApiUrl("/api/performance") : "/api/performance";
-        const response =
-            await fetch(
-                perfEndpoint,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            email:
-                                currentUser.email,
-
-                            type:
-                                "Company Quiz",
-
-                            company:
-                                company,
-
-                            role:
-                                role,
-
-                            score:
-                                score,
-
-                            percentage:
-                                percentage,
-
-                            correct:
-                                score,
-
-                            wrong:
-                                wrongAnswers,
-
-                            unanswered:
-                                unanswered
-
-                        })
-
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (response.ok) {
-
-            console.log(
-                "Company quiz performance saved:",
-                data
-            );
-
-        }
-
-        else {
-
-            console.log(
-                "Performance save failed:",
-                data
-            );
-
-        }
-
+        fetch(perfEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(perfRecord)
+        }).then(res => res.json()).then(data => {
+            console.log("Company quiz performance synced:", data);
+        }).catch(err => {
+            console.log("Backend sync skipped, stored locally:", err);
+        });
 
     } catch (error) {
 
-        console.log(
-            "Unable to save performance:",
-            error
-        );
+        console.log("Unable to save performance to backend:", error);
 
     }
 

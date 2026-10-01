@@ -637,6 +637,31 @@
         "true"
     );
 
+    const perfRecord = {
+        id: String(Date.now()),
+        email: studentEmail,
+        student: studentEmail.split("@")[0],
+        type: "HR Interview",
+        company: company,
+        role: role,
+        topic: "-",
+        score: 1,
+        percentage: 100,
+        correct: 1,
+        wrong: 0,
+        unanswered: 0,
+        date: new Date().toISOString(),
+        displayDate: new Date().toLocaleString()
+    };
+
+    try {
+        let localPerf = JSON.parse(localStorage.getItem("placement_performance") || "[]");
+        localPerf.unshift(perfRecord);
+        localStorage.setItem("placement_performance", JSON.stringify(localPerf));
+    } catch (e) {
+        console.warn("LocalStorage performance error:", e);
+    }
+
     // Save HR Interview performance to backend
     const perfEndpoint = window.getApiUrl ? window.getApiUrl("/api/performance") : "/api/performance";
     fetch(perfEndpoint, {
@@ -644,18 +669,7 @@
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-            email: studentEmail,
-            type: "HR Interview",
-            company: company,
-            role: role,
-            topic: "",
-            score: 1,
-            percentage: 100,
-            correct: 1,
-            wrong: 0,
-            unanswered: 0
-        })
+        body: JSON.stringify(perfRecord)
     })
     .then(function(response) {
         return response.json();
