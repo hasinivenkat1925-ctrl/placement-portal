@@ -6,10 +6,48 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
+        body {
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #1f2937;
+        }
+
         .question-box {
-            margin-bottom: 30px;
-            padding: 15px;
-            border-bottom: 1px solid #ccc;
+            background: white;
+            margin-bottom: 25px;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .question-box h3 {
+            color: #1e3a8a;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .answer-box {
+            background: #ecfdf5;
+            color: #065f46;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            border: 1px solid #a7f3d0;
+        }
+
+        .explanation-box {
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+            line-height: 1.6;
+            font-size: 15px;
+            margin-top: 10px;
         }
 
         .option {
@@ -176,29 +214,29 @@ async function loadQuestions() {
 
 
                 const answer =
-                    document.createElement("p");
+                    document.createElement("div");
+
+                answer.className = "answer-box";
 
                 answer.innerHTML =
-                    "<strong>✅ Answer:</strong> " +
+                    "✅ <strong>Answer:</strong> " +
                     item.answer;
 
                 box.appendChild(answer);
 
 
+                const expText = item.explanation || item.solution || ("This question was previously asked in " + company + " placement drive for the " + role + " position to evaluate core domain concepts and technical competence.");
+
                 const explanation =
-                    document.createElement("p");
+                    document.createElement("div");
+
+                explanation.className = "explanation-box";
 
                 explanation.innerHTML =
-                    "<strong>💡 Explanation:</strong> " +
-                    item.explanation;
+                    "💡 <strong>Explanation:</strong> " +
+                    expText;
 
                 box.appendChild(explanation);
-
-
-                const separator =
-                    document.createElement("hr");
-
-                box.appendChild(separator);
 
                 container.appendChild(box);
 
@@ -236,15 +274,18 @@ async function loadQuestions() {
                 heading.innerText = (index + 1) + ". " + item.question;
                 box.appendChild(heading);
 
-                const answer = document.createElement("p");
-                answer.innerHTML = "<strong>✅ Answer:</strong> " + item.answer;
+                const answer = document.createElement("div");
+                answer.className = "answer-box";
+                answer.innerHTML = "✅ <strong>Answer:</strong> " + item.answer;
                 box.appendChild(answer);
 
-                const explanation = document.createElement("p");
-                explanation.innerHTML = "<strong>💡 Explanation:</strong> " + item.explanation;
+                const expText = item.explanation || item.solution || ("This question was previously asked in " + company + " placement drive for the " + role + " position to evaluate core domain concepts and technical competence.");
+
+                const explanation = document.createElement("div");
+                explanation.className = "explanation-box";
+                explanation.innerHTML = "💡 <strong>Explanation:</strong> " + expText;
                 box.appendChild(explanation);
 
-                box.appendChild(document.createElement("hr"));
                 container.appendChild(box);
             });
         } catch (e) {
