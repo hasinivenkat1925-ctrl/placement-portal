@@ -415,6 +415,37 @@
             }, 600);
         };
 
+        window.renderGoogleAccounts = function() {
+            const listEl = document.getElementById("googleAccountList");
+            if (!listEl) return;
+            listEl.innerHTML = "";
+
+            // Check if there is a saved local user from this specific browser/device
+            let savedUser = null;
+            try {
+                const stored = localStorage.getItem("loggedInUser");
+                if (stored) {
+                    savedUser = JSON.parse(stored);
+                }
+            } catch(e) {}
+
+            if (savedUser && savedUser.email) {
+                const initial = (savedUser.name ? savedUser.name.charAt(0) : savedUser.email.charAt(0)).toUpperCase();
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.onclick = () => window.completeGoogleLogin(savedUser.email, savedUser.name);
+                btn.style.cssText = "display:flex; align-items:center; gap:12px; width:100%; padding:12px 14px; background:#1e293b; border:1px solid #334155; border-radius:12px; color:#f8fafc; cursor:pointer; text-align:left; transition:all 0.2s;";
+                btn.innerHTML = `
+                    <div style="width:36px; height:36px; border-radius:50%; background:#2563eb; color:white; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">${initial}</div>
+                    <div>
+                        <div style="font-weight:700; font-size:14px; color:#f8fafc;">${savedUser.name || savedUser.email.split('@')[0]}</div>
+                        <div style="font-size:12px; color:#94a3b8;">${savedUser.email} (Your saved account)</div>
+                    </div>
+                `;
+                listEl.appendChild(btn);
+            }
+        };
+
         window.closeGoogleModal = function() {
             const modal = document.getElementById("googleAccountModal");
             if (modal) modal.style.display = "none";
@@ -424,6 +455,8 @@
             const customInput = document.getElementById("customGoogleEmailInput");
             if (customInput && customInput.value.trim()) {
                 window.completeGoogleLogin(customInput.value.trim());
+            } else {
+                alert("Please enter your Google Email address.");
             }
         };
 
@@ -440,7 +473,7 @@
                     return;
                 }
 
-                // Try real Firebase Google OAuth Popup
+                // Try real Firebase Google OAuth Popup first
                 if (authInstance && authProvider) {
                     try {
                         const result = await signInWithPopup(authInstance, authProvider);
@@ -448,17 +481,20 @@
                         window.completeGoogleLogin(user.email, user.displayName);
                         return;
                     } catch (err) {
-                        console.warn("Popup closed or domain restriction on static host, opening 1-click Google Selector:", err);
+                        console.warn("Popup blocked or domain restriction, prompting for your Google account:", err);
                     }
                 }
 
-                // Open 1-click Google Account Selector
+                // Show clean Google Sign-in modal for the current student
+                window.renderGoogleAccounts();
                 const modal = document.getElementById("googleAccountModal");
                 if (modal) {
                     modal.style.display = "flex";
                     messageEl.innerText = "";
-                } else {
-                    window.completeGoogleLogin("hasinivenkat1925@gmail.com", "Hasini Venkat");
+                    setTimeout(() => {
+                        const input = document.getElementById("customGoogleEmailInput");
+                        if (input) input.focus();
+                    }, 100);
                 }
             });
         }
@@ -480,39 +516,17 @@
                 <button type="button" onclick="closeGoogleModal()" style="background:none; border:none; color:#94a3b8; font-size:24px; cursor:pointer; line-height:1;">&times;</button>
             </div>
             
-            <p style="font-size:13px; color:#94a3b8; margin-bottom:18px;">Select your Google Account to proceed to the portal:</p>
+            <p style="font-size:13px; color:#94a3b8; margin-bottom:18px;">Enter your Google Account email to continue to Placement Portal:</p>
             
-            <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:18px;">
-                <button type="button" onclick="completeGoogleLogin('hasinivenkat1925@gmail.com', 'Hasini Venkat')" style="display:flex; align-items:center; gap:12px; width:100%; padding:12px 14px; background:#1e293b; border:1px solid #334155; border-radius:12px; color:#f8fafc; cursor:pointer; text-align:left; transition:all 0.2s;">
-                    <div style="width:36px; height:36px; border-radius:50%; background:#2563eb; color:white; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">H</div>
-                    <div>
-                        <div style="font-weight:700; font-size:14px; color:#f8fafc;">Hasini Venkat</div>
-                        <div style="font-size:12px; color:#94a3b8;">hasinivenkat1925@gmail.com</div>
-                    </div>
-                </button>
+            <div id="googleAccountList" style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;"></div>
 
-                <button type="button" onclick="completeGoogleLogin('prasanthichinni2805@gmail.com', 'Prasanthi Chinni')" style="display:flex; align-items:center; gap:12px; width:100%; padding:12px 14px; background:#1e293b; border:1px solid #334155; border-radius:12px; color:#f8fafc; cursor:pointer; text-align:left; transition:all 0.2s;">
-                    <div style="width:36px; height:36px; border-radius:50%; background:#9333ea; color:white; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">P</div>
-                    <div>
-                        <div style="font-weight:700; font-size:14px; color:#f8fafc;">Prasanthi Chinni</div>
-                        <div style="font-size:12px; color:#94a3b8;">prasanthichinni2805@gmail.com</div>
-                    </div>
-                </button>
-
-                <button type="button" onclick="completeGoogleLogin('kavyasithalam4@gmail.com', 'Kavya Sithalam')" style="display:flex; align-items:center; gap:12px; width:100%; padding:12px 14px; background:#1e293b; border:1px solid #334155; border-radius:12px; color:#f8fafc; cursor:pointer; text-align:left; transition:all 0.2s;">
-                    <div style="width:36px; height:36px; border-radius:50%; background:#059669; color:white; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">K</div>
-                    <div>
-                        <div style="font-weight:700; font-size:14px; color:#f8fafc;">Kavya Sithalam</div>
-                        <div style="font-size:12px; color:#94a3b8;">kavyasithalam4@gmail.com</div>
-                    </div>
-                </button>
-            </div>
-
-            <div style="border-top:1px solid #1f293d; padding-top:14px;">
-                <label style="display:block; font-size:12px; color:#94a3b8; margin-bottom:6px; font-weight:600;">Or use another Google Email:</label>
-                <div style="display:flex; gap:8px;">
-                    <input type="email" id="customGoogleEmailInput" placeholder="yourname@gmail.com" style="flex:1; padding:10px 12px; background:#0f172a; border:1px solid #334155; border-radius:8px; color:#f8fafc; font-size:13px; outline:none;">
-                    <button type="button" onclick="submitCustomGoogleEmail()" style="padding:10px 16px; background:#3b82f6; color:white; border:none; border-radius:8px; font-weight:700; font-size:13px; cursor:pointer;">Continue</button>
+            <div>
+                <label style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:6px; font-weight:600;">Your Google Email:</label>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <input type="email" id="customGoogleEmailInput" placeholder="e.g. yourname@gmail.com" onkeydown="if(event.key==='Enter') submitCustomGoogleEmail()" style="width:100%; padding:12px 14px; background:#0f172a; border:1px solid #334155; border-radius:10px; color:#f8fafc; font-size:14px; outline:none;">
+                    <button type="button" onclick="submitCustomGoogleEmail()" style="width:100%; padding:12px; background:#3b82f6; color:white; border:none; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer; transition:all 0.2s;">
+                        🚀 Continue to Portal
+                    </button>
                 </div>
             </div>
         </div>
