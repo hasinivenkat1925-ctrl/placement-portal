@@ -53,12 +53,99 @@
         }
 
         .navigation {
-            margin-top: 20px;
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 25px;
+            margin-bottom: 25px;
         }
 
-        .navigation button {
-            margin-right: 10px;
+        .quiz-btn {
+            background: #2563eb !important;
+            color: #ffffff !important;
+            border: none !important;
+            padding: 12px 28px !important;
+            border-radius: 8px !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            display: inline-flex !important;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            width: auto !important;
+        }
+
+        .quiz-btn:hover:not(:disabled) {
+            background: #1d4ed8 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+        }
+
+        .quiz-btn:disabled {
+            background: #64748b !important;
+            color: #94a3b8 !important;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.6;
+        }
+
+        #submitButton {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 25px auto !important;
+            background: #16a34a !important;
+            color: #ffffff !important;
+            border: none !important;
+            padding: 14px 36px !important;
+            border-radius: 10px !important;
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
+            width: auto !important;
+        }
+
+        #submitButton:hover {
+            background: #15803d !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(22, 163, 74, 0.4);
+        }
+
+        .bottom-nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin: 30px auto 25px auto;
+            flex-wrap: wrap;
+        }
+
+        .bottom-action-btn {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 8px;
+            background: #1e293b !important;
+            color: #ffffff !important;
+            border: 1px solid #334155 !important;
+            padding: 11px 24px !important;
+            border-radius: 8px !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            width: auto !important;
+        }
+
+        .bottom-action-btn:hover {
+            background: #334155 !important;
+            border-color: #475569 !important;
+            transform: translateY(-2px);
         }
 
         #questionNumber {
@@ -112,6 +199,7 @@
 
     <button
         id="previousButton"
+        class="quiz-btn"
         onclick="previousQuestion()">
 
         ◀ Previous
@@ -121,6 +209,7 @@
 
     <button
         id="nextButton"
+        class="quiz-btn"
         onclick="nextQuestion()">
 
         Next ▶
@@ -130,32 +219,29 @@
 </div>
 
 
-<br>
+<div style="text-align: center;">
+    <button
+        id="submitButton"
+        onclick="submitQuiz()">
 
+        ✅ Submit Quiz
 
-<button
-    id="submitButton"
-    onclick="submitQuiz()">
-
-    ✅ Submit Quiz
-
-</button>
+    </button>
+</div>
 
 
 <h2 id="result"></h2>
 
 
-<br>
+<div class="bottom-nav-container">
+    <button class="bottom-action-btn" onclick="goPreparation()">
+        ← Back to Preparation
+    </button>
 
-
-<button onclick="goPreparation()">
-    ← Back to Preparation
-</button>
-
-
-<button onclick="goDashboard()">
-    🏠 Dashboard
-</button>
+    <button class="bottom-action-btn" onclick="goDashboard()">
+        🏠 Dashboard
+    </button>
+</div>
 
 
 
